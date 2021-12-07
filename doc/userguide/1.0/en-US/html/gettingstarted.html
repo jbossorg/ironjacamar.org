@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 2. Download</title><link rel="stylesheet" type="text/css" href="css/jbossorg.css"/><meta xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL Stylesheets V1.76.1"/><link rel="home" href="index.html" title="IronJacamar 1.0 User's Guide"/><link rel="up" href="index.html" title="IronJacamar 1.0 User's Guide"/><link rel="prev" href="introduction.html" title="Chapter 1. Introduction"/><link rel="next" href="installation.html" title="Chapter 3. Installation"/></head><body><p id="title"><a href="http://www.jboss.org" class="site_href"><strong>JBoss.org</strong></a><a href="http://docs.jboss.org/" class="doc_href"><strong>Community Documentation</strong></a></p><ul class="docnav"><li class="previous"><a accesskey="p" href="introduction.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="installation.html"><strong>Next</strong></a></li></ul><div class="chapter" title="Chapter 2. Download"><div class="titlepage"><div><div><h2 class="title"><a id="gettingstarted"/>Chapter 2. Download</h2></div></div></div><div class="toc"><dl><dt><span class="section"><a href="gettingstarted.html#download">2.1. Download</a></span></dt><dt><span class="section"><a href="gettingstarted.html#download_maven">2.2. Maven repository</a></span></dt><dt><span class="section"><a href="gettingstarted.html#SVN">2.3. SVN Access</a></span></dt></dl></div><p>The official IronJacamar project page is <a class="ulink" href="http://www.jboss.org/ironjacamar/">http://www.jboss.org/ironjacamar/</a> where you can download the software.</p><div class="section" title="2.1. Download"><div class="titlepage"><div><div><h2 class="title"><a id="download"/>2.1. Download</h2></div></div></div><p>The download location is: <a class="ulink" href="http://www.jboss.org/ironjacamar/downloads/">http://www.jboss.org/ironjacamar/downloads/</a></p><p>Each release is labelled with a version number and an identifier.</p><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+ironjacamar-&lt;major&gt;.&lt;minor&gt;.&lt;patch&gt;.&lt;identifier&gt;
+      </pre><p>where</p><div class="itemizedlist"><ul class="itemizedlist" compact="compact"><li class="listitem">
+           Major: The major version number. Signifies major changes in the implementation.
+         </li><li class="listitem">
+           Minor: The minor version number. Signifies functional changes to a major version.
+         </li><li class="listitem">
+           Patch: The patch version number. Signifies a binary compatible change to a minor version.
+         </li><li class="listitem">
+           Identifier: The identifier. Identifies the level of the quality of the release.
+           <div class="itemizedlist"><ul class="itemizedlist" compact="compact"><li class="listitem">
+               Final: Stable release
+             </li><li class="listitem">
+               CR: Candidate for Release quality. The implementation is functional complete.
+             </li><li class="listitem">
+               Beta: Beta quality. The implementation is almost functional complete.
+             </li><li class="listitem">
+               Alpha: Alpha quality. The implementation is a snapshot of the development.
+             </li></ul></div></li></ul></div><p>An example</p><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+ironjacamar-1.0.0.Final.tar.gz
+      </pre><p>which is the first stable release of the project.</p></div><div class="section" title="2.2. Maven repository"><div class="titlepage"><div><div><h2 class="title"><a id="download_maven"/>2.2. Maven repository</h2></div></div></div><p>The IronJacamar distribution is deployed to the JBoss Nexus repository.</p><p>Repository: <code class="code">http://repository.jboss.org/nexus/content/groups/public/</code></p><p>Group id: <code class="code">org.jboss.ironjacamar</code></p><div class="table"><a id="d0e268"/><p class="title"><strong>Table 2.1. Maven artifacts</strong></p><div class="table-contents"><table summary="Maven artifacts" border="1"><colgroup><col align="left" class="c1"/><col align="left" class="c2"/></colgroup><thead><tr><th align="left">Artifact</th><th align="left">Description</th></tr></thead><tbody><tr><td align="left"><code class="code">ironjacamar-as</code></td><td align="left">
+                JBoss Application Server integration tools
+              </td></tr><tr><td align="left"><code class="code">ironjacamar-codegenerator</code></td><td align="left">
+                The code generator
+              </td></tr><tr><td align="left"><code class="code">ironjacamar-common-api</code></td><td align="left">
+                The API for the common module
+              </td></tr><tr><td align="left"><code class="code">ironjacamar-common-impl</code></td><td align="left">
+                The implementation for the common module
+              </td></tr><tr><td align="left"><code class="code">ironjacamar-common-impl-papaki</code></td><td align="left">
+                The Papaki extension for the common module
+              </td></tr><tr><td align="left"><code class="code">ironjacamar-common-spi</code></td><td align="left">
+                The SPI for the common module
+              </td></tr><tr><td align="left"><code class="code">ironjacamar-core-api</code></td><td align="left">
+                The API / SPI for the core module
+              </td></tr><tr><td align="left"><code class="code">ironjacamar-core-impl</code></td><td align="left">
+                The implementation for the core module
+              </td></tr><tr><td align="left"><code class="code">ironjacamar-depchain</code></td><td align="left">
+                The dependency chain for the IronJacamar container
+              </td></tr><tr><td align="left"><code class="code">ironjacamar-deployers-common</code></td><td align="left">
+                The common classes for the deployer chains
+              </td></tr><tr><td align="left"><code class="code">ironjacamar-deployers-fungal</code></td><td align="left">
+                The deployers for the Fungal kernel based setup
+              </td></tr><tr><td align="left"><code class="code">ironjacamar-embedded</code></td><td align="left">
+                The embedded module
+              </td></tr><tr><td align="left"><code class="code">ironjacamar-embedded-arquillian</code></td><td align="left">
+                The Arquillian extension for the embedded module
+              </td></tr><tr><td align="left"><code class="code">ironjacamar-jdbc</code></td><td align="left">
+                The core library for the JDBC resource adapters
+              </td></tr><tr><td align="left"><code class="code">ironjacamar-spec-api</code></td><td align="left">
+                The Java EE Connector Architecture 1.6 API
+              </td></tr><tr><td align="left"><code class="code">ironjacamar-validator</code></td><td align="left">
+                The validator module
+              </td></tr><tr><td align="left"><code class="code">ironjacamar-validator-ant</code></td><td align="left">
+                The Apache Ant tasks for the validator module
+              </td></tr><tr><td align="left"><code class="code">ironjacamar-validator-cli</code></td><td align="left">
+                The command line interface for the validator module
+              </td></tr><tr><td align="left"><code class="code">jdbc-local</code></td><td align="left">
+                A JDBC resource adapter backing standard datasources
+              </td></tr><tr><td align="left"><code class="code">jdbc-xa</code></td><td align="left">
+                A JDBC resource adapter backing XA datasources
+              </td></tr><tr><td align="left"><code class="code">mail</code></td><td align="left">
+                An inflow mail resource adapter
+              </td></tr></tbody></table></div></div><br class="table-break"/></div><div class="section" title="2.3. SVN Access"><div class="titlepage"><div><div><h2 class="title"><a id="SVN"/>2.3. SVN Access</h2></div></div></div><p>If you want to experiment with the latest developments you may
+        checkout the latest code from SVN trunk. Be aware that the
+        information provided in this manual might then not be accurate.</p><p>The anonymous SVN repository is located under:</p><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+svn co http://anonsvn.jboss.org/repos/jbossas/projects/jboss-jca/trunk/ ironjacamar-trunk
+      </pre><p>You can find additional information about this in the developer guide.</p></div></div><HR xmlns=""/><a xmlns="" href=""/><ul class="docnav"><li class="previous"><a accesskey="p" href="introduction.html"><strong>Prev</strong>Chapter 1. Introduction</a></li><li class="up"><a accesskey="u" href="#"><strong>Top of page</strong></a></li><li class="home"><a accesskey="h" href="index.html"><strong>Front page</strong></a></li><li class="next"><a accesskey="n" href="installation.html"><strong>Next</strong>Chapter 3. Installation</a></li></ul></body></html>

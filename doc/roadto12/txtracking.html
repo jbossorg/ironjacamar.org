@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Transactional ConnectionEventListener tracking</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Article about transactional boundaries of ConnectionEventListener" name="description">
+    <link href="/stylesheets/styles.css" rel="stylesheet" type="text/css">
+    <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon">
+    <!--[if lt IE 9]>
+      <script src="//html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <header>
+      <section style="padding: -20px auto;">
+        <a href="/">
+          <img alt="IronJacamar" src="/images/banner.png">
+        </a>
+      </section>
+    </header>
+    <article>
+      <h1>Transactional ConnectionEventListener tracking</h1>
+      The Java EE Connector Architecture has a concept called a
+      <i>
+        ConnectionEventListener
+      </i>
+      which is the mechanism that a resource adapter notifies the
+      <i>
+        ConnectionManager
+      </i>
+      that a connection handle isn't longer in use, or had an error occur on it.
+      <p></p>
+      The
+      <i>
+        ConnectionManager
+      </i>
+      uses these notifications to know when a
+      <i>
+        ManagedConnection
+      </i>
+      can be returned to the pool, since the
+      <i>
+        ConnectionEventListener
+      </i>
+      keeps track of the connection handles registered and unregistred.
+      <p></p>
+      Another dimension comes into play when the
+      <i>
+        ManagedConnection
+      </i>
+      is enlisted in a transaction, e.g. when the resource adapter is deployed with either
+      <i>
+        LocalTransaction
+      </i>
+      or
+      <i>
+        XATransaction
+      </i>
+      as its transaction setting.
+      <p></p>
+      The
+      <i>
+        XAResource
+      </i>
+      instance associated, either through the IronJacamar container in the case of
+      <i>
+        LocalTransaction
+      </i>
+      or the instance directly attached to the
+      <i>
+        ManagedConnection
+      </i>
+      in the case of
+      <i>
+        XATransaction
+      </i>
+      is enlisted on the active transaction through the
+      <i>
+        tx.enlistResource(xaResource)
+      </i>
+      method call, and the
+      <i>
+        ManagedConnection
+      </i>
+      is "scoped" to the transaction itself.
+      <p></p>
+      However, that present a problem when a connection handle is used across transactional boundaries, like
+      <p></p>
+      <div class="code">
+        // UserTransaction instance bound to 'ut', and DataSource instance bound to 'ds'
+        <br>
+        Connection c = null;
+        <br>
+        <br>
+        // Transaction #1
+        <br>
+        ut.begin();
+        <br>
+        c = ds.getConnection();
+        <br>
+        ut.commit();
+        <br>
+        <br>
+        // Transaction #2
+        <br>
+        ut.begin();
+        <br>
+        c.close();
+        <br>
+        ut.commit();
+      </div>
+      <p></p>
+      because at the end of
+      <i>
+        Transaction #1
+      </i>
+      the associated
+      <i>
+        XAResource
+      </i>
+      is delisted from the transaction, but the
+      <i>
+        ManagedConnection
+      </i>
+      can't be returned to the pool, as there is still a connection handle associated. This means that usage of the
+      connection handle in
+      <i>
+        Transaction #2
+      </i>
+      can't be determined in a transactional context, since there is no
+      <i>
+        XAResource
+      </i>
+      associated with
+      <i>
+        Transaction #2
+      </i>
+      . The
+      <i>
+        c.close()
+      </i>
+      will allow the
+      <i>
+        ManagedConnection
+      </i>
+      instance to be returned to the pool, but not on transactional boundary itself.
+      <p></p>
+      This scenario is due to application usage errors, so we should detect and highlight the problem to the developers.
+      <p></p>
+      There is a new deployment attribute called
+      <i>
+        tracking
+      </i>
+      which can be used to enable tracking of the transactional
+      <i>
+        ConnectionEventListener
+      </i>
+      over the transactional boundaries.
+      <p></p>
+      The IronJacamar default setting will be to only report that it has detected the problem, and have therefore destroyed
+      the associated
+      <i>
+        ManagedConnection
+      </i>
+      instance, as it can't be trusted anymore.
+      <p></p>
+      <div class="code">
+        11:31:32,952 ERROR [TxConnectionListener] IJ000315: Pool TxLog has 1 active handles
+      </div>
+      <p></p>
+      By setting
+      <i>
+        tracking
+      </i>
+      to
+      <i>
+        true
+      </i>
+      you will get a full trace of where the connection handle was allocated, and where the transaction boundary ended
+      <p></p>
+      <div class="code_small">
+        11:31:32,952 ERROR [TxConnectionListener] IJ000315: Pool TxLog has 1 active handles
+        <br>
+        <br>
+        11:31:32,953 ERROR [TxConnectionListener] IJ000316: Handle allocation: TxLogConnection@520c87f3[mc=TxLogManagedConnection@7f0eb91e[txState=3B8]]: java.lang.Exception
+        at org.jboss.jca.core.connectionmanager.listener.AbstractConnectionListener.registerConnection(AbstractConnectionListener.java:281)
+        at org.jboss.jca.core.connectionmanager.AbstractConnectionManager.registerAssociation(AbstractConnectionManager.java:880)
+        at org.jboss.jca.core.connectionmanager.AbstractConnectionManager.allocateConnection(AbstractConnectionManager.java:590)
+        at org.jboss.jca.core.tx.rars.txlog.TxLogConnectionFactoryImpl.getConnection(TxLogConnectionFactoryImpl.java:80)
+        at org.jboss.jca.core.connectionmanager.listener.AcrossTransactionTestCase.testBase(AcrossTransactionTestCase.java:197)
+        at org.jboss.jca.core.connectionmanager.listener.AcrossTransactionTestCase.testXA(AcrossTransactionTestCase.java:254)
+        <br>
+        <br>
+        11:31:32,955 ERROR [TxConnectionListener] IJ000317: Transaction boundary: java.lang.Exception
+        at org.jboss.jca.core.connectionmanager.listener.TxConnectionListener$TransactionSynchronization.afterCompletion(TxConnectionListener.java:1028)
+        at org.jboss.jca.core.connectionmanager.transaction.TransactionSynchronizer.invokeAfter(TransactionSynchronizer.java:397)
+        at org.jboss.jca.core.connectionmanager.transaction.TransactionSynchronizer.afterCompletion(TransactionSynchronizer.java:343)
+        at org.jboss.jca.core.tx.vts.TransactionImpl.finish(TransactionImpl.java:402)
+        at org.jboss.jca.core.tx.vts.TransactionImpl.commit(TransactionImpl.java:99)
+        at org.jboss.jca.core.tx.vts.TxRegistry.commitTransaction(TxRegistry.java:79)
+        at org.jboss.jca.core.tx.vts.UserTransactionImpl.commit(UserTransactionImpl.java:115)
+        at org.jboss.jca.core.connectionmanager.listener.AcrossTransactionTestCase.testBase(AcrossTransactionTestCase.java:199)
+        at org.jboss.jca.core.connectionmanager.listener.AcrossTransactionTestCase.testXA(AcrossTransactionTestCase.java:254)
+      </div>
+      <p></p>
+      For
+      <i>
+        XATransaction
+      </i>
+      with interleaving scenarios the error code
+      <i>
+        IJ000318
+      </i>
+      will be reported.
+      <p></p>
+      By setting
+      <i>
+        tracking
+      </i>
+      to
+      <i>
+        false
+      </i>
+      you will get the old behavior, where the
+      <i>
+        ManagedConnection
+      </i>
+      will be valid across the transactional boundaries, but only enlisted during the first transaction.
+      <p></p>
+      The IronJacamar community hopes that this new feature will help developers to find application code, which has been assuming certain conditions that weren't valid.
+      <br>
+      <br>
+    </article>
+    <footer>
+      <ul>
+        <li>
+          <a href="/">Home</a>
+        </li>
+        <li>
+          <a href="/about.html">About</a>
+        </li>
+        <li>
+          <a href="/download.html">Download</a>
+        </li>
+        <li>
+          <a href="/documentation.html">Documentation</a>
+        </li>
+        <li>
+          <a href="/community.html">Community</a>
+        </li>
+        <li>
+          <a href="/sourcecode.html">Source Code</a>
+        </li>
+        <li>
+          <a href="/issues.html">Issues</a>
+        </li>
+      </ul>
+      <a href="http://www.redhat.com">
+        <img alt="Proudly sponsored by Red Hat" src="/images/redhat_logo.png">
+      </a>
+    </footer>
+  </body>
+</html>

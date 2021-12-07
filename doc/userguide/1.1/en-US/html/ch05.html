@@ -1,0 +1,877 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Chapter 5. Deployment</title><link rel="stylesheet" type="text/css" href="css/ironjacamar.css"/><meta name="generator" content="DocBook XSL Stylesheets V1.76.1"/><link rel="home" href="index.html" title="IronJacamar 1.1 User's Guide"/><link rel="up" href="index.html" title="IronJacamar 1.1 User's Guide"/><link rel="prev" href="ch04.html" title="Chapter 4. Configuration"/><link rel="next" href="ch06.html" title="Chapter 6. Running"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" http-equiv="Content-Type" content="text/html; charset=UTF-8"/></head><body><p xmlns:d="http://docbook.org/ns/docbook" id="title"><a href="http://www.ironjacamar.org/" class="site_href"><strong>www.ironjacamar.org</strong></a><a href="http://www.ironjacamar.org/documentation.html" class="doc_href"><strong>Community Documentation</strong></a></p><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="ch04.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="ch06.html"><strong>Next</strong></a></li></ul><div class="chapter" title="Chapter 5. Deployment"><div class="titlepage"><div><div><h2 class="title"><a id="deployment"/>Chapter 5. Deployment</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl><dt><span class="section"><a href="ch05.html#packagingrequirements">5.1. Packaging requirements</a></span></dt><dt><span class="section"><a href="ch05.html#deployingrar">5.2. Deploying resource adapters</a></span></dt><dd><dl><dt><span class="section"><a href="ch05.html#deployingra_descriptor">5.2.1. Resource adapter descriptor</a></span></dt><dt><span class="section"><a href="ch05.html#deployingra_extensions">5.2.2. Resource adapter extensions</a></span></dt><dt><span class="section"><a href="ch05.html#deployingra_statistics">5.2.3. Resource adapter statistics</a></span></dt></dl></dd><dt><span class="section"><a href="ch05.html#deployingds">5.3. Deploying datasources</a></span></dt><dd><dl><dt><span class="section"><a href="ch05.html#deployingds_descriptor">5.3.1. Datasource descriptor</a></span></dt><dt><span class="section"><a href="ch05.html#deployingds_extensions">5.3.2. Datasource extensions</a></span></dt><dt><span class="section"><a href="ch05.html#deployingds_statistics">5.3.3. Datasource statistics</a></span></dt></dl></dd><dt><span class="section"><a href="ch05.html#deploying_general">5.4. General deployment settings</a></span></dt><dd><dl><dt><span class="section"><a href="ch05.html#deploying_flush_strategies">5.4.1. Flush strategies</a></span></dt><dt><span class="section"><a href="ch05.html#deploying_capacity_policies">5.4.2. Capacity policies</a></span></dt></dl></dd></dl></div><p>The IronJacamar distribution contains a deploy/ directory where all deployments
+     should be deployed to.</p><div class="section" title="5.1. Packaging requirements"><div class="titlepage"><div><div><h2 class="title"><a id="packagingrequirements"/>5.1. Packaging requirements</h2></div></div></div><p>A resource adapter archive is a structured Java Archive (JAR) file, which 
+        bundles all Java classes in JAR files, and optionally contains metadata, resources and native
+        libraries.</p><p>A resource adapter archive name ends in the <code class="code">.rar</code> extension.</p><p>An example of a resource adapter archive could look like</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+
+[jpederse@localhost]$ jar tf ra.rar
+META-INF/ra.xml
+readme.html
+ra.jar
+images/icon.jpg
+win.dll
+linux.so
+ 
+      </pre><p>See the Java EE Connector Architecture 1.7 specification chapter 20 for further
+        requirements.</p></div><div class="section" title="5.2. Deploying resource adapters"><div class="titlepage"><div><div><h2 class="title"><a id="deployingrar"/>5.2. Deploying resource adapters</h2></div></div></div><p>Resource adapters (.rar) are deployed by copying the resource adapter into the 
+        <code class="code">deploy/</code> directory</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+cp example.rar ironjacamar-1.1.0.Final/deploy
+     </pre><p>on a Un*x based system or</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+copy example.rar ironjacamar-1.1.0.Final\deploy
+     </pre><p>on Windows.</p><p>The resource adapter can be configured and activated through a <code class="code">META-INF/ironjacamar.xml</code>
+       file in the archive. The format of the XML document is defined by the <code class="code">ironjacamar_1_0.xsd</code> or
+       <code class="code">ironjacamar_1_1.xsd</code> schemas.</p><p>A resource adapter can also be configured and activated through deployment of a <code class="code">-ra.xml</code>
+       file in the <code class="code">deploy/</code> directory - f.ex. <code class="code">deploy/example-ra.xml</code>. The format of the XML 
+       document is defined by the <code class="code">resource-adapters_1_0.xsd</code> or <code class="code">resource-adapters_1_1.xsd</code>
+       schemas - f.ex</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="XML"><!-- XML : generated by JHighlight v1.0 (http://jhighlight.dev.java.net) -->
+<span class="xml_plain"></span><br />
+<span class="xml_plain"></span><br />
+<span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">resource-adapters</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">resource-adapter</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">archive</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain">example.rar</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">archive</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">connection-definitions</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">connection-definition</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">jndi-name</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;java:/eis/example&quot;</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">class-name</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;com.example.ra.MCF&quot;</span><span class="xml_tag_symbols">/&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">connection-definitions</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">resource-adapter</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">resource-adapters</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><br />
+</pre><p>to bind the connection factory from <code class="code">com.example.ra.MCF</code> under <code class="code">java:/eis/example</code>.</p><p>See the schema appendix for additional details about the format.</p><p>Alternative the resource adapter deployments will be picked up by the <code class="code">RAActivator</code>
+       bean which bind a single connection factory under</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+java:/eis/&lt;deploymentName&gt;
+     </pre><p>- f.ex. <code class="code">java:/eis/example</code> and a single admin object under</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+java:/eis/ao/&lt;deploymentName&gt;
+     </pre><p>- f.ex. <code class="code">java:/eis/ao/example</code>.</p><div class="section" title="5.2.1. Resource adapter descriptor"><div class="titlepage"><div><div><h3 class="title"><a id="deployingra_descriptor"/>5.2.1. Resource adapter descriptor</h3></div></div></div><p>A resource adapter can be configured using two different ways
+
+       </p><div class="itemizedlist"><ul class="itemizedlist" compact="compact"><li class="listitem"><code class="code">META-INF/ironjacamar.xml</code> for internal configuration</li><li class="listitem"><code class="code">-ra.xml</code> for external configuration</li></ul></div><p>
+
+       to the resource adapter archive. Both formats share the same layout to ease 
+       configuration - only the top-level elements differ.</p><div class="table"><a id="d0e1647"/><p class="title"><strong>Table 5.1. Main elements</strong></p><div class="table-contents"><table summary="Main elements" border="1"><colgroup><col align="left" class="c1"/><col align="left" class="c2"/></colgroup><thead><tr><th align="left">Element</th><th align="left">Desciption</th></tr></thead><tbody><tr><td align="left"><code class="code">bean-validation-groups</code></td><td align="left">
+                 Specifies bean validation group that should be used
+               </td></tr><tr><td align="left"><code class="code">bootstrap-context</code></td><td align="left">
+                 Specifies the unique name of the bootstrap context that should be used
+               </td></tr><tr><td align="left"><code class="code">config-property</code></td><td align="left">
+                 The config-property specifies resource adapter configuration properties.
+               </td></tr><tr><td align="left"><code class="code">transaction-support</code></td><td align="left">
+                 Define the type of transaction supported by this resource adapter.
+                 Valid values are: NoTransaction, LocalTransaction, XATransaction
+               </td></tr><tr><td align="left"><code class="code">connection-definitions</code></td><td align="left">
+                 Specifies the connection definitions
+               </td></tr><tr><td align="left"><code class="code">admin-objects</code></td><td align="left">
+                 Specifies the administration objects
+               </td></tr></tbody></table></div></div><br class="table-break"/><div class="table"><a id="d0e1696"/><p class="title"><strong>Table 5.2. Bean validation groups elements</strong></p><div class="table-contents"><table summary="Bean validation groups elements" border="1"><colgroup><col align="left" class="c1"/><col align="left" class="c2"/></colgroup><thead><tr><th align="left">Element</th><th align="left">Desciption</th></tr></thead><tbody><tr><td align="left"><code class="code">bean-validation-group</code></td><td align="left">
+                 Specifies the fully qualified class name for a bean validation group that
+                 should be used for validation
+               </td></tr></tbody></table></div></div><br class="table-break"/><div class="table"><a id="d0e1715"/><p class="title"><strong>Table 5.3. Connection definition / admin object attributes</strong></p><div class="table-contents"><table summary="Connection definition / admin object attributes" border="1"><colgroup><col align="left" class="c1"/><col align="left" class="c2"/></colgroup><thead><tr><th align="left">Attribute</th><th align="left">Desciption</th></tr></thead><tbody><tr><td align="left"><code class="code">class-name</code></td><td align="left">
+                 Specifies the the fully qualified class name of a managed connection factory
+                 or admin object
+               </td></tr><tr><td align="left"><code class="code">jndi-name</code></td><td align="left">
+                 Specifies the JNDI name
+               </td></tr><tr><td align="left"><code class="code">enabled</code></td><td align="left">
+                 Should the object in question be activated
+               </td></tr><tr><td align="left"><code class="code">use-java-context</code></td><td align="left">
+                 Specifies if a java:/ JNDI context should be used 
+               </td></tr><tr><td align="left"><code class="code">pool-name</code></td><td align="left">
+                 Specifies the pool name for the object
+               </td></tr><tr><td align="left"><code class="code">use-ccm</code></td><td align="left">
+                 Enable the cache connection manager
+               </td></tr><tr><td align="left"><code class="code">sharable</code></td><td align="left">
+                 Defines the connection as sharable (lazy association) (1.1)
+               </td></tr><tr><td align="left"><code class="code">enlistment</code></td><td align="left">
+                 Defines if the connection should use lazy enlistment if supported (1.1)
+               </td></tr></tbody></table></div></div><br class="table-break"/><div class="table"><a id="d0e1776"/><p class="title"><strong>Table 5.4. Connection definition elements</strong></p><div class="table-contents"><table summary="Connection definition elements" border="1"><colgroup><col align="left" class="c1"/><col align="left" class="c2"/></colgroup><thead><tr><th align="left">Element</th><th align="left">Desciption</th></tr></thead><tbody><tr><td align="left"><code class="code">config-property</code></td><td align="left">
+                 The config-property specifies managed connection factory configuration properties.
+               </td></tr><tr><td align="left"><code class="code">pool</code></td><td align="left">
+                 Specifies pooling settings
+               </td></tr><tr><td align="left"><code class="code">xa-pool</code></td><td align="left">
+                 Specifies XA pooling settings
+               </td></tr><tr><td align="left"><code class="code">security</code></td><td align="left">
+                 Specifies security settings
+               </td></tr><tr><td align="left"><code class="code">timeout</code></td><td align="left">
+                 Specifies time out settings
+               </td></tr><tr><td align="left"><code class="code">validation</code></td><td align="left">
+                 Specifies validation settings
+               </td></tr><tr><td align="left"><code class="code">recovery</code></td><td align="left">
+                 Specifies the XA recovery settings
+               </td></tr></tbody></table></div></div><br class="table-break"/><div class="table"><a id="d0e1831"/><p class="title"><strong>Table 5.5. Pool elements</strong></p><div class="table-contents"><table summary="Pool elements" border="1"><colgroup><col align="left" class="c1"/><col align="left" class="c2"/></colgroup><thead><tr><th align="left">Element</th><th align="left">Desciption</th></tr></thead><tbody><tr><td align="left"><code class="code">min-pool-size</code></td><td align="left">
+                 The min-pool-size element indicates the minimum number of connections 
+                 a pool should hold. These are not created until a Subject is known from a 
+                 request for a connection. This default to 0
+               </td></tr><tr><td align="left"><code class="code">initial-pool-size</code></td><td align="left">
+                 The initial-pool-size element indicates the initial number of connections 
+                 a pool should hold. These are not created until a Subject is known from a 
+                 request for a connection. This default to 0 (1.1)
+               </td></tr><tr><td align="left"><code class="code">max-pool-size</code></td><td align="left">
+                 The max-pool-size element indicates the maximum number of connections 
+                 for a pool. No more than max-pool-size connections will be created in each sub-pool. 
+                 This defaults to 20. 
+               </td></tr><tr><td align="left"><code class="code">prefill</code></td><td align="left">
+                 Whether to attempt to prefill the connection pool. 
+                 Default is false
+               </td></tr><tr><td align="left"><code class="code">use-strict-min</code></td><td align="left">
+                 Specifies if the min-pool-size should be considered strictly.
+                 Default false
+               </td></tr><tr><td align="left"><code class="code">flush-strategy</code></td><td align="left">
+                 Specifies how the pool should be flush in case of an error.
+                 Valid values are: <code class="code">FailingConnectionOnly</code> (default), <code class="code">InvalidIdleConnections</code> (1.1),
+                                   <code class="code">IdleConnections</code>, <code class="code">Gracefully</code> (1.1), <code class="code">EntirePool</code>,
+                                   <code class="code">AllInvalidIdleConnections</code> (1.1), <code class="code">AllIdleConnections</code> (1.1),
+                                   <code class="code">AllGracefully</code> (1.1), <code class="code">AllConnections</code> (1.1)
+               </td></tr><tr><td align="left"><code class="code">capacity</code></td><td align="left">
+                 Specifies the capacity policies (1.1)
+               </td></tr></tbody></table></div></div><br class="table-break"/><div class="table"><a id="d0e1913"/><p class="title"><strong>Table 5.6. XA pool elements</strong></p><div class="table-contents"><table summary="XA pool elements" border="1"><colgroup><col align="left" class="c1"/><col align="left" class="c2"/></colgroup><thead><tr><th align="left">Element</th><th align="left">Desciption</th></tr></thead><tbody><tr><td align="left"><code class="code">min-pool-size</code></td><td align="left">
+                 The min-pool-size element indicates the minimum number of connections 
+                 a pool should hold. These are not created until a Subject is known from a 
+                 request for a connection. This default to 0
+               </td></tr><tr><td align="left"><code class="code">initial-pool-size</code></td><td align="left">
+                 The initial-pool-size element indicates the initial number of connections 
+                 a pool should hold. These are not created until a Subject is known from a 
+                 request for a connection. This default to 0 (1.1)
+               </td></tr><tr><td align="left"><code class="code">max-pool-size</code></td><td align="left">
+                 The max-pool-size element indicates the maximum number of connections 
+                 for a pool. No more than max-pool-size connections will be created in each sub-pool. 
+                 This defaults to 20. 
+               </td></tr><tr><td align="left"><code class="code">prefill</code></td><td align="left">
+                 Whether to attempt to prefill the connection pool. 
+                 Default is false
+               </td></tr><tr><td align="left"><code class="code">use-strict-min</code></td><td align="left">
+                 Specifies if the min-pool-size should be considered strictly.
+                 Default false
+               </td></tr><tr><td align="left"><code class="code">flush-strategy</code></td><td align="left">
+                 Specifies how the pool should be flush in case of an error.
+                 Valid values are: <code class="code">FailingConnectionOnly</code> (default), <code class="code">InvalidIdleConnections</code> (1.1),
+                                   <code class="code">IdleConnections</code>, <code class="code">Gracefully</code> (1.1), <code class="code">EntirePool</code>,
+                                   <code class="code">AllInvalidIdleConnections</code> (1.1), <code class="code">AllIdleConnections</code> (1.1),
+                                   <code class="code">AllGracefully</code> (1.1), <code class="code">AllConnections</code> (1.1)
+               </td></tr><tr><td align="left"><code class="code">capacity</code></td><td align="left">
+                 Specifies the capacity policies (1.1)
+               </td></tr><tr><td align="left"><code class="code">is-same-rm-override</code></td><td align="left">
+                 The is-same-rm-override element allows one to unconditionally 
+                 set whether the javax.transaction.xa.XAResource.isSameRM(XAResource) returns 
+                 true or false
+               </td></tr><tr><td align="left"><code class="code">interleaving</code></td><td align="left">
+                 An element to enable interleaving for XA connection factories 
+               </td></tr><tr><td align="left"><code class="code">no-tx-separate-pools</code></td><td align="left">
+                 Oracle does not like XA connections getting used both inside and outside a JTA transaction. 
+                 To workaround the problem you can create separate sub-pools for the different contexts
+               </td></tr><tr><td align="left"><code class="code">pad-xid</code></td><td align="left">
+                 Should the Xid be padded
+               </td></tr><tr><td align="left"><code class="code">wrap-xa-resource</code></td><td align="left">
+                 Should the XAResource instances be wrapped in an org.jboss.jca.core.spi.transaction.xa.XAResourceWrapper
+                 instance
+               </td></tr></tbody></table></div></div><br class="table-break"/><div class="table"><a id="d0e2025"/><p class="title"><strong>Table 5.7. Security elements</strong></p><div class="table-contents"><table summary="Security elements" border="1"><colgroup><col align="left" class="c1"/><col align="left" class="c2"/></colgroup><thead><tr><th align="left">Element</th><th align="left">Desciption</th></tr></thead><tbody><tr><td align="left"><code class="code">application</code></td><td align="left">
+                 Indicates that application supplied parameters (such as from getConnection(user, pw))
+                 are used to distinguish connections in the pool.
+               </td></tr><tr><td align="left"><code class="code">security-domain</code></td><td align="left">
+                 Indicates Subject (from security domain) are used to distinguish connections in the pool. 
+                 The content of the security-domain is the name of the JAAS security manager that will handle
+                 authentication. This name correlates to the JAAS login-config.xml descriptor
+                 application-policy/name attribute.
+               </td></tr><tr><td align="left"><code class="code">security-domain-and-application</code></td><td align="left">
+                 Indicates that either application supplied parameters (such as from
+                 getConnection(user, pw)) or Subject (from security domain) are used to
+                 distinguish connections in the pool. The content of the
+                 security-domain is the name of the JAAS security manager that will handle
+                 authentication. This name correlates to the JAAS login-config.xml descriptor
+                 application-policy/name attribute.
+               </td></tr></tbody></table></div></div><br class="table-break"/><div class="table"><a id="d0e2056"/><p class="title"><strong>Table 5.8. Time out elements</strong></p><div class="table-contents"><table summary="Time out elements" border="1"><colgroup><col align="left" class="c1"/><col align="left" class="c2"/></colgroup><thead><tr><th align="left">Element</th><th align="left">Desciption</th></tr></thead><tbody><tr><td align="left"><code class="code">blocking-timeout-millis</code></td><td align="left">
+                 The blocking-timeout-millis element indicates the maximum time in 
+                 milliseconds to block while waiting for a connection before throwing an exception. 
+                 Note that this blocks only while waiting for a permit for a connection, and 
+                 will never throw an exception if creating a new connection takes an inordinately 
+                 long time. The default is 30000 (30 seconds).  
+               </td></tr><tr><td align="left"><code class="code">idle-timeout-minutes</code></td><td align="left">
+                 The idle-timeout-minutes elements indicates the maximum time in minutes 
+                 a connection may be idle before being closed. The actual maximum time depends 
+                 also on the IdleRemover scan time, which is 1/2 the smallest idle-timeout-minutes 
+                 of any pool. 
+               </td></tr><tr><td align="left"><code class="code">allocation-retry</code></td><td align="left">
+                 The allocation retry element indicates the number of times that allocating 
+                 a connection should be tried before throwing an exception. The default is 
+                 0.  
+               </td></tr><tr><td align="left"><code class="code">allocation-retry-wait-millis</code></td><td align="left">
+                 The allocation retry wait millis element indicates the time in milliseconds 
+                 to wait between retrying to allocate a connection. The default is 5000 (5 seconds). 
+               </td></tr><tr><td align="left"><code class="code">xa-resource-timeout</code></td><td align="left">
+                 Passed to XAResource.setTransactionTimeout(). Default is zero which does not invoke the setter.              
+                 Specified in seconds
+               </td></tr></tbody></table></div></div><br class="table-break"/><div class="table"><a id="d0e2099"/><p class="title"><strong>Table 5.9. Validation elements</strong></p><div class="table-contents"><table summary="Validation elements" border="1"><colgroup><col align="left" class="c1"/><col align="left" class="c2"/></colgroup><thead><tr><th align="left">Element</th><th align="left">Desciption</th></tr></thead><tbody><tr><td align="left"><code class="code">background-validation</code></td><td align="left">
+                 An element to specify that connections should be validated on a background 
+                 thread versus being validated prior to use 
+               </td></tr><tr><td align="left"><code class="code">background-validation-millis</code></td><td align="left">
+                 The background-validation-millis element specifies the amount of 
+                 time, in milliseconds, that background validation will run. 
+               </td></tr><tr><td align="left"><code class="code">use-fast-fail</code></td><td align="left">
+                 Whether fail a connection allocation on the first connection if it 
+                 is invalid (true) or keep trying until the pool is exhausted of all potential 
+                 connections (false). Default is false
+               </td></tr></tbody></table></div></div><br class="table-break"/><div class="table"><a id="d0e2130"/><p class="title"><strong>Table 5.10. Admin object elements</strong></p><div class="table-contents"><table summary="Admin object elements" border="1"><colgroup><col align="left" class="c1"/><col align="left" class="c2"/></colgroup><thead><tr><th align="left">Element</th><th align="left">Desciption</th></tr></thead><tbody><tr><td align="left"><code class="code">config-property</code></td><td align="left">
+                 Specifies an administration object configuration property.
+               </td></tr></tbody></table></div></div><br class="table-break"/><div class="table"><a id="d0e2149"/><p class="title"><strong>Table 5.11. Recovery elements</strong></p><div class="table-contents"><table summary="Recovery elements" border="1"><colgroup><col align="left" class="c1"/><col align="left" class="c2"/></colgroup><thead><tr><th align="left">Element</th><th align="left">Desciption</th></tr></thead><tbody><tr><td align="left"><code class="code">recover-credential</code></td><td align="left">
+                 Specifies the user name / password pair or security domain that
+                 should be used for recovery.
+               </td></tr><tr><td align="left"><code class="code">recover-plugin</code></td><td align="left">
+                 Specifies an implementation of the org.jboss.jca.core.spi.recovery.RecoveryPlugin
+                 class.
+               </td></tr></tbody></table></div></div><br class="table-break"/><p>The deployment schemas are defined in <code class="code">doc/ironjacamar_1_0.xsd</code>, <code class="code">doc/ironjacamar_1_1.xsd</code>,
+          <code class="code">doc/resource-adapters_1_0.xsd</code> and <code class="code">doc/resource-adapters_1_1.xsd</code>.</p></div><div class="section" title="5.2.2. Resource adapter extensions"><div class="titlepage"><div><div><h3 class="title"><a id="deployingra_extensions"/>5.2.2. Resource adapter extensions</h3></div></div></div><p>
+          A resource adapter can make use of a couple of Java EE Connector Architecture extensions in 
+          the IronJacamar container in order to improve the integration.
+        </p><p>
+          The extensions include
+
+          </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><code class="code">org.jboss.jca.core.spi.recovery.RecoveryPlugin</code>: Plugin to provide feedback
+              to the recovery module inside IronJacamar.
+            </li><li class="listitem"><code class="code">org.jboss.jca.core.spi.statistics.Statistics</code>: Plugin to identify a resource
+              adapter component (<code class="code">ResourceAdapter</code>, <code class="code">ManagedConnectionFactory</code> and
+              admin object) that provides statistics.
+            </li></ul></div><p>
+
+        </p><p>
+          The following sections will describe these extensions points.
+        </p><div class="section" title="5.2.2.1. Recovery extension"><div class="titlepage"><div><div><h4 class="title"><a id="deployingra_extensions_recovery"/>5.2.2.1. Recovery extension</h4></div></div></div><p>
+            The IronJacamar recovery extension allows the resource adapter deployment to give feedback
+            to the container if a <code class="code">ManagedConnection</code> can be used for recovery. This extension
+            is used as part of XA recovery in the environment, and should therefore be implemented by all
+            resource adapters capable of working in an <code class="code">XATransaction</code> semantics.
+          </p><p>
+            The interface <code class="code">org.jboss.core.spi.recovery.RecoveryPlugin</code> located in the 
+            <code class="code">ironjacamar-core-api</code> artifact makes up the SPI for the extension.
+          </p><p>
+            The interface contains two methods that should be implemented in a resource adapter specific
+            manner.
+          </p><p>
+            The method
+
+            </p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+public boolean isValid(Object c) throws ResourceException;
+            </pre><p>
+
+            will return <code class="code">true</code> if the connection can be used for recovery.
+          </p><p>
+            The method
+
+            </p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+public void close(Object c) throws ResourceException;
+            </pre><p>
+
+            will close a connection that was used for recovery.
+          </p><p>
+            The recovery extension is activated by adding a recovery element to the deployment
+
+            </p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+&lt;recovery&gt;
+   &lt;recovery-plugin&gt;com.mycompany.myproject.RecoveryPluginImpl&lt;/recovery-plugin&gt;
+&lt;/recovery&gt;
+            </pre><p>
+
+          </p><p>
+            The following recovery plugins are provided by IronJacamar
+          </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><code class="code">org.jboss.jca.core.recovery.DefaultRecoveryPlugin</code>: Default recovery plugin
+              that tries to call a <code class="code">close()</code> method on the underlying object
+            </li><li class="listitem"><code class="code">org.jboss.jca.core.recovery.ConfigurableRecoveryPlugin</code>: A recovery plugin
+              where the results of the <code class="code">isValid</code> and <code class="code">close</code> can be specified
+            </li><li class="listitem"><code class="code">org.jboss.jca.core.recovery.ValidatingManagedConnectionFactoryRecoveryPlugin</code>:
+              A recovery plugin that uses the <code class="code">javax.resource.spi.ValidatingManagedConnectionFactory</code>
+              interface to verify the connection
+            </li></ul></div><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><h2>Note</h2>
+            The IronJacamar container will use a default implementation of the recovery SPI if an
+            implementation isn't specified by the deployment.
+          </div></div><div class="section" title="5.2.2.2. Statistics extension"><div class="titlepage"><div><div><h4 class="title"><a id="deployingra_extensions_statistics"/>5.2.2.2. Statistics extension</h4></div></div></div><p>
+            The IronJacamar statistics extension allows a resource adapter to expose statistics to
+            the container and hence to the environment where IronJacamar is running. Statistics can
+            be enabled for <code class="code">ResourceAdapter</code>, <code class="code">ManagedConnectionFactory</code> and
+            admin object instances.
+          </p><p>
+            The extension include two interfaces <code class="code">org.jboss.core.spi.statistics.Statistics</code>
+            and <code class="code">org.jboss.core.spi.statistics.StatisticsPlugin</code>. Both these interfaces are
+            located in the <code class="code">ironjacamar-core-api</code> artifact.
+          </p><p>
+            The <code class="code">Statistics</code> interface will mark a resource adapter component as statistics capable
+            and return the statistics plugin implementation instance.
+          </p><p>
+            The <code class="code">StatisticsPlugin</code> interface contains methods to expose and describe each statistic
+            that the plugin makes available. This information will then be made available to the environment
+            where the IronJacamar container is running using the environment's prefered mechanism.
+          </p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><h2>Note</h2>
+            The IronJacamar container will only expose core statistics for a deployment if no implementation
+            of this extension is available.
+          </div></div></div><div class="section" title="5.2.3. Resource adapter statistics"><div class="titlepage"><div><div><h3 class="title"><a id="deployingra_statistics"/>5.2.3. Resource adapter statistics</h3></div></div></div><p>
+          Resource adapter deployments has the following core statistics values
+          
+          </p><div class="table"><a id="d0e2320"/><p class="title"><strong>Table 5.12. Core statistics</strong></p><div class="table-contents"><table summary="Core statistics" border="1"><colgroup><col align="left" class="c1"/><col align="left" class="c2"/></colgroup><thead><tr><th align="left">Name</th><th align="left">Desciption</th></tr></thead><tbody><tr><td align="left"><code class="code">ActiveCount</code></td><td align="left">
+                    The number of active connections. Each of the connections
+                    is either in use by an application or available in the pool
+                  </td></tr><tr><td align="left"><code class="code">AvailableCount</code></td><td align="left">
+                    The number of available connections in the pool
+                  </td></tr><tr><td align="left"><code class="code">AverageBlockingTime</code></td><td align="left">
+                    The average time spent blocking on obtaining an exclusive lock
+                    on the pool. The value is in milliseconds
+                  </td></tr><tr><td align="left"><code class="code">AverageCreationTime</code></td><td align="left">
+                    The average time spent creating a connection.
+                    The value is in milliseconds
+                  </td></tr><tr><td align="left"><code class="code">AverageGetTime</code></td><td align="left">
+                    The average time spent obtaining a connection.
+                    The value is in milliseconds
+                  </td></tr><tr><td align="left"><code class="code">BlockingFailureCount</code></td><td align="left">
+                    The number of times where there was a time out getting
+                    an exclusive lock on the pool
+                  </td></tr><tr><td align="left"><code class="code">CreatedCount</code></td><td align="left">
+                    The number of connections created
+                  </td></tr><tr><td align="left"><code class="code">DestroyedCount</code></td><td align="left">
+                    The number of connections destroyed
+                  </td></tr><tr><td align="left"><code class="code">IdleCount</code></td><td align="left">
+                    The number of connections currently idle
+                  </td></tr><tr><td align="left"><code class="code">InUseCount</code></td><td align="left">
+                    The number of connections currently in use
+                  </td></tr><tr><td align="left"><code class="code">MaxCreationTime</code></td><td align="left">
+                    The maximum time it took to create a connection.
+                    The value is in milliseconds
+                  </td></tr><tr><td align="left"><code class="code">MaxGetTime</code></td><td align="left">
+                    The maximum time it took to obtain a connection.
+                    The value is in milliseconds
+                  </td></tr><tr><td align="left"><code class="code">MaxUsedCount</code></td><td align="left">
+                    The maximum number of connections used
+                  </td></tr><tr><td align="left"><code class="code">MaxWaitCount</code></td><td align="left">
+                    The maximum number of requests waiting for a connection
+                    at the same time
+                  </td></tr><tr><td align="left"><code class="code">MaxWaitTime</code></td><td align="left">
+                    The maximum time spent waiting for an exclusive lock
+                    on the pool
+                  </td></tr><tr><td align="left"><code class="code">TimedOut</code></td><td align="left">
+                    The number of timed out connections
+                  </td></tr><tr><td align="left"><code class="code">TotalBlockingTime</code></td><td align="left">
+                    The total time spent waiting for an exclusive lock
+                    on the pool. The value is in milliseconds
+                  </td></tr><tr><td align="left"><code class="code">TotalCreationTime</code></td><td align="left">
+                    The total time spent creating connections.
+                    The value is in milliseconds
+                  </td></tr><tr><td align="left"><code class="code">TotalGetTime</code></td><td align="left">
+                    The total time spent obtaining connections.
+                    The value is in milliseconds
+                  </td></tr><tr><td align="left"><code class="code">WaitCount</code></td><td align="left">
+                    The number of requests that had to wait for a connection
+                  </td></tr></tbody></table></div></div><p><br class="table-break"/>
+        </p></div></div><div class="section" title="5.3. Deploying datasources"><div class="titlepage"><div><div><h2 class="title"><a id="deployingds"/>5.3. Deploying datasources</h2></div></div></div><p>Datasources (-ds.xml) are deployed by copying the definition into the 
+        <code class="code">deploy/</code> directory</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+cp postgres-xa-ds.xml ironjacamar-1.1.0.Final/deploy
+      </pre><p>on a Un*x based system or</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+copy postgres-xa-ds.xml ironjacamar-1.1.0.Final\deploy
+      </pre><p>on Windows.</p><p>You will need to install the database JDBC driver into the <code class="code">lib/</code> directory.</p><p>You can find examples of datasource definitions in the <code class="code">doc/datasources</code> directory
+      and the schemas: <code class="code">doc/datasources_1_0.xsd</code>, <code class="code">doc/datasources_1_1.xsd</code> and
+      <code class="code">doc/datasources_1_1.xsd</code>.</p><div class="section" title="5.3.1. Datasource descriptor"><div class="titlepage"><div><div><h3 class="title"><a id="deployingds_descriptor"/>5.3.1. Datasource descriptor</h3></div></div></div><p>Datasource descriptors are divided into
+
+        </p><div class="itemizedlist"><ul class="itemizedlist" compact="compact"><li class="listitem"><code class="code">&lt;datasource&gt;</code> for a standard datasource</li><li class="listitem"><code class="code">&lt;xa-datasource&gt;</code> for an XA capable datasource</li></ul></div><p>
+
+        definitions.</p><p>A datasource descriptor supports the following parameters.</p><div class="table"><a id="d0e2507"/><p class="title"><strong>Table 5.13. Common datasource attributes</strong></p><div class="table-contents"><table summary="Common datasource attributes" border="1"><colgroup><col align="left" class="c1"/><col align="left" class="c2"/></colgroup><thead><tr><th align="left">Attribute</th><th align="left">Desciption</th></tr></thead><tbody><tr><td align="left"><code class="code">jndi-name</code></td><td align="left">
+                  Specifies the JNDI name for the datasource
+                </td></tr><tr><td align="left"><code class="code">pool-name</code></td><td align="left">
+                  Specifies the pool name for the datasource used for management
+                </td></tr><tr><td align="left"><code class="code">enabled</code></td><td align="left">
+                  Specifies if the datasource should be enabled
+                </td></tr><tr><td align="left"><code class="code">use-java-context</code></td><td align="left">
+                  Setting this to false will bind the DataSource into global JNDI
+                </td></tr><tr><td align="left"><code class="code">spy</code></td><td align="left">
+                  Enable spy functionality on the JDBC layer - e.g. log all JDBC traffic to the datasource.
+                  The logging category <code class="code">jboss.jdbc.spy</code> must be enabled too.
+                </td></tr><tr><td align="left"><code class="code">use-ccm</code></td><td align="left">
+                  Enable the cached connection manager
+                </td></tr><tr><td align="left"><code class="code">jta</code></td><td align="left">
+                  Enable JTA integration (only <code class="code">&lt;datasource&gt;</code>)
+                </td></tr></tbody></table></div></div><br class="table-break"/><div class="table"><a id="d0e2568"/><p class="title"><strong>Table 5.14. <code class="code">datasource</code> elements</strong></p><div class="table-contents"><table summary="datasource elements" border="1"><colgroup><col align="left" class="c1"/><col align="left" class="c2"/></colgroup><thead><tr><th align="left">Element</th><th align="left">Desciption</th></tr></thead><tbody><tr><td align="left"><code class="code">connection-url</code></td><td align="left">
+                  The JDBC driver connection URL
+                </td></tr><tr><td align="left"><code class="code">driver-class</code></td><td align="left">
+                  The fully qualifed name of the JDBC driver class
+                </td></tr><tr><td align="left"><code class="code">datasource-class</code></td><td align="left">
+                  The fully qualifed name of the JDBC datasource class
+                </td></tr><tr><td align="left"><code class="code">driver</code></td><td align="left">
+                  <p>An unique name for the JDBC driver specified in the drivers section.
+                  Or the name of the .jar file if deployed as standalone deployment</p>
+                  <p>This element is mandatory when deploying in WildFly</p>
+                </td></tr><tr><td align="left"><code class="code">connection-property</code></td><td align="left">
+                  The connection-property element allows you to pass in arbitrary connection 
+                  properties to the Driver.connect(url, props) method. Each connection-property 
+                  specifies a string name/value pair with the property name coming from the 
+                  name attribute and the value coming from the element content
+                </td></tr><tr><td align="left"><code class="code">new-connection-sql</code></td><td align="left">
+                  Specify an SQL statement to execute whenever a connection is added 
+                  to the connection pool
+                </td></tr><tr><td align="left"><code class="code">transaction-isolation</code></td><td align="left">
+                  Set java.sql.Connection transaction isolation level to use. The constants 
+                  defined by transaction-isolation-values are the possible transaction isolation 
+                  levels and include: TRANSACTION_READ_UNCOMMITTED TRANSACTION_READ_COMMITTED 
+                  TRANSACTION_REPEATABLE_READ TRANSACTION_SERIALIZABLE TRANSACTION_NONE
+                </td></tr><tr><td align="left"><code class="code">url-delimiter</code></td><td align="left">
+                  Specifies the delimeter for URLs in connection-url for HA datasources
+                </td></tr><tr><td align="left"><code class="code">url-selector-strategy-class-name</code></td><td align="left">
+                  A class that implements org.jboss.jca.adapters.jdbc.spi.URLSelectorStrategy
+                </td></tr><tr><td align="left"><code class="code">pool</code></td><td align="left">
+                  Specifies the pooling settings
+                </td></tr><tr><td align="left"><code class="code">security</code></td><td align="left">
+                  Specifies the security settings
+                </td></tr><tr><td align="left"><code class="code">validation</code></td><td align="left">
+                  Specifies the validation settings
+                </td></tr><tr><td align="left"><code class="code">timeout</code></td><td align="left">
+                  Specifies the time out settings
+                </td></tr><tr><td align="left"><code class="code">statement</code></td><td align="left">
+                  Specifies the statement settings
+                </td></tr></tbody></table></div></div><br class="table-break"/><div class="table"><a id="d0e2673"/><p class="title"><strong>Table 5.15. <code class="code">xa-datasource</code> elements</strong></p><div class="table-contents"><table summary="xa-datasource elements" border="1"><colgroup><col align="left" class="c1"/><col align="left" class="c2"/></colgroup><thead><tr><th align="left">Element</th><th align="left">Desciption</th></tr></thead><tbody><tr><td align="left"><code class="code">xa-datasource-property</code></td><td align="left">
+                  Specifies a property to assign to the XADataSource implementation class. 
+                  Each property is identified by the name attribute and the property value 
+                  is given by the xa-datasource-property element content. The property is mapped 
+                  onto the XADataSource implementation by looking for a JavaBeans style getter 
+                  method for the property name. If found, the value of the property is set 
+                  using the JavaBeans setter with the element text translated to the true property 
+                  type using the java.beans.PropertyEditor for the type
+                </td></tr><tr><td align="left"><code class="code">xa-datasource-class</code></td><td align="left">
+                  The fully qualifed name of the javax.sql.XADataSource implementation 
+                  class
+                </td></tr><tr><td align="left"><code class="code">driver</code></td><td align="left">
+                  <p>An unique name for the JDBC driver specified in the drivers section.
+                  Or the name of the .jar file if deployed as standalone deployment.</p>
+                  <p>This element is mandatory when deploying in WildFly</p>
+                </td></tr><tr><td align="left"><code class="code">url-delimiter</code></td><td align="left">
+                  Specifies the delimeter for URLs in the connection url for HA datasources
+                </td></tr><tr><td align="left"><code class="code">url-property</code></td><td align="left">
+                  Specifies the property for the URL property in the xa-datasource-property values (1.2)
+                </td></tr><tr><td align="left"><code class="code">url-selector-strategy-class-name</code></td><td align="left">
+                  A class that implements org.jboss.jca.adapters.jdbc.spi.URLXASelectorStrategy
+                </td></tr><tr><td align="left"><code class="code">new-connection-sql</code></td><td align="left">
+                  Specifies an SQL statement to execute whenever a connection is added 
+                  to the connection pool
+                </td></tr><tr><td align="left"><code class="code">transaction-isolation</code></td><td align="left">
+                  Set java.sql.Connection transaction isolation level to use. The constants 
+                  defined by transaction-isolation-values are the possible transaction isolation 
+                  levels and include: TRANSACTION_READ_UNCOMMITTED TRANSACTION_READ_COMMITTED 
+                  TRANSACTION_REPEATABLE_READ TRANSACTION_SERIALIZABLE TRANSACTION_NONE
+                </td></tr><tr><td align="left"><code class="code">xa-pool</code></td><td align="left">
+                  Specifies the pooling settings
+                </td></tr><tr><td align="left"><code class="code">security</code></td><td align="left">
+                  Specifies the security settings
+                </td></tr><tr><td align="left"><code class="code">validation</code></td><td align="left">
+                  Specifies the validation settings
+                </td></tr><tr><td align="left"><code class="code">timeout</code></td><td align="left">
+                  Specifies the time out settings
+                </td></tr><tr><td align="left"><code class="code">statement</code></td><td align="left">
+                  Specifies the statement settings
+                </td></tr><tr><td align="left"><code class="code">recovery</code></td><td align="left">
+                  Specifies the recovery settings
+                </td></tr></tbody></table></div></div><br class="table-break"/><div class="table"><a id="d0e2778"/><p class="title"><strong>Table 5.16. Pool settings</strong></p><div class="table-contents"><table summary="Pool settings" border="1"><colgroup><col align="left" class="c1"/><col align="left" class="c2"/></colgroup><thead><tr><th align="left">Element</th><th align="left">Desciption</th></tr></thead><tbody><tr><td align="left"><code class="code">min-pool-size</code></td><td align="left">
+                  The min-pool-size element indicates the minimum number of connections 
+                  a pool should hold. These are not created until a Subject is known from a 
+                  request for a connection. This default to 0
+                </td></tr><tr><td align="left"><code class="code">initial-pool-size</code></td><td align="left">
+                  The initial-pool-size element indicates the initial number of connections 
+                  a pool should hold. These are not created until a Subject is known from a 
+                  request for a connection. This default to 0 (1.2)
+                </td></tr><tr><td align="left"><code class="code">max-pool-size</code></td><td align="left">
+                  The max-pool-size element indicates the maximum number of connections 
+                  for a pool. No more connections will be created in each sub-pool. 
+                  This defaults to 20
+                </td></tr><tr><td align="left"><code class="code">prefill</code></td><td align="left">
+                  Whether to attempt to prefill the connection pool. Empty element denotes 
+                  a true value. Default is false
+                </td></tr><tr><td align="left"><code class="code">use-strict-min</code></td><td align="left">
+                  Define if the min-pool-size should be considered a strictly.
+                  Default false
+                </td></tr><tr><td align="left"><code class="code">flush-strategy</code></td><td align="left">
+                  Specifies how the pool should be flush in case of an error.
+                  Valid values are: <code class="code">FailingConnectionOnly</code> (default), <code class="code">InvalidIdleConnections</code> (1.2),
+                                    <code class="code">IdleConnections</code>, <code class="code">Gracefully</code> (1.2), <code class="code">EntirePool</code>,
+                                    <code class="code">AllInvalidIdleConnections</code> (1.2), <code class="code">AllIdleConnections</code> (1.2),
+                                    <code class="code">AllGracefully</code> (1.2), <code class="code">AllConnections</code> (1.2)
+                </td></tr><tr><td align="left"><code class="code">allow-multiple-users</code></td><td align="left">
+                  Specifies if multiple users will access the datasource through the getConnection(user, password)
+                  method and hence if the internal pool type should account for that (1.1)
+                </td></tr><tr><td align="left"><code class="code">capacity</code></td><td align="left">
+                  Specifies the capacity policies (1.2)
+                </td></tr><tr><td align="left"><code class="code">connection-listener</code></td><td align="left">
+                  An org.jboss.jca.adapters.jdbc.spi.listener.ConnectionListener that provides 
+                  a possible to listen for connection activation and passivation in order to
+                  perform actions before the connection is returned to the application or returned
+                  to the pool (1.2)
+                </td></tr></tbody></table></div></div><br class="table-break"/><div class="table"><a id="d0e2872"/><p class="title"><strong>Table 5.17. XA pool settings</strong></p><div class="table-contents"><table summary="XA pool settings" border="1"><colgroup><col align="left" class="c1"/><col align="left" class="c2"/></colgroup><thead><tr><th align="left">Element</th><th align="left">Desciption</th></tr></thead><tbody><tr><td align="left"><code class="code">min-pool-size</code></td><td align="left">
+                  The min-pool-size element indicates the minimum number of connections 
+                  a pool should hold. These are not created until a Subject is known from a 
+                  request for a connection. This default to 0
+                </td></tr><tr><td align="left"><code class="code">initial-pool-size</code></td><td align="left">
+                  The initial-pool-size element indicates the initial number of connections 
+                  a pool should hold. These are not created until a Subject is known from a 
+                  request for a connection. This default to 0 (1.2)
+                </td></tr><tr><td align="left"><code class="code">max-pool-size</code></td><td align="left">
+                  The max-pool-size element indicates the maximum number of connections 
+                  for a pool. No more connections will be created in each sub-pool. 
+                  This defaults to 20
+                </td></tr><tr><td align="left"><code class="code">prefill</code></td><td align="left">
+                  Whether to attempt to prefill the connection pool. Empty element denotes 
+                  a true value. Default is false
+                </td></tr><tr><td align="left"><code class="code">use-strict-min</code></td><td align="left">
+                  Define if the min-pool-size should be considered a strictly.
+                  Default false
+                </td></tr><tr><td align="left"><code class="code">flush-strategy</code></td><td align="left">
+                  Specifies how the pool should be flush in case of an error.
+                  Valid values are: <code class="code">FailingConnectionOnly</code> (default), <code class="code">InvalidIdleConnections</code> (1.2),
+                                    <code class="code">IdleConnections</code>, <code class="code">Gracefully</code> (1.2), <code class="code">EntirePool</code>, 
+                                    <code class="code">AllInvalidIdleConnections</code> (1.2), <code class="code">AllIdleConnections</code> (1.2),
+                                    <code class="code">AllGracefully</code> (1.2), <code class="code">AllConnections</code> (1.2)
+                </td></tr><tr><td align="left"><code class="code">allow-multiple-users</code></td><td align="left">
+                  Specifies if multiple users will access the datasource through the getConnection(user, password)
+                  method and hence if the internal pool type should account for that (1.1)
+                </td></tr><tr><td align="left"><code class="code">capacity</code></td><td align="left">
+                  Specifies the capacity policies (1.2)
+                </td></tr><tr><td align="left"><code class="code">connection-listener</code></td><td align="left">
+                  An org.jboss.jca.adapters.jdbc.spi.listener.ConnectionListener that provides 
+                  a possible to listen for connection activation and passivation in order to
+                  perform actions before the connection is returned to the application or returned
+                  to the pool (1.2)
+                </td></tr><tr><td align="left"><code class="code">is-same-rm-override</code></td><td align="left">
+                  The is-same-rm-override element allows one to unconditionally 
+                  set whether the javax.transaction.xa.XAResource.isSameRM(XAResource) returns 
+                  true or false
+                </td></tr><tr><td align="left"><code class="code">interleaving</code></td><td align="left">
+                  An element to enable interleaving for XA connection factories 
+                </td></tr><tr><td align="left"><code class="code">no-tx-separate-pools</code></td><td align="left">
+                  Oracle does not like XA connections getting used both inside and outside a JTA transaction. 
+                  To workaround the problem you can create separate sub-pools for the different contexts
+                </td></tr><tr><td align="left"><code class="code">pad-xid</code></td><td align="left">
+                  Should the Xid be padded
+                </td></tr><tr><td align="left"><code class="code">wrap-xa-resource</code></td><td align="left">
+                  Should the XAResource instances be wrapped in an org.jboss.jca.core.spi.transaction.xa.XAResourceWrapper
+                  instance
+                </td></tr></tbody></table></div></div><br class="table-break"/><div class="table"><a id="d0e2996"/><p class="title"><strong>Table 5.18. Security settings</strong></p><div class="table-contents"><table summary="Security settings" border="1"><colgroup><col align="left" class="c1"/><col align="left" class="c2"/></colgroup><thead><tr><th align="left">Element</th><th align="left">Desciption</th></tr></thead><tbody><tr><td align="left"><code class="code">user-name</code></td><td align="left">
+                  Specify the username used when creating a new connection. 
+                </td></tr><tr><td align="left"><code class="code">password</code></td><td align="left">
+                  Specify the password used when creating a new connection. 
+                </td></tr><tr><td align="left"><code class="code">security-domain</code></td><td align="left">
+                  Indicates Subject (from security domain) are used to distinguish connections in the pool. 
+                  The content of the security-domain is the name of the JAAS security manager that will handle
+                  authentication. This name correlates to the JAAS login-config.xml descriptor
+                  application-policy/name attribute.
+                </td></tr><tr><td align="left"><code class="code">reauth-plugin</code></td><td align="left">
+                  Defines a reauthentication plugin that can be used for reauthentication of physical connections.
+                </td></tr></tbody></table></div></div><br class="table-break"/><div class="table"><a id="d0e3033"/><p class="title"><strong>Table 5.19. Validation settings</strong></p><div class="table-contents"><table summary="Validation settings" border="1"><colgroup><col align="left" class="c1"/><col align="left" class="c2"/></colgroup><thead><tr><th align="left">Element</th><th align="left">Desciption</th></tr></thead><tbody><tr><td align="left"><code class="code">valid-connection-checker</code></td><td align="left">
+                  An org.jboss.jca.adapters.jdbc.spi.ValidConnectionChecker that provides 
+                  a SQLException isValidConnection(Connection e) method to validate is a connection 
+                  is valid. An exception means the connection is destroyed. This overrides 
+                  the check-valid-connection-sql when present
+                </td></tr><tr><td align="left"><code class="code">check-valid-connection-sql</code></td><td align="left">
+                  Specify an SQL statement to check validity of a pool connection. This 
+                  may be called when managed connection is taken from pool for use. 
+                </td></tr><tr><td align="left"><code class="code">validate-on-match</code></td><td align="left">
+                  The validate-on-match element indicates whether or not connection 
+                  level validation should be done when a connection factory attempts to match 
+                  a managed connection for a given set. This is typically exclusive to the 
+                  use of background validation 
+                </td></tr><tr><td align="left"><code class="code">background-validation</code></td><td align="left">
+                  An element to specify that connections should be validated on a background 
+                  thread versus being validated prior to use 
+                </td></tr><tr><td align="left"><code class="code">background-validation-millis</code></td><td align="left">
+                  The background-validation-millis element specifies the amount of 
+                  time, in milliseconds, that background validation will run
+                </td></tr><tr><td align="left"><code class="code">use-fast-fail</code></td><td align="left">
+                  Whether fail a connection allocation on the first connection if it 
+                  is invalid (true) or keep trying until the pool is exhausted of all potential 
+                  connections (false) default false
+                </td></tr><tr><td align="left"><code class="code">stale-connection-checker</code></td><td align="left">
+                  An org.jboss.jca.adapters.jdbc.spi.StaleConnectionChecker that provides 
+                  a boolean isStaleConnection(SQLException e) method which if it it returns 
+                  true will wrap the exception in an org.jboss.jca.adapters.jdbc.StaleConnectionException 
+                  which is a subclass of SQLException
+                </td></tr><tr><td align="left"><code class="code">exception-sorter</code></td><td align="left">
+                  An org.jboss.jca.adapters.jdbc.spi.ExceptionSorter that provides a 
+                  boolean isExceptionFatal(SQLException e) method to validate is an exception 
+                  should be broadcast to all javax.resource.spi.ConnectionEventListener as 
+                  a connectionErrorOccurred message
+                </td></tr></tbody></table></div></div><br class="table-break"/><div class="table"><a id="d0e3094"/><p class="title"><strong>Table 5.20. Time out settings</strong></p><div class="table-contents"><table summary="Time out settings" border="1"><colgroup><col align="left" class="c1"/><col align="left" class="c2"/></colgroup><thead><tr><th align="left">Element</th><th align="left">Desciption</th></tr></thead><tbody><tr><td align="left"><code class="code">blocking-timeout-millis</code></td><td align="left">
+                  The blocking-timeout-millis element indicates the maximum time in 
+                  milliseconds to block while waiting for a connection before throwing an exception. 
+                  Note that this blocks only while waiting for a permit for a connection, and 
+                  will never throw an exception if creating a new connection takes an inordinately 
+                  long time. The default is 30000 (30 seconds).  
+                </td></tr><tr><td align="left"><code class="code">idle-timeout-minutes</code></td><td align="left">
+                  The idle-timeout-minutes elements indicates the maximum time in minutes 
+                  a connection may be idle before being closed. The actual maximum time depends 
+                  also on the IdleRemover scan time, which is 1/2 the smallest idle-timeout-minutes 
+                  of any pool. 
+                </td></tr><tr><td align="left"><code class="code">set-tx-query-timeout</code></td><td align="left">
+                  Whether to set the query timeout based on the time remaining until 
+                  transaction timeout, any configured query timeout will be used if there is 
+                  no transaction. The default is false
+                </td></tr><tr><td align="left"><code class="code">query-timeout</code></td><td align="left">
+                  Any configured query timeout in seconds The default is no timeout 
+                </td></tr><tr><td align="left"><code class="code">use-try-lock</code></td><td align="left">
+                  Any configured timeout for internal locks on the resource adapter 
+                  objects in seconds The default is a 60 second timeout
+                </td></tr><tr><td align="left"><code class="code">allocation-retry</code></td><td align="left">
+                  The allocation retry element indicates the number of times that allocating 
+                  a connection should be tried before throwing an exception. The default is 0.  
+                </td></tr><tr><td align="left"><code class="code">allocation-retry-wait-millis</code></td><td align="left">
+                  The allocation retry wait millis element indicates the time in milliseconds 
+                  to wait between retrying to allocate a connection. The default is 5000 (5 seconds). 
+                </td></tr><tr><td align="left"><code class="code">xa-resource-timeout</code></td><td align="left">
+                  Passed to XAResource.setTransactionTimeout() Default is zero which 
+                  does not invoke the setter. In seconds
+                </td></tr></tbody></table></div></div><br class="table-break"/><div class="table"><a id="d0e3155"/><p class="title"><strong>Table 5.21. Statement settings</strong></p><div class="table-contents"><table summary="Statement settings" border="1"><colgroup><col align="left" class="c1"/><col align="left" class="c2"/></colgroup><thead><tr><th align="left">Element</th><th align="left">Desciption</th></tr></thead><tbody><tr><td align="left"><code class="code">track-statements</code></td><td align="left">
+                  Whether to check for unclosed statements when a connection is returned 
+                  to the pool and result sets are closed when a statement is closed/return 
+                  to the prepared statement cache. valid values are: <code class="code">false</code> - do not track statements 
+                  and results; <code class="code">true</code> - track statements and result sets and warn when they are 
+                  not closed; <code class="code">nowarn</code> - track statements but do no warn about them being unclosed 
+                  (the default)
+                </td></tr><tr><td align="left"><code class="code">prepared-statement-cache-size</code></td><td align="left">
+                  The number of prepared statements per connection in an LRU cache
+                </td></tr><tr><td align="left"><code class="code">share-prepared-statements</code></td><td align="left">
+                  Whether to share prepare statements, i.e. whether asking for same 
+                  statement twice without closing uses the same underlying prepared statement. 
+                  The default is false
+                </td></tr></tbody></table></div></div><br class="table-break"/><div class="table"><a id="d0e3195"/><p class="title"><strong>Table 5.22. Recovery elements</strong></p><div class="table-contents"><table summary="Recovery elements" border="1"><colgroup><col align="left" class="c1"/><col align="left" class="c2"/></colgroup><thead><tr><th align="left">Element</th><th align="left">Desciption</th></tr></thead><tbody><tr><td align="left"><code class="code">recover-credential</code></td><td align="left">
+                  Specifies the user name / password pair or security domain that
+                  should be used for recovery.
+                </td></tr><tr><td align="left"><code class="code">recover-plugin</code></td><td align="left">
+                  Specifies an implementation of the org.jboss.jca.core.spi.recovery.RecoveryPlugin
+                  class.
+                </td></tr></tbody></table></div></div><br class="table-break"/><div class="table"><a id="d0e3220"/><p class="title"><strong>Table 5.23. Driver attributes</strong></p><div class="table-contents"><table summary="Driver attributes" border="1"><colgroup><col align="left" class="c1"/><col align="left" class="c2"/></colgroup><thead><tr><th align="left">Attribute</th><th align="left">Desciption</th></tr></thead><tbody><tr><td align="left"><code class="code">name</code></td><td align="left">
+                  An unique name for the JDBC driver
+                </td></tr><tr><td align="left"><code class="code">module</code></td><td align="left">
+                  <p>The module definition for the JDBC driver. The format of a module inside
+                  WildFly 8+ is <code class="code">com.h2database.h2</code> which will
+                  map to the H2 installation under <code class="code">modules/com/h2database/h2/main</code>. A ':'
+                  can be used to identify the slot - f.ex <code class="code">com.h2database.h2:1.3.159</code>.</p>
+
+                  <p>The format for IronJacamar Standalone/Embedded is the name of the .jar file</p>
+                </td></tr><tr><td align="left"><code class="code">major-version</code></td><td align="left">
+                  The major version of the driver
+                </td></tr><tr><td align="left"><code class="code">minor-version</code></td><td align="left">
+                  The minor version of the driver
+                </td></tr></tbody></table></div></div><br class="table-break"/><div class="table"><a id="d0e3272"/><p class="title"><strong>Table 5.24. Driver elements</strong></p><div class="table-contents"><table summary="Driver elements" border="1"><colgroup><col align="left" class="c1"/><col align="left" class="c2"/></colgroup><thead><tr><th align="left">Element</th><th align="left">Desciption</th></tr></thead><tbody><tr><td align="left"><code class="code">driver-class</code></td><td align="left">
+                  The fully qualified class name of the driver class
+                </td></tr><tr><td align="left"><code class="code">datasource-class</code></td><td align="left">
+                  The fully qualified class name of the datasource class
+                </td></tr><tr><td align="left"><code class="code">xa-datasource-class</code></td><td align="left">
+                  The fully qualified class name of the XA datasource class
+                </td></tr></tbody></table></div></div><br class="table-break"/><p>The datasource deployment schema is defined in <code class="code">doc/datasources_1_0.xsd</code>
+           and <code class="code">doc/datasources_1_1.xsd</code>.</p></div><div class="section" title="5.3.2. Datasource extensions"><div class="titlepage"><div><div><h3 class="title"><a id="deployingds_extensions"/>5.3.2. Datasource extensions</h3></div></div></div><p>
+          The datasource deployments can make use of a couple of extensions in the JDBC resource adapter
+          to improve the connection validation and checking if an exception should reestablish
+          the connection in question.
+        </p><p>
+          The extensions include
+
+          </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><code class="code">org.jboss.jca.adapters.jdbc.spi.ExceptionSorter</code>: Plugin to check if a 
+              <code class="code">SQLException</code> is fatal for the connection on which it was thrown.
+            </li><li class="listitem"><code class="code">org.jboss.jca.adapters.jdbc.spi.StaleConnection</code>: Plugin to wrap stale 
+              <code class="code">SQLException</code>'s in a <code class="code">org.jboss.jca.adapters.jdbc.StaleConnectionException</code>.
+            </li><li class="listitem"><code class="code">org.jboss.jca.adapters.jdbc.spi.ValidConnection</code>: Plugin to Check if a connection is
+              valid for use by the application.
+            </li></ul></div><p>
+
+        </p><p>
+          Configuration of the extensions are done by using
+
+          </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem">
+              The <code class="code">&lt;exception-sorter&gt;</code> tag for an <code class="code">ExceptionSorter</code></li><li class="listitem">
+              The <code class="code">&lt;stale-connection-checker&gt;</code> tag for a <code class="code">StaleConnection</code></li><li class="listitem">
+              The <code class="code">&lt;valid-connection-checker&gt;</code> tag for a <code class="code">ValidConnection</code></li></ul></div><p>
+
+        </p><p>
+          IronJacamar features implementations of these extensions for a couple of popular databases.
+          Contributions in this area are most welcome either generic solutions or for a specific database.
+        </p><p>
+          Informix:
+
+          </p><div class="itemizedlist"><ul class="itemizedlist" compact="compact"><li class="listitem"><code class="code">org.jboss.jca.adapters.jdbc.extensions.informix.InformixExceptionSorter</code></li></ul></div><p>
+        </p><p>
+          Microsoft SQLServer:
+
+          </p><div class="itemizedlist"><ul class="itemizedlist" compact="compact"><li class="listitem"><code class="code">org.jboss.jca.adapters.jdbc.extensions.mssql.MSSQLValidConnectionChecker</code></li></ul></div><p>
+        </p><p>
+          PostgreSQL:
+
+          </p><div class="itemizedlist"><ul class="itemizedlist" compact="compact"><li class="listitem"><code class="code">org.jboss.jca.adapters.jdbc.extensions.postgres.PostgreSQLExceptionSorter</code></li><li class="listitem"><code class="code">org.jboss.jca.adapters.jdbc.extensions.postgres.PostgreSQLValidConnectionChecker</code></li></ul></div><p>
+        </p><p>
+          MySQL:
+
+          </p><div class="itemizedlist"><ul class="itemizedlist" compact="compact"><li class="listitem"><code class="code">org.jboss.jca.adapters.jdbc.extensions.mysql.MySQLExceptionSorter</code></li><li class="listitem"><code class="code">org.jboss.jca.adapters.jdbc.extensions.mysql.MySQLReplicationValidConnectionChecker</code></li><li class="listitem"><code class="code">org.jboss.jca.adapters.jdbc.extensions.mysql.MySQLValidConnectionChecker</code></li></ul></div><p>
+        </p><p>
+          IBM DB2:
+
+          </p><div class="itemizedlist"><ul class="itemizedlist" compact="compact"><li class="listitem"><code class="code">org.jboss.jca.adapters.jdbc.extensions.db2.DB2ExceptionSorter</code></li><li class="listitem"><code class="code">org.jboss.jca.adapters.jdbc.extensions.db2.DB2StaleConnectionChecker</code></li><li class="listitem"><code class="code">org.jboss.jca.adapters.jdbc.extensions.db2.DB2ValidConnectionChecker</code></li></ul></div><p>
+        </p><p>
+          Generic:
+
+          </p><div class="itemizedlist"><ul class="itemizedlist" compact="compact"><li class="listitem"><code class="code">org.jboss.jca.adapters.jdbc.extensions.novendor.NullExceptionSorter</code></li><li class="listitem"><code class="code">org.jboss.jca.adapters.jdbc.extensions.novendor.NullStaleConnectionChecker</code></li><li class="listitem"><code class="code">org.jboss.jca.adapters.jdbc.extensions.novendor.NullValidConnectionChecker</code></li><li class="listitem"><code class="code">org.jboss.jca.adapters.jdbc.extensions.novendor.JDBC4ValidConnectionChecker</code></li></ul></div><p>
+        </p><p>
+          Sybase:
+
+          </p><div class="itemizedlist"><ul class="itemizedlist" compact="compact"><li class="listitem"><code class="code">org.jboss.jca.adapters.jdbc.extensions.sybase.SybaseExceptionSorter</code></li><li class="listitem"><code class="code">org.jboss.jca.adapters.jdbc.extensions.sybase.SybaseValidConnectionChecker</code></li></ul></div><p>
+        </p><p>
+          Oracle:
+
+          </p><div class="itemizedlist"><ul class="itemizedlist" compact="compact"><li class="listitem"><code class="code">org.jboss.jca.adapters.jdbc.extensions.oracle.OracleExceptionSorter</code></li><li class="listitem"><code class="code">org.jboss.jca.adapters.jdbc.extensions.oracle.OracleStaleConnectionChecker</code></li><li class="listitem"><code class="code">org.jboss.jca.adapters.jdbc.extensions.oracle.OracleValidConnectionChecker</code></li></ul></div><p>
+        </p></div><div class="section" title="5.3.3. Datasource statistics"><div class="titlepage"><div><div><h3 class="title"><a id="deployingds_statistics"/>5.3.3. Datasource statistics</h3></div></div></div><p>
+          Datasources has the following core statistics values
+        
+          </p><div class="table"><a id="d0e3462"/><p class="title"><strong>Table 5.25. Core statistics</strong></p><div class="table-contents"><table summary="Core statistics" border="1"><colgroup><col align="left" class="c1"/><col align="left" class="c2"/></colgroup><thead><tr><th align="left">Name</th><th align="left">Desciption</th></tr></thead><tbody><tr><td align="left"><code class="code">ActiveCount</code></td><td align="left">
+                    The number of active connections. Each of the connections
+                    is either in use by an application or available in the pool
+                  </td></tr><tr><td align="left"><code class="code">AvailableCount</code></td><td align="left">
+                    The number of available connections in the pool
+                  </td></tr><tr><td align="left"><code class="code">AverageBlockingTime</code></td><td align="left">
+                    The average time spent blocking on obtaining an exclusive lock
+                    on the pool. The value is in milliseconds
+                  </td></tr><tr><td align="left"><code class="code">AverageCreationTime</code></td><td align="left">
+                    The average time spent creating a connection.
+                    The value is in milliseconds
+                  </td></tr><tr><td align="left"><code class="code">AverageGetTime</code></td><td align="left">
+                    The average time spent obtaining a connection.
+                    The value is in milliseconds
+                  </td></tr><tr><td align="left"><code class="code">BlockingFailureCount</code></td><td align="left">
+                    The number of times where there was a time out getting
+                    an exclusive lock on the pool
+                  </td></tr><tr><td align="left"><code class="code">CreatedCount</code></td><td align="left">
+                    The number of connections created
+                  </td></tr><tr><td align="left"><code class="code">DestroyedCount</code></td><td align="left">
+                    The number of connections destroyed
+                  </td></tr><tr><td align="left"><code class="code">IdleCount</code></td><td align="left">
+                    The number of connections currently idle
+                  </td></tr><tr><td align="left"><code class="code">InUseCount</code></td><td align="left">
+                    The number of connections currently in use
+                  </td></tr><tr><td align="left"><code class="code">MaxCreationTime</code></td><td align="left">
+                    The maximum time it took to create a connection.
+                    The value is in milliseconds
+                  </td></tr><tr><td align="left"><code class="code">MaxGetTime</code></td><td align="left">
+                    The maximum time it took to obtain a connection.
+                    The value is in milliseconds
+                  </td></tr><tr><td align="left"><code class="code">MaxUsedCount</code></td><td align="left">
+                    The maximum number of connections used
+                  </td></tr><tr><td align="left"><code class="code">MaxWaitCount</code></td><td align="left">
+                    The maximum number of requests waiting for a connection
+                    at the same time
+                  </td></tr><tr><td align="left"><code class="code">MaxWaitTime</code></td><td align="left">
+                    The maximum time spent waiting for an exclusive lock
+                    on the pool
+                  </td></tr><tr><td align="left"><code class="code">TimedOut</code></td><td align="left">
+                    The number of timed out connections
+                  </td></tr><tr><td align="left"><code class="code">TotalBlockingTime</code></td><td align="left">
+                    The total time spent waiting for an exclusive lock
+                    on the pool. The value is in milliseconds
+                  </td></tr><tr><td align="left"><code class="code">TotalCreationTime</code></td><td align="left">
+                    The total time spent creating connections.
+                    The value is in milliseconds
+                  </td></tr><tr><td align="left"><code class="code">TotalGetTime</code></td><td align="left">
+                    The total time spent obtaining connections.
+                    The value is in milliseconds
+                  </td></tr><tr><td align="left"><code class="code">WaitCount</code></td><td align="left">
+                    The number of requests that had to wait for a connection
+                  </td></tr></tbody></table></div></div><p><br class="table-break"/>
+        </p><p>
+          Datasources has the following JDBC statistics values
+        
+          </p><div class="table"><a id="d0e3598"/><p class="title"><strong>Table 5.26. JDBC statistics</strong></p><div class="table-contents"><table summary="JDBC statistics" border="1"><colgroup><col align="left" class="c1"/><col align="left" class="c2"/></colgroup><thead><tr><th align="left">Name</th><th align="left">Desciption</th></tr></thead><tbody><tr><td align="left"><code class="code">PreparedStatementCacheAccessCount</code></td><td align="left">
+                    The number of times that the statement cache was accessed
+                  </td></tr><tr><td align="left"><code class="code">PreparedStatementCacheAddCount</code></td><td align="left">
+                    The number of statements added to the statement cache
+                  </td></tr><tr><td align="left"><code class="code">PreparedStatementCacheCurrentSize</code></td><td align="left">
+                    The number of prepared and callable statements currently cached in the statement cache
+                  </td></tr><tr><td align="left"><code class="code">PreparedStatementCacheDeleteCount</code></td><td align="left">
+                    The number of statements discarded from the cache
+                  </td></tr><tr><td align="left"><code class="code">PreparedStatementCacheHitCount</code></td><td align="left">
+                    The number of times that statements from the cache were used
+                  </td></tr><tr><td align="left"><code class="code">PreparedStatementCacheMissCount</code></td><td align="left">
+                    The number of times that a statement request could not be satisfied with a statement from the cache
+                  </td></tr></tbody></table></div></div><p><br class="table-break"/>
+        </p></div></div><div class="section" title="5.4. General deployment settings"><div class="titlepage"><div><div><h2 class="title"><a id="deploying_general"/>5.4. General deployment settings</h2></div></div></div><p>
+        This section will provide an overview of general deployment settings that are shared between resource adapter
+        activations, and datasource deployments.
+      </p><div class="section" title="5.4.1. Flush strategies"><div class="titlepage"><div><div><h3 class="title"><a id="deploying_flush_strategies"/>5.4.1. Flush strategies</h3></div></div></div><p>
+          The flush strategy option for the connection pool defines how the pool should be flushed in case there
+          is an error on a connection belonging to the pool.
+        </p><p>
+          In all cases the connection with the error is destroyed, and the pool is scheduled for prefill if supported.
+        </p><div class="table"><a id="d0e3660"/><p class="title"><strong>Table 5.27. Flush strategies</strong></p><div class="table-contents"><table summary="Flush strategies" border="1"><colgroup><col align="left" class="c1"/><col align="left" class="c2"/></colgroup><thead><tr><th align="left">Name</th><th align="left">Desciption</th></tr></thead><tbody><tr><td align="left"><code class="code">FailingConnectionOnly</code></td><td align="left">
+                  Only the connection with the error is destroyed. This is the default strategy.
+                </td></tr><tr><td align="left"><code class="code">InvalidIdleConnections</code></td><td align="left">
+                  All idle connections are checked if they are invalid, based on the
+                  <code class="code">javax.resource.spi.ValidatingManagedConnectionFactory</code>
+                  return value.
+                </td></tr><tr><td align="left"><code class="code">IdleConnections</code></td><td align="left">
+                  All idle connections are destroyed.
+                </td></tr><tr><td align="left"><code class="code">Gracefully</code></td><td align="left">
+                  All idle connections are destroyed, and all active connections
+                  will be destroyed upon return to the pool.
+                </td></tr><tr><td align="left"><code class="code">EntirePool</code></td><td align="left">
+                  All connections are destroyed, including current active connections.
+                </td></tr><tr><td align="left"><code class="code">AllInvalidIdleConnections</code></td><td align="left">
+                  Like <code class="code">InvalidIdleConnections</code>, but across
+                  all credentials for the pool if supported.
+                </td></tr><tr><td align="left"><code class="code">AllIdleConnections</code></td><td align="left">
+                  Like <code class="code">IdleConnections</code>, but across
+                  all credentials for the pool if supported.
+                </td></tr><tr><td align="left"><code class="code">AllGracefully</code></td><td align="left">
+                  Like <code class="code">Gracefully</code>, but across
+                  all credentials for the pool if supported.
+                </td></tr><tr><td align="left"><code class="code">AllConnections</code></td><td align="left">
+                  Like <code class="code">EntirePool</code>, but across
+                  all credentials for the pool if supported.
+                </td></tr></tbody></table></div></div><br class="table-break"/></div><div class="section" title="5.4.2. Capacity policies"><div class="titlepage"><div><div><h3 class="title"><a id="deploying_capacity_policies"/>5.4.2. Capacity policies</h3></div></div></div><p>
+          The policy for creating and destroying physical connections for a pool can be controlled by specifying
+          which policy that should be used.
+        </p><p>
+          The default policies are only to create one connection per request, and to destroy all connections timed
+          out when the idle timeout is scheduled.
+        </p><div class="section" title="5.4.2.1. Increment policies"><div class="titlepage"><div><div><h4 class="title"><a id="deploying_capacity_increment"/>5.4.2.1. Increment policies</h4></div></div></div><p>
+            The following increment policies are supported.
+          </p><div class="section" title="5.4.2.1.1. MaxPoolSize policy"><div class="titlepage"><div><div><h5 class="title"><a id="deploying_capacity_increment_maxpool"/>5.4.2.1.1. MaxPoolSize policy</h5></div></div></div><p>
+              The <code class="code">org.jboss.jca.core.connectionmanager.pool.capacity.MaxPoolSizeIncrementer</code> policy
+              will fill the pool to its max size for each request.
+            </p><p>
+              This policy is useful when you want to keep the maximum number of connections available all the time.
+            </p></div><div class="section" title="5.4.2.1.2. Size policy"><div class="titlepage"><div><div><h5 class="title"><a id="deploying_capacity_increment_size"/>5.4.2.1.2. Size policy</h5></div></div></div><p>
+              The <code class="code">org.jboss.jca.core.connectionmanager.pool.capacity.SizeIncrementer</code> policy
+              will fill the pool by the specified number of connections for each request.
+            </p><div class="table"><a id="d0e3772"/><p class="title"><strong>Table 5.28. Size policy properties</strong></p><div class="table-contents"><table summary="Size policy properties" border="1"><colgroup><col align="left" class="c1"/><col align="left" class="c2"/></colgroup><thead><tr><th align="left">Name</th><th align="left">Desciption</th></tr></thead><tbody><tr><td align="left"><code class="code">Size</code></td><td align="left">
+                      The number of connections that should be created
+                    </td></tr></tbody></table></div></div><br class="table-break"/><p>
+              This policy is useful when you want to increment with an additional number of connections per
+              request in anticipation that the next request will also need a connection.
+            </p><p>
+              This is the default increment policy with a value of 1.
+            </p></div><div class="section" title="5.4.2.1.3. Watermark policy"><div class="titlepage"><div><div><h5 class="title"><a id="deploying_capacity_increment_watermark"/>5.4.2.1.3. Watermark policy</h5></div></div></div><p>
+              The <code class="code">org.jboss.jca.core.connectionmanager.pool.capacity.WatermarkIncrementer</code> policy
+              will fill the pool to the specified number of connections for each request.
+            </p><div class="table"><a id="d0e3803"/><p class="title"><strong>Table 5.29. Watermark policy properties</strong></p><div class="table-contents"><table summary="Watermark policy properties" border="1"><colgroup><col align="left" class="c1"/><col align="left" class="c2"/></colgroup><thead><tr><th align="left">Name</th><th align="left">Desciption</th></tr></thead><tbody><tr><td align="left"><code class="code">Watermark</code></td><td align="left">
+                      The watermark level for the number of connections
+                    </td></tr></tbody></table></div></div><br class="table-break"/><p>
+              This policy is useful when you want to keep a specified number of connections in the pool
+              at all time.
+            </p></div></div><div class="section" title="5.4.2.2. Decrement policies"><div class="titlepage"><div><div><h4 class="title"><a id="deploying_capacity_decrement"/>5.4.2.2. Decrement policies</h4></div></div></div><p>
+            The following decrement policies are supported.
+          </p><div class="section" title="5.4.2.2.1. MinPoolSize policy"><div class="titlepage"><div><div><h5 class="title"><a id="deploying_capacity_decrement_minpool"/>5.4.2.2.1. MinPoolSize policy</h5></div></div></div><p>
+              The <code class="code">org.jboss.jca.core.connectionmanager.pool.capacity.MinPoolSizeDecrementer</code> policy
+              will decrement the pool to its min size for each request.
+            </p><p>
+              This policy is useful when you want to limit the number of connections after each idle timeout request.
+            </p></div><div class="section" title="5.4.2.2.2. Size policy"><div class="titlepage"><div><div><h5 class="title"><a id="deploying_capacity_decrement_size"/>5.4.2.2.2. Size policy</h5></div></div></div><p>
+              The <code class="code">org.jboss.jca.core.connectionmanager.pool.capacity.SizeDecrementer</code> policy
+              will decrement the pool by the specified number of connections for each idle timeout request.
+            </p><div class="table"><a id="d0e3848"/><p class="title"><strong>Table 5.30. Size policy properties</strong></p><div class="table-contents"><table summary="Size policy properties" border="1"><colgroup><col align="left" class="c1"/><col align="left" class="c2"/></colgroup><thead><tr><th align="left">Name</th><th align="left">Desciption</th></tr></thead><tbody><tr><td align="left"><code class="code">Size</code></td><td align="left">
+                      The number of connections that should be created
+                    </td></tr></tbody></table></div></div><br class="table-break"/><p>
+              This policy is useful when you want to decrement an additional number of connections per
+              idle timeout request in anticipation that the pool usage will lower over time.
+            </p></div><div class="section" title="5.4.2.2.3. TimedOut policy"><div class="titlepage"><div><div><h5 class="title"><a id="deploying_capacity_decrement_timedout"/>5.4.2.2.3. TimedOut policy</h5></div></div></div><p>
+              The <code class="code">org.jboss.jca.core.connectionmanager.pool.capacity.TimedOutDecrementer</code> policy
+              will removed all connections that have timed out from the pool for each idle timeout request.
+            </p><p>
+              This policy is the default decrement policy.
+            </p></div><div class="section" title="5.4.2.2.4. Watermark policy"><div class="titlepage"><div><div><h5 class="title"><a id="deploying_capacity_decrement_watermark"/>5.4.2.2.4. Watermark policy</h5></div></div></div><p>
+              The <code class="code">org.jboss.jca.core.connectionmanager.pool.capacity.WatermarkDecrementer</code> policy
+              will decrement the pool to the specified number of connections for each idle timeout request.
+            </p><div class="table"><a id="d0e3887"/><p class="title"><strong>Table 5.31. Watermark policy properties</strong></p><div class="table-contents"><table summary="Watermark policy properties" border="1"><colgroup><col align="left" class="c1"/><col align="left" class="c2"/></colgroup><thead><tr><th align="left">Name</th><th align="left">Desciption</th></tr></thead><tbody><tr><td align="left"><code class="code">Watermark</code></td><td align="left">
+                      The watermark level for the number of connections
+                    </td></tr></tbody></table></div></div><br class="table-break"/><p>
+              This policy is useful when you want to keep a specified number of connections in the pool
+              at all time.
+            </p></div></div></div></div></div><hr xmlns="" xmlns:d="http://docbook.org/ns/docbook"/><a xmlns="" xmlns:d="http://docbook.org/ns/docbook" href="legalnotice.html"/><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="ch04.html"><strong>Prev</strong>Chapter 4. Configuration</a></li><li class="up"><a accesskey="u" href="#"><strong>Up</strong></a></li><li class="home"><a accesskey="h" href="index.html"><strong>Home</strong></a></li><li class="next"><a accesskey="n" href="ch06.html"><strong>Next</strong>Chapter 6. Running</a></li></ul></body></html>

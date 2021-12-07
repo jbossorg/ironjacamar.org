@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 3. Installation</title><link rel="stylesheet" type="text/css" href="css/jbossorg.css"/><meta xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL Stylesheets V1.76.1"/><link rel="home" href="index.html" title="IronJacamar 1.0 User's Guide"/><link rel="up" href="index.html" title="IronJacamar 1.0 User's Guide"/><link rel="prev" href="gettingstarted.html" title="Chapter 2. Download"/><link rel="next" href="configuration.html" title="Chapter 4. Configuration"/></head><body><p id="title"><a href="http://www.jboss.org" class="site_href"><strong>JBoss.org</strong></a><a href="http://docs.jboss.org/" class="doc_href"><strong>Community Documentation</strong></a></p><ul class="docnav"><li class="previous"><a accesskey="p" href="gettingstarted.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="configuration.html"><strong>Next</strong></a></li></ul><div class="chapter" title="Chapter 3. Installation"><div class="titlepage"><div><div><h2 class="title"><a id="installation"/>Chapter 3. Installation</h2></div></div></div><div class="toc"><dl><dt><span class="section"><a href="installation.html#installtargz">3.1. Compressed Tape Archive (.tar.gz)</a></span></dt><dt><span class="section"><a href="installation.html#installzip">3.2. Zip Archive (.zip)</a></span></dt><dt><span class="section"><a href="installation.html#directorystructure">3.3. Directory structure</a></span></dt><dt><span class="section"><a href="installation.html#installas">3.4. JBoss Application Server</a></span></dt></dl></div><p>Once you have downloaded the distribution you need to install it in a location of your choice.</p><div class="section" title="3.1. Compressed Tape Archive (.tar.gz)"><div class="titlepage"><div><div><h2 class="title"><a id="installtargz"/>3.1. Compressed Tape Archive (.tar.gz)</h2></div></div></div><p>Extract the distribution using</p><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+tar xzf ironjacamar-1.0.0.Final.tar.gz
+     </pre><p>The distribution will be located in a directory named</p><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+ironjacamar-1.0.0.Final
+     </pre></div><div class="section" title="3.2. Zip Archive (.zip)"><div class="titlepage"><div><div><h2 class="title"><a id="installzip"/>3.2. Zip Archive (.zip)</h2></div></div></div><p>Extract the distribution using</p><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+unzip ironjacamar-1.0.0.Final.zip
+     </pre><p>or any program capable of handling Zip archives such as WinZip and WinRar.</p><p>The distribution will be located in a directory named</p><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+ironjacamar-1.0.0.Final
+     </pre></div><div class="section" title="3.3. Directory structure"><div class="titlepage"><div><div><h2 class="title"><a id="directorystructure"/>3.3. Directory structure</h2></div></div></div><p>The IronJacamar container has the following directory structure:</p><div class="itemizedlist"><ul class="itemizedlist" compact="compact"><li class="listitem">
+        bin: Contains the scripts that starts the container.
+      </li><li class="listitem">
+        config: Contains the configuration of the container.
+      </li><li class="listitem">
+        deploy: Contains user deployments.
+      </li><li class="listitem">
+        doc: Contains the documentation.
+      </li><li class="listitem">
+        lib: Contains all the libraries needed by the container.
+      </li><li class="listitem">
+        log: Contains the log files for the container.
+      </li><li class="listitem">
+        system: Contains system deployments.
+      </li><li class="listitem">
+        tmp: Contains temporary files.
+      </li></ul></div></div><div class="section" title="3.4. JBoss Application Server"><div class="titlepage"><div><div><h2 class="title"><a id="installas"/>3.4. JBoss Application Server</h2></div></div></div><p>
+       The IronJacamar provides the Java EE Connector Architecture (JCA) container
+       for JBoss Application Server 7 and future versions.
+     </p><p>
+       The container can be updated in the JBoss Application Server by using the 
+       <code class="code">as-upgrader.sh</code> script in the <code class="code">doc/as</code> directory.
+       This will allow an easy installation of IronJacamar patch releases to fix bugs
+       in the application server environment.
+     </p><p>
+       The script can be used, like:
+     </p><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+./as-upgrader.sh 1.0.0.Final /path/to/as7/installation
+     </pre><p>
+       where <code class="code">1.0.0.Final</code> is the version identifier of the IronJacamar container
+       and the path points to the top-level directory of the JBoss Application Server installation.
+     </p><p>
+       You can get an overview of all IronJacamar releases by searching our
+       <a class="ulink" href="https://repository.jboss.org/nexus/">Nexus</a> repository.
+     </p><div xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="warning"><h2>Warning</h2>
+       Make sure that you understand the version policies specified in the developer guide before upgrading
+     </div></div></div><HR xmlns=""/><a xmlns="" href=""/><ul class="docnav"><li class="previous"><a accesskey="p" href="gettingstarted.html"><strong>Prev</strong>Chapter 2. Download</a></li><li class="up"><a accesskey="u" href="#"><strong>Top of page</strong></a></li><li class="home"><a accesskey="h" href="index.html"><strong>Front page</strong></a></li><li class="next"><a accesskey="n" href="configuration.html"><strong>Next</strong>Chapter 4. Configuration</a></li></ul></body></html>

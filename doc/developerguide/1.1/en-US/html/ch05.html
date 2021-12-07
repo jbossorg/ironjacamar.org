@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Chapter 5. Testing</title><link rel="stylesheet" type="text/css" href="css/ironjacamar.css"/><meta name="generator" content="DocBook XSL Stylesheets V1.76.1"/><link rel="home" href="index.html" title="IronJacamar 1.1 Developer's Guide"/><link rel="up" href="index.html" title="IronJacamar 1.1 Developer's Guide"/><link rel="prev" href="ch04.html" title="Chapter 4. Issue tracking"/><link rel="next" href="ch06.html" title="Chapter 6. Metadata"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" http-equiv="Content-Type" content="text/html; charset=UTF-8"/></head><body><p xmlns:d="http://docbook.org/ns/docbook" id="title"><a href="http://www.ironjacamar.org/" class="site_href"><strong>www.ironjacamar.org</strong></a><a href="http://www.ironjacamar.org/documentation.html" class="doc_href"><strong>Community Documentation</strong></a></p><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="ch04.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="ch06.html"><strong>Next</strong></a></li></ul><div class="chapter" title="Chapter 5. Testing"><div class="titlepage"><div><div><h2 class="title"><a id="testing"/>Chapter 5. Testing</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl><dt><span class="section"><a href="ch05.html#testinggoals">5.1. Overall goals</a></span></dt><dd><dl><dt><span class="section"><a href="ch05.html#spectest">5.1.1. Specification</a></span></dt><dt><span class="section"><a href="ch05.html#jbinterfacetest">5.1.2. IronJacamar specific interfaces</a></span></dt><dt><span class="section"><a href="ch05.html#jbimpltest">5.1.3. IronJacamar specific implementation</a></span></dt></dl></dd><dt><span class="section"><a href="ch05.html#style">5.2. Testing principle and style</a></span></dt><dd><dl><dt><span class="section"><a href="ch05.html#integration">5.2.1. Integration Tests</a></span></dt><dt><span class="section"><a href="ch05.html#unit">5.2.2. Unit Tests</a></span></dt></dl></dd><dt><span class="section"><a href="ch05.html#qa">5.3. Quality Assurance</a></span></dt><dd><dl><dt><span class="section"><a href="ch05.html#checkstyle">5.3.1. Checkstyle</a></span></dt><dt><span class="section"><a href="ch05.html#findbugs">5.3.2. Findbugs</a></span></dt><dt><span class="section"><a href="ch05.html#jacoco">5.3.3. JaCoCo</a></span></dt><dt><span class="section"><a href="ch05.html#tattletale">5.3.4. Tattletale</a></span></dt></dl></dd><dt><span class="section"><a href="ch05.html#performance">5.4. Performance testing</a></span></dt><dd><dl><dt><span class="section"><a href="ch05.html#jprofiler">5.4.1. JProfiler</a></span></dt><dt><span class="section"><a href="ch05.html#oprofile">5.4.2. OProfile</a></span></dt></dl></dd></dl></div><div class="section" title="5.1. Overall goals"><div class="titlepage"><div><div><h2 class="title"><a id="testinggoals"/>5.1. Overall goals</h2></div></div></div><p>The overall goals of our test environment is to execute tests that ensures that
+    we have full coverage of the JCA specification as well as our implementation.</p><p>The full test suite is executed using</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+ant test
+    </pre><p>A single test case can be executed using</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+ant -Dmodule=embedded -Dtest=org.jboss.jca.embedded.unit.ShrinkWrapTestCase one-test
+    </pre><p>where <code class="code">-Dmodule</code> specifies which module to execute the test case in. This parameter
+      defaults to <code class="code">core</code>. The <code class="code">-Dtest</code> parameter specifies the test case itself.</p><p>You can also execute all test cases of a single module using</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+ant -Dmodule=embedded module-test
+    </pre><p>where <code class="code">-Dmodule</code> specifies which module to execute the test cases in. This
+      parameter defaults to <code class="code">core</code>.</p><p>The build script does not fail in case of test errors or failure.</p><p>
+      You can control the behavior by using the <code class="code">junit.haltonerror</code> and <code class="code">junit.haltonfailure</code> 
+      properties in the main <code class="code">build.xml</code> file. Default value for both is <code class="code">no</code>.
+    </p><p>
+      You can of course change them statically in the <code class="code">build.xml</code> file or temporary using <code class="code">-Djunit.haltonerror=yes</code>.
+      There are other <code class="code">jnuit.*</code> properties defined in the main <code class="code">build.xml</code> that can be controlled in the same
+      way.
+    </p><div class="section" title="5.1.1. Specification"><div class="titlepage"><div><div><h3 class="title"><a id="spectest"/>5.1.1. Specification</h3></div></div></div><p>The purpose of the specification tests is to test our implementation against the
+      actual specification text.</p><p>Each test can only depend on:</p><div class="itemizedlist"><ul class="itemizedlist" compact="compact"><li class="listitem"><p>The official Java Connector Architecture API (javax.resource)</p></li><li class="listitem"><p>Interfaces and classes in the test suite that extends/implements 
+            the official API</p></li></ul></div><p>The test cases should be created in such a way such that they are easily identified
+        by chapter, section and paragraph. For example:</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+org.jboss.jca.core.spec.chaper10.section3
+      </pre></div><div class="section" title="5.1.2. IronJacamar specific interfaces"><div class="titlepage"><div><div><h3 class="title"><a id="jbinterfacetest"/>5.1.2. IronJacamar specific interfaces</h3></div></div></div><p>The purpose of the IronJacamar specific interfaces tests is to test our specific interfaces.</p><p>Each test can depend on:</p><div class="itemizedlist"><ul class="itemizedlist" compact="compact"><li class="listitem"><p>The official Java Connector Architecture API (javax.resource)</p></li><li class="listitem"><p>The IronJacamar specific APIs (org.jboss.jca.xxx.api)</p></li><li class="listitem"><p>Interfaces and classes in the test suite that extends/implements these APIs</p></li></ul></div><p>The test cases lives in a package that have a meaningful name of the component it tests. For example:</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+org.jboss.jca.core.workmanager
+      </pre><p>These test cases can use both the embedded JCA environment or be implemented as standard POJO based
+        JUnit test cases.</p></div><div class="section" title="5.1.3. IronJacamar specific implementation"><div class="titlepage"><div><div><h3 class="title"><a id="jbimpltest"/>5.1.3. IronJacamar specific implementation</h3></div></div></div><p>The purpose of the IronJacamar specific implementation tests is to test our specific implementation.
+      These tests should cover all methods are not exposed through the interface.</p><p>Each test can depend on:</p><div class="itemizedlist"><ul class="itemizedlist" compact="compact"><li class="listitem"><p>The official Java Connector Architecture API (javax.resource)</p></li><li class="listitem"><p>The IronJacamar specific APIs (org.jboss.jca.xxx.api)</p></li><li class="listitem"><p>The IronJacamar specific implementation (org.jboss.jca.xxx.yyy)</p></li><li class="listitem"><p>Interfaces and classes in the test suite</p></li></ul></div><p>The test cases lives in a package that have a meaningful name of the component it tests. For example:</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+org.jboss.jca.core.workmanager
+      </pre><p>These test cases can use both the embedded JCA environment or be implemented as standard POJO based
+        JUnit test cases.</p></div></div><div class="section" title="5.2. Testing principle and style"><div class="titlepage"><div><div><h2 class="title"><a id="style"/>5.2. Testing principle and style</h2></div></div></div><p>
+      Our tests follows the Behavior Driven Development (BDD) technique. In BDD you focus on specifying the behaviors
+      of a class and write code (tests) that verify that behavior.
+    </p><p>
+      You may be thinking that BDD sounds awfully similar to Test Driven Development (TDD). 
+      In some ways they are similar: they both encourage writing the tests first and to provide full coverage of the 
+      code. However, TDD doesn't really provide a guide on which kind of tests you should be writing.
+    </p><p>
+      BDD provides you with guidance on how to do testing by focusing on what the behavior of a class is supposed to be.
+      We introduce BDD to our testing environment by extending the standard JUnit 4.x test framework with
+      BDD capabilities using assertion and mocking frameworks.
+    </p><p>
+      The BDD tests should
+    </p><div class="itemizedlist"><ul class="itemizedlist" compact="compact"><li class="listitem"><p>
+          Clearly define <code class="code">given-when-then</code> conditions
+        </p></li><li class="listitem"><p>
+          The method name defines what is expected: f.ex. shouldReturnFalseIfMethodXIsCalledWithNullString()
+        </p></li><li class="listitem"><p>
+          Easy to read the assertions by using <a class="ulink" href="http://code.google.com/p/hamcrest/">Hamcrest Matchers</a>
+        </p></li><li class="listitem"><p>
+          Use <code class="code">given</code> facts whenever possible to make the test case more readable. It could be the
+          name of the deployed resource adapter, or using the 
+          <a class="ulink" href="http://mockito.googlecode.com/svn/branches/1.8.0/javadoc/org/mockito/BDDMockito.html">
+            BDD Mockito class</a> to mock the fact.
+        </p></li></ul></div><p>We are using two different kind of tests:</p><div class="itemizedlist"><ul class="itemizedlist" compact="compact"><li class="listitem"><p>
+          Integration Tests: The goal of these test cases is to validate the whole process of deployment, and
+          interacting with a sub-system by simulating a critical condition.
+        </p></li><li class="listitem"><p>
+          Unit Tests: The goal of these test cases is to stress test some internal behaviour by mocking classes
+          to perfectly reproduce conditions to test.
+        </p></li></ul></div><div class="section" title="5.2.1. Integration Tests"><div class="titlepage"><div><div><h3 class="title"><a id="integration"/>5.2.1. Integration Tests</h3></div></div></div><p>
+        The integration tests simulate a real condition using a particular deployment artifacts packaged as 
+        resource adapters.
+      </p><p>
+        The resource adapters are created using either the main build environment or by using 
+        <a class="ulink" href="http://community.jboss.org/wiki/ShrinkWrap">ShrinkWrap</a>. Using resource adapters
+        within the test cases will allow you to debug both the resource adapters themself or the JCA container.
+      </p><p>
+        The resource adapters represent the [<span class="citation">given</span>] facts of our BDD tests, 
+        the deployment of the resource adapters represent the [<span class="citation">when</span>] phase, 
+        while the [<span class="citation">then</span>] phase is verified by assertion.
+      </p><p>
+        Note that some tests consider an exception a normal output condition using the JUnit 4.x 
+        <code class="code">@Exception(expected = "SomeClass.class")</code> annotation to identify and verify this situation. 
+      </p></div><div class="section" title="5.2.2. Unit Tests"><div class="titlepage"><div><div><h3 class="title"><a id="unit"/>5.2.2. Unit Tests</h3></div></div></div><p>
+        We are mocking our input/output conditions in our unit tests using the 
+        <a class="ulink" href="http://mockito.googlecode.com">Mockito</a> framework to verify class and method behaviors.
+      </p><p>An example:</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="JAVA"></span>
+<!--  --><br/><span class="java_plain">@</span><span class="java_type">Test</span>
+<!--  --><br/><span class="java_keyword">public</span><span class="java_plain">&nbsp;</span><span class="java_type">void</span><span class="java_plain">&nbsp;printFailuresLogShouldReturnNotEmptyStringForWarning</span><span class="java_separator">()</span><span class="java_plain">&nbsp;</span><span class="java_keyword">throws</span><span class="java_plain">&nbsp;</span><span class="java_type">Throwable</span>
+<!--  --><br/><span class="java_separator">{</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_operator">//</span><span class="java_plain">given</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_type">RADeployer</span><span class="java_plain">&nbsp;deployer&nbsp;</span><span class="java_operator">=</span><span class="java_plain">&nbsp;</span><span class="java_keyword">new</span><span class="java_plain">&nbsp;</span><span class="java_type">RADeployer</span><span class="java_separator">();</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_type">File</span><span class="java_plain">&nbsp;mockedDirectory&nbsp;</span><span class="java_operator">=</span><span class="java_plain">&nbsp;mock</span><span class="java_separator">(</span><span class="java_type">File</span><span class="java_separator">.</span><span class="java_keyword">class</span><span class="java_separator">);</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;given</span><span class="java_separator">(</span><span class="java_plain">mockedDirectory</span><span class="java_separator">.</span><span class="java_plain">exists</span><span class="java_separator">()).</span><span class="java_plain">willReturn</span><span class="java_separator">(</span><span class="java_literal">false</span><span class="java_separator">);</span>
+</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_type">Failure</span><span class="java_plain">&nbsp;failure&nbsp;</span><span class="java_operator">=</span><span class="java_plain">&nbsp;mock</span><span class="java_separator">(</span><span class="java_type">Failure</span><span class="java_separator">.</span><span class="java_keyword">class</span><span class="java_separator">);</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;given</span><span class="java_separator">(</span><span class="java_plain">failure</span><span class="java_separator">.</span><span class="java_plain">getSeverity</span><span class="java_separator">()).</span><span class="java_plain">willReturn</span><span class="java_separator">(</span><span class="java_type">Severity</span><span class="java_separator">.</span><span class="java_plain">WARNING</span><span class="java_separator">);</span>
+</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_type">List</span><span class="java_plain">&nbsp;failures&nbsp;</span><span class="java_operator">=</span><span class="java_plain">&nbsp;</span><span class="java_type">Arrays</span><span class="java_separator">.</span><span class="java_plain">asList</span><span class="java_separator">(</span><span class="java_plain">failure</span><span class="java_separator">);</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_type">FailureHelper</span><span class="java_plain">&nbsp;fh&nbsp;</span><span class="java_operator">=</span><span class="java_plain">&nbsp;mock</span><span class="java_separator">(</span><span class="java_type">FailureHelper</span><span class="java_separator">.</span><span class="java_keyword">class</span><span class="java_separator">);</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;given</span><span class="java_separator">(</span><span class="java_plain">fh</span><span class="java_separator">.</span><span class="java_plain">asText</span><span class="java_separator">((</span><span class="java_type">ResourceBundle</span><span class="java_separator">)</span><span class="java_plain">&nbsp;anyObject</span><span class="java_separator">())).</span><span class="java_plain">willReturn</span><span class="java_separator">(</span><span class="java_literal">&quot;myText&quot;</span><span class="java_separator">);</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;deployer</span><span class="java_separator">.</span><span class="java_plain">setArchiveValidationFailOnWarn</span><span class="java_separator">(</span><span class="java_literal">true</span><span class="java_separator">);</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_operator">//</span><span class="java_plain">when</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_type">String</span><span class="java_plain">&nbsp;returnValue&nbsp;</span><span class="java_operator">=</span><span class="java_plain">&nbsp;deployer</span><span class="java_separator">.</span><span class="java_plain">printFailuresLog</span><span class="java_separator">(</span><span class="java_literal">null</span><span class="java_separator">,</span><span class="java_plain">&nbsp;mock</span><span class="java_separator">(</span><span class="java_type">Validator</span><span class="java_separator">.</span><span class="java_keyword">class</span><span class="java_separator">),</span><span class="java_plain">&nbsp;</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;failures</span><span class="java_separator">,</span><span class="java_plain">&nbsp;mockedDirectory</span><span class="java_separator">,</span><span class="java_plain">&nbsp;fh</span><span class="java_separator">);</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_operator">//</span><span class="java_plain">then</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;assertThat</span><span class="java_separator">(</span><span class="java_plain">returnValue</span><span class="java_separator">,</span><span class="java_plain">&nbsp;is</span><span class="java_separator">(</span><span class="java_literal">&quot;myText&quot;</span><span class="java_separator">));</span>
+<!--  --><br/><span class="java_separator">}</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></pre><p>
+        As you can see the BDD style respects the test method name and using the 
+        <code class="code">given-when-then</code> sequence in order.
+      </p></div></div><div class="section" title="5.3. Quality Assurance"><div class="titlepage"><div><div><h2 class="title"><a id="qa"/>5.3. Quality Assurance</h2></div></div></div><p>In addition to the test suite the IronJacamar project deploys various
+      tools to increase the stability of the project.</p><p>The following sections will describe each of these tools.</p><div class="section" title="5.3.1. Checkstyle"><div class="titlepage"><div><div><h3 class="title"><a id="checkstyle"/>5.3.1. Checkstyle</h3></div></div></div><p>Checkstyle is a tool that verifies that the formatting of the source
+        code in the project is consistent.</p><p>This allows for easier readability and a consistent feel of the project.</p><p>The goal is to have zero errors in the report. The checkstyle report is generated
+        using</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+ant checkstyle
+      </pre><p>The report is generated into</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+reports/checkstyle
+      </pre><p>The home of checkstyle is located here: <a class="ulink" href="http://checkstyle.sourceforge.net/">http://checkstyle.sourceforge.net/</a>.</p></div><div class="section" title="5.3.2. Findbugs"><div class="titlepage"><div><div><h3 class="title"><a id="findbugs"/>5.3.2. Findbugs</h3></div></div></div><p>Findbugs is a tool that scans your project for bugs and provides reports based on its
+        findings.</p><p>This tool helps lower of the number of bugs found in the IronJacamar project.</p><p>The goal is to have zero errors in the report and as few exclusions in the filter as possible.
+        The findbugs report is generated using</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+ant findbugs
+      </pre><p>The report is generated into</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+reports/findbugs
+      </pre><p>The home of findbugs is located here: <a class="ulink" href="http://findbugs.sourceforge.net/">http://findbugs.sourceforge.net/</a>.</p></div><div class="section" title="5.3.3. JaCoCo"><div class="titlepage"><div><div><h3 class="title"><a id="jacoco"/>5.3.3. JaCoCo</h3></div></div></div><p>JaCoCo generates a test suite matrix for your project which helps you identify
+        where you need additional test coverage.</p><p>The reports that the tool provides makes sure that the IronJacamar project has the correct test coverage.</p><p>The goal is to have as high code coverage as possible in all areas. The JaCoco report is
+        generated using</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+ant jacoco
+      </pre><p>The report is generated into</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+reports/jacoco
+      </pre><p>The home of JaCoCo is located here: <a class="ulink" href="http://www.eclemma.org/jacoco/">http://www.eclemma.org/jacoco/</a>.</p></div><div class="section" title="5.3.4. Tattletale"><div class="titlepage"><div><div><h3 class="title"><a id="tattletale"/>5.3.4. Tattletale</h3></div></div></div><p>Tattletale generates reports about different quality matrix of the dependencies within the project.</p><p>The reports that the tool provides makes sure that the IronJacamar project doesn't for example have
+        cyclic dependencies within the project.</p><p>The goal is to have as no issues flagged by the tool. The Tattletale reports are
+        generated using</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+ant tattletale
+      </pre><p>The reports are generated into</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+reports/tattletale
+      </pre><p>The home of Tattletale is located here: <a class="ulink" href="http://www.jboss.org/tattletale">http://www.jboss.org/tattletale</a>.</p></div></div><div class="section" title="5.4. Performance testing"><div class="titlepage"><div><div><h2 class="title"><a id="performance"/>5.4. Performance testing</h2></div></div></div><p>Performance testing can identify areas that needs to be improved or completely replaced.</p><div class="section" title="5.4.1. JProfiler"><div class="titlepage"><div><div><h3 class="title"><a id="jprofiler"/>5.4.1. JProfiler</h3></div></div></div><p>Insert the following line in <code class="code">run.sh</code> or <code class="code">run.bat</code>:</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+-agentpath:&lt;path&gt;/jprofiler6/bin/linux-x64/libjprofilerti.so=port=8849 
+      </pre><p>where the Java command is executed.</p><p>The home of JProfiler is located here: <a class="ulink" href="http://www.ej-technologies.com/products/jprofiler/overview.html">http://www.ej-technologies.com/products/jprofiler/overview.html</a>.</p></div><div class="section" title="5.4.2. OProfile"><div class="titlepage"><div><div><h3 class="title"><a id="oprofile"/>5.4.2. OProfile</h3></div></div></div><p>OProfile can give a detailed overview of applications running on the machine, including
+        Java program running with OpenJDK.</p><p>The home of OProfile is located here: <a class="ulink" href="http://oprofile.sourceforge.net">http://oprofile.sourceforge.net</a>.</p><div class="section" title="5.4.2.1. Installation"><div class="titlepage"><div><div><h4 class="title"><a id="oprofile_install"/>5.4.2.1. Installation</h4></div></div></div><p>Enable the Fedora debug repo:</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+/etc/yum.repos.d/fedora.repo
+
+[fedora-debuginfo]
+name=Fedora $releasever - $basearch - Debug
+failovermethod=priority
+mirrorlist=https://mirrors.fedoraproject.org/metalink?repo=fedora-debug-$releasever&amp;arch=$basearch
+enabled=1
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-$basearch
+        </pre><p>Install:</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+yum install -y oprofile oprofile-jit
+yum install -y yum-plugin-auto-update-debug-info
+yum install -y java-1.6.0-openjdk-debuginfo
+        </pre></div><div class="section" title="5.4.2.2. Running"><div class="titlepage"><div><div><h4 class="title"><a id="oprofile_running"/>5.4.2.2. Running</h4></div></div></div><p>Insert the following line in <code class="code">run.sh</code> or <code class="code">run.bat</code>:</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+-agentpath:/usr/lib64/oprofile/libjvmti_oprofile.so
+        </pre><p>for 64bit JVMs or </p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+-agentpath:/usr/lib/oprofile/libjvmti_oprofile.so
+        </pre><p>for 32 bit JVMs where the Java command is executed.</p><p>Now execute:</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+opcontrol --no-vmlinux
+opcontrol --start-daemon
+        </pre><p>and use the following commands:</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+opcontrol --start # Starts profiling
+opcontrol --dump  # Dumps the profiling data out to the default file
+opcontrol --stop  # Stops profiling
+        </pre><p>Once you are done execute:</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+opcontrol --shutdown  # Shuts the daemon down
+        </pre><p>A report can be generated by:</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+opreport -l --output-file=&lt;filename&gt;
+        </pre><p>Remember that this is system wide profiling, so make sure that only the services
+          that you want included are running.</p><p>More information is available at <a class="ulink" href="http://oprofile.sourceforge.net/doc/index.html">http://oprofile.sourceforge.net/doc/index.html</a>.</p></div></div></div></div><hr xmlns="" xmlns:d="http://docbook.org/ns/docbook"/><a xmlns="" xmlns:d="http://docbook.org/ns/docbook" href="legalnotice.html"/><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="ch04.html"><strong>Prev</strong>Chapter 4. Issue tracking</a></li><li class="up"><a accesskey="u" href="#"><strong>Up</strong></a></li><li class="home"><a accesskey="h" href="index.html"><strong>Home</strong></a></li><li class="next"><a accesskey="n" href="ch06.html"><strong>Next</strong>Chapter 6. Metadata</a></li></ul></body></html>

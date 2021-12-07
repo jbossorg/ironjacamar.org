@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Chapter 10. Other tools</title><link rel="stylesheet" type="text/css" href="css/ironjacamar.css"/><meta name="generator" content="DocBook XSL Stylesheets V1.76.1"/><link rel="home" href="index.html" title="IronJacamar 1.1 User's Guide"/><link rel="up" href="index.html" title="IronJacamar 1.1 User's Guide"/><link rel="prev" href="ch09.html" title="Chapter 9. Eclipse plugin"/><link rel="next" href="ch11.html" title="Chapter 11. Embedded"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" http-equiv="Content-Type" content="text/html; charset=UTF-8"/></head><body><p xmlns:d="http://docbook.org/ns/docbook" id="title"><a href="http://www.ironjacamar.org/" class="site_href"><strong>www.ironjacamar.org</strong></a><a href="http://www.ironjacamar.org/documentation.html" class="doc_href"><strong>Community Documentation</strong></a></p><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="ch09.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="ch11.html"><strong>Next</strong></a></li></ul><div class="chapter" title="Chapter 10. Other tools"><div class="titlepage"><div><div><h2 class="title"><a id="tools"/>Chapter 10. Other tools</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl><dt><span class="section"><a href="ch10.html#tools_rarinfo">10.1. Resource adapter information tool</a></span></dt><dt><span class="section"><a href="ch10.html#tools_migration">10.2. Migration tool</a></span></dt><dd><dl><dt><span class="section"><a href="ch10.html#tools_migration_resource_adapters">10.2.1. Resource adapters</a></span></dt><dt><span class="section"><a href="ch10.html#tools_migration_datasources">10.2.2. Data sources</a></span></dt></dl></dd></dl></div><div class="section" title="10.1. Resource adapter information tool"><div class="titlepage"><div><div><h2 class="title"><a id="tools_rarinfo"/>10.1. Resource adapter information tool</h2></div></div></div><p>
+      The IronJacamar distribution features a resource adapter information tool, that can provide the important 
+      information about the resource adapter and a sample deployment descriptor.
+    </p><p>
+      The information about the resource adapter is generated using the following command:
+    </p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+./rar-info.sh myeis.rar
+    </pre><p>
+      where the report will be located in <code class="code">myeis-report.txt</code>. The tool can take an optional
+      <code class="code">-classpath</code> parameter such that additional external dependencies can be resolved against
+      the resource adapter.
+    </p><p>
+      The report will contain information about
+
+      </p><div class="itemizedlist"><ul class="itemizedlist" compact="compact"><li class="listitem">
+          The name of the resource adapter
+        </li><li class="listitem">
+          The Java EE Connector Architecture specification version
+        </li><li class="listitem">
+          The type of the resource adapter
+        </li><li class="listitem">
+          If the resource adapter supports reauthentication
+        </li><li class="listitem">
+          If the resource adapter is compliant (see the validator tool)
+        </li><li class="listitem">
+          If the resource adapter contains native libraries
+        </li><li class="listitem">
+          The structure of the resource adapter archive
+        </li><li class="listitem">
+          Overview of the resource adapter class
+        </li><li class="listitem">
+          Overview of the managed connection factory classes
+        </li><li class="listitem">
+          The connectory factory and connection API if common client interface isn't used
+        </li><li class="listitem">
+          Overview of the admin object classes
+        </li><li class="listitem">
+          Overview of the activation specification classes
+        </li><li class="listitem">
+          Metadata included, including the <code class="code">MANIFEST.MF</code> file
+        </li><li class="listitem">
+          A sample deployment descriptor
+        </li></ul></div><p>
+
+    </p><p>
+      The tool (<code class="code">rar-info.sh</code>) is located in the <code class="code">doc/as/</code> directory of the
+      distribution.
+    </p></div><div class="section" title="10.2. Migration tool"><div class="titlepage"><div><div><h2 class="title"><a id="tools_migration"/>10.2. Migration tool</h2></div></div></div><p>
+      The IronJacamar distribution features a migration tool, that can convert the deployment
+      format used in JBoss Application Server prior to version 7, and JBoss Enterprise Application Platform
+      versions prior to version 6.
+    </p><p>
+      Since there are different formats (XSDs) to deploy datasources and a resource adapters the tool
+      can convert to both these formats.
+    </p><p>
+      The tool (<code class="code">converter.sh</code>) is located in the <code class="code">doc/as/</code> directory of the
+      distribution.
+    </p><div class="section" title="10.2.1. Resource adapters"><div class="titlepage"><div><div><h3 class="title"><a id="tools_migration_resource_adapters"/>10.2.1. Resource adapters</h3></div></div></div><p>
+        A resource adapter deployment is converted using the following command:
+      </p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+./converter.sh -ra old-ds.xml new-ra.xml
+      </pre><p>
+        which will convert the file <code class="code">old-ds.xml</code> to <code class="code">new-ra.xml</code>. The content of
+        <code class="code">new-ra.xml</code> can then be copied into the <code class="code">resource-adapters</code> subsystem
+        in WildFly or used directly in the IronJacamar/Standalone distribution.
+      </p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><h2>Note</h2>
+        Note that, the tool will do a best effort to convert all old attributes and elements to
+        the new format. It will be necessary to make additional changes to the generated file.
+        Please, consult this documentation for additional information.
+      </div><div class="section" title="10.2.1.1. WebLogic converter"><div class="titlepage"><div><div><h4 class="title"><a id="tools_migration_resource_adapters_weblogic"/>10.2.1.1. WebLogic converter</h4></div></div></div><p>
+          The resource adapter converter tool can also convert the Oracle WebLogic <code class="code">weblogic-ra.xml</code> files
+          to the IronJacamar format.
+        </p><p>
+          The following command line can be used:
+        </p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+./converter.sh -ra --weblogic weblogic-ra.xml new-ra.xml
+        </pre><p>
+          to get a best effort convertion of the Oracle WebLogic deployment file.
+        </p></div></div><div class="section" title="10.2.2. Data sources"><div class="titlepage"><div><div><h3 class="title"><a id="tools_migration_datasources"/>10.2.2. Data sources</h3></div></div></div><p>
+        A data source deployment is converted using the following command:
+      </p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+./converter.sh -ds old-ds.xml new-ds.xml
+      </pre><p>
+        which will convert the file <code class="code">old-ds.xml</code> to <code class="code">new-ds.xml</code>. The content of
+        <code class="code">new-ds.xml</code> can then be copied into the <code class="code">datasources</code> subsystem
+        in WildFly or used directly in the IronJacamar/Standalone distribution.
+      </p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><h2>Note</h2>
+        Note that, the tool will do a best effort to convert all old attributes and elements to
+        the new format. It will be necessary to make additional changes to the generated file.
+        Please, consult this documentation for additional information.
+      </div></div></div></div><hr xmlns="" xmlns:d="http://docbook.org/ns/docbook"/><a xmlns="" xmlns:d="http://docbook.org/ns/docbook" href="legalnotice.html"/><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="ch09.html"><strong>Prev</strong>Chapter 9. Eclipse plugin</a></li><li class="up"><a accesskey="u" href="#"><strong>Up</strong></a></li><li class="home"><a accesskey="h" href="index.html"><strong>Home</strong></a></li><li class="next"><a accesskey="n" href="ch11.html"><strong>Next</strong>Chapter 11. Embedded</a></li></ul></body></html>

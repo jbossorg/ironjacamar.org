@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>IronJacamar 2 / WildFly</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="IronJacamar 2 wildfly module" name="description">
+    <link href="/stylesheets/styles.css" rel="stylesheet" type="text/css">
+    <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon">
+    <!--[if lt IE 9]>
+      <script src="//html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <header>
+      <section style="padding: -20px auto;">
+        <a href="/">
+          <img alt="IronJacamar" src="/images/banner.png">
+        </a>
+      </section>
+    </header>
+    <article>
+      <h1>IronJacamcar 2 / WildFly</h1>
+      <ul>
+        <li>DMR mapping on new metadata</li>
+        <li>DMR transformations</li>
+        <li>WildFly deployer chain mapping on new IronJacamar deployer chain</li>
+      </ul>
+      <h2>DMR mapping on new metadata</h2>
+      The IronJacamar/Common module will allow that a direct DMR mapping in WildFly can be implemented.
+      <p></p>
+      The WildFly model will, like IronJacamar/Common, only operate on the latest IronJacamar metadata models,
+      and provide transformers for earlier models.
+      <p></p>
+      The WildFly DMR mapping will take care of expressions resolved to "undefined" using the IronJacamar defaults.
+      <h2>DMR transformations</h2>
+      WildFly will use the transformers of IronJacamar/Common as a base to provide transformers from older versions of the metadata
+      to the latest version.
+      <h2>WildFly deployer chain mapping on new IronJacamar deployer chain</h2>
+      WildFly will use the abstract deployers from IronJacamar/Deployers to map the WildFly deployment model to the state machine
+      of IronJacamar/Deployers.
+      <br>
+      <br>
+    </article>
+    <footer>
+      <ul>
+        <li>
+          <a href="/">Home</a>
+        </li>
+        <li>
+          <a href="/about.html">About</a>
+        </li>
+        <li>
+          <a href="/download.html">Download</a>
+        </li>
+        <li>
+          <a href="/documentation.html">Documentation</a>
+        </li>
+        <li>
+          <a href="/community.html">Community</a>
+        </li>
+        <li>
+          <a href="/sourcecode.html">Source Code</a>
+        </li>
+        <li>
+          <a href="/issues.html">Issues</a>
+        </li>
+      </ul>
+      <a href="http://www.redhat.com">
+        <img alt="Proudly sponsored by Red Hat" src="/images/redhat_logo.png">
+      </a>
+    </footer>
+  </body>
+</html>

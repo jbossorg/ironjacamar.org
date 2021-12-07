@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>IronJacamar 2 / Core</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="IronJacamar 2 core module" name="description">
+    <link href="/stylesheets/styles.css" rel="stylesheet" type="text/css">
+    <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon">
+    <!--[if lt IE 9]>
+      <script src="//html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <header>
+      <section style="padding: -20px auto;">
+        <a href="/">
+          <img alt="IronJacamar" src="/images/banner.png">
+        </a>
+      </section>
+    </header>
+    <article>
+      <h1>IronJacamcar 2 / Core</h1>
+      <h2>APIs</h2>
+      The API is split into two
+      <p></p>
+      <ol>
+        <li>Public and supported</li>
+        <li>Internal and unsupported</li>
+      </ol>
+      <p></p>
+      The public API only contains interfaces, classes and exceptions which may be used by a resource
+      adapter vendor in order to access IronJacamar specific functionality. The package name for the APIs
+      will have an .api in their name in order to reflect that they are supported. The artifacts for APIs
+      have their Java archive name end in -api.jar.
+      <p></p>
+      The internal API only contains interfaces, classes and exceptions which are used by IronJacamar itself.
+      The API may of course be accessed from resource adapters, but it isn't support, and breakage may occur
+      even in patch releases. The package name for the internal APIs
+      will have an impl.api in their name in order to reflect that they are unsupported. The artifacts for internal APIs
+      are included in their implementation specific Java archive.
+      <h2>Recovery</h2>
+      Have the recovery module use the pool as its backing store.
+      <h2>ResourceAdapter repository</h2>
+      The ResourceAdapterRepository keeps track of the ResourceAdapter instances currently activated.
+      <p></p>
+      Since a ResourceAdapter instance can be referenced from multiple deployments the tracking needs
+      to be ref-counted.
+      <p></p>
+      Much of the code from IronJacamar 1.x can be reused, but usage of String based identifiers should
+      be revisited.
+      <h2>Metadata repository</h2>
+      The job of the MetadataRepository is to keep track of the specification metadata defined by a resource
+      adapter deployment.
+      <p></p>
+      The resource adapter may not have a java.io.File associated, so this can't be a mandatory parameter.
+      Make it optional, or do an overloaded method with a classloader as the building block.
+      <p></p>
+      TODOs
+      <p></p>
+      <ul>
+        <li>String based identifiers</li>
+        <li>Move IronJacamar metadata to deployment repository</li>
+        <li>Move JNDI information to deployment repository</li>
+      </ul>
+      <p></p>
+      Most of the IronJacamar 1.x MetadataRepository implementation can go into the new deployment repository.
+      <h2>Deployment repository</h2>
+      The deployment repository keeps track of all deployments, and provide access to
+      the IronJacamar created objects.
+      <p></p>
+      The deployment repository is shared by resource adapter and datasource deployments.
+      <h3>DeploymentRepository</h3>
+      <ul>
+        <li>Add a deployment</li>
+        <li>Get a deployment</li>
+        <li>Remove a deployment</li>
+        <li>Methods for querying deployments (findByJNDI(String), ...)</li>
+      </ul>
+      <h3>Deployment</h3>
+      <ul>
+        <li>
+          Deployment identifier
+        </li>
+        <li>
+          Resource adapter archive reference - either file or module (classloader)
+        </li>
+        <li>
+          Classloader
+        </li>
+        <li>
+          ResourceAdapter instance reference
+        </li>
+        <li>
+          config-property (read-only, writable, confidential) with value
+          <ul>
+            <li>Declared</li>
+            <li>Introspected</li>
+          </ul>
+        </li>
+        <li>
+          ResourceAdapter statistics
+        </li>
+        <li>
+          Deployment metadata
+        </li>
+        <li>
+          ConnectionFactory (List)
+          <ul>
+            <li>
+              JNDI name
+            </li>
+            <li>
+              ConnectionManager
+            </li>
+            <li>
+              Pool
+            </li>
+            <li>
+              config-property (read-only, writable, confidential) with value
+              <ul>
+                <li>Declared</li>
+                <li>Introspected</li>
+              </ul>
+            </li>
+            <li>
+              Recovery module
+            </li>
+            <li>
+              Activation metadata
+            </li>
+            <li>
+              Pool statistics
+            </li>
+            <li>
+              ManagedConnectionFactory statistics
+            </li>
+          </ul>
+        </li>
+        <li>
+          AdminObject (List)
+          <ul>
+            <li>
+              JNDI name
+            </li>
+            <li>
+              config-property (read-only, writable, confidential) with value
+              <ul>
+                <li>Declared</li>
+                <li>Introspected</li>
+              </ul>
+            </li>
+            <li>
+              Activation metadata
+            </li>
+            <li>
+              Statistics
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <br>
+      <br>
+    </article>
+    <footer>
+      <ul>
+        <li>
+          <a href="/">Home</a>
+        </li>
+        <li>
+          <a href="/about.html">About</a>
+        </li>
+        <li>
+          <a href="/download.html">Download</a>
+        </li>
+        <li>
+          <a href="/documentation.html">Documentation</a>
+        </li>
+        <li>
+          <a href="/community.html">Community</a>
+        </li>
+        <li>
+          <a href="/sourcecode.html">Source Code</a>
+        </li>
+        <li>
+          <a href="/issues.html">Issues</a>
+        </li>
+      </ul>
+      <a href="http://www.redhat.com">
+        <img alt="Proudly sponsored by Red Hat" src="/images/redhat_logo.png">
+      </a>
+    </footer>
+  </body>
+</html>

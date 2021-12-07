@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Chapter 2. Building</title><link rel="stylesheet" type="text/css" href="css/ironjacamar.css"/><meta name="generator" content="DocBook XSL Stylesheets V1.76.1"/><link rel="home" href="index.html" title="IronJacamar 1.2 Developer's Guide"/><link rel="up" href="index.html" title="IronJacamar 1.2 Developer's Guide"/><link rel="prev" href="ch01.html" title="Chapter 1. Introduction"/><link rel="next" href="ch03.html" title="Chapter 3. Releases"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" http-equiv="Content-Type" content="text/html; charset=UTF-8"/></head><body><p xmlns:d="http://docbook.org/ns/docbook" id="title"><a href="http://www.ironjacamar.org/" class="site_href"><strong>www.ironjacamar.org</strong></a><a href="http://www.ironjacamar.org/documentation.html" class="doc_href"><strong>Community Documentation</strong></a></p><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="ch01.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="ch03.html"><strong>Next</strong></a></li></ul><div class="chapter" title="Chapter 2. Building"><div class="titlepage"><div><div><h2 class="title"><a id="building"/>Chapter 2. Building</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl><dt><span class="section"><a href="ch02.html#prerequisites">2.1. Prerequisites</a></span></dt><dd><dl><dt><span class="section"><a href="ch02.html#jdk">2.1.1. Java Development Kit (JDK)</a></span></dt><dt><span class="section"><a href="ch02.html#ant">2.1.2. Apache Ant</a></span></dt><dt><span class="section"><a href="ch02.html#ivy">2.1.3. Apache Ivy</a></span></dt><dt><span class="section"><a href="ch02.html#git">2.1.4. Git</a></span></dt></dl></dd><dt><span class="section"><a href="ch02.html#obtainingthesource">2.2. Obtaining the source code</a></span></dt><dd><dl><dt><span class="section"><a href="ch02.html#forking">2.2.1. Forking the repository</a></span></dt><dt><span class="section"><a href="ch02.html#gitbranches">2.2.2. Git branches</a></span></dt></dl></dd><dt><span class="section"><a href="ch02.html#compiling">2.3. Compiling the source code</a></span></dt><dt><span class="section"><a href="ch02.html#creating_a_patch">2.4. Creating a patch</a></span></dt></dl></div><div class="section" title="2.1. Prerequisites"><div class="titlepage"><div><div><h2 class="title"><a id="prerequisites"/>2.1. Prerequisites</h2></div></div></div><div class="section" title="2.1.1. Java Development Kit (JDK)"><div class="titlepage"><div><div><h3 class="title"><a id="jdk"/>2.1.1. Java Development Kit (JDK)</h3></div></div></div><p>You must have the following JDK installed in order to build the project:</p><div class="itemizedlist"><ul class="itemizedlist" compact="compact"><li class="listitem"><p>Sun JDK 1.7.x</p></li><li class="listitem"><p>OpenJDK 1.7.x</p></li><li class="listitem"><p>Sun JDK 1.8.x</p></li><li class="listitem"><p>OpenJDK 1.8.x</p></li></ul></div><p>Remember to ensure that "javac" and "java" are in your path (or symlinked).</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+JAVA_HOME=/location/to/javahome
+export JAVA_HOME
+
+PATH=$JAVA_HOME/bin:$PATH
+export PATH
+      </pre></div><div class="section" title="2.1.2. Apache Ant"><div class="titlepage"><div><div><h3 class="title"><a id="ant"/>2.1.2. Apache Ant</h3></div></div></div><p>You must have Apache Ant 1.9.4+ installed on your system.</p><p>Remember to ensure that "ant" are in your path (or symlinked).</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+ANT_HOME=/location/to/anthome
+export ANT_HOME
+
+PATH=$ANT_HOME/bin:$PATH
+export PATH
+      </pre><p>You may need to set the memory settings for the Apache Ant process like</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+ANT_OPTS="$ANT_OPTS -Xms128m -Xmx512m -XX:MaxPermSize=256m"
+export ANT_OPTS
+      </pre></div><div class="section" title="2.1.3. Apache Ivy"><div class="titlepage"><div><div><h3 class="title"><a id="ivy"/>2.1.3. Apache Ivy</h3></div></div></div><p>The IronJacamar project uses Apache Ivy for dependency management.</p><p>Apache Ivy is automatically downloaded and included in the development
+        environment, so no additional setup is required.</p></div><div class="section" title="2.1.4. Git"><div class="titlepage"><div><div><h3 class="title"><a id="git"/>2.1.4. Git</h3></div></div></div><p>You must have Git installed on your system.</p><p>Remember to ensure that "git" are in your path (or symlinked).</p></div></div><div class="section" title="2.2. Obtaining the source code"><div class="titlepage"><div><div><h2 class="title"><a id="obtainingthesource"/>2.2. Obtaining the source code</h2></div></div></div><div class="section" title="2.2.1. Forking the repository"><div class="titlepage"><div><div><h3 class="title"><a id="forking"/>2.2.1. Forking the repository</h3></div></div></div><p>
+        The IronJacamar repository is located at:
+      </p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+https://github.com/ironjacamar/ironjacamar
+      </pre><p>
+        Press the "Fork" button in order to fork the repository to your own GitHub account.
+      </p><p>
+        Clone your repository to your machine using
+      </p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+git clone git@github.com:&lt;your_account&gt;/ironjacamar.git
+      </pre><p>
+        Next add the upstream repository as a remote location:
+      </p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+cd ironjacamar
+git remote add upstream git@github.com:ironjacamar/ironjacamar.git
+      </pre></div><div class="section" title="2.2.2. Git branches"><div class="titlepage"><div><div><h3 class="title"><a id="gitbranches"/>2.2.2. Git branches</h3></div></div></div><p>We have the following branches for the project:</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>master</p><p>The head of development targeting the next upcoming release.</p></li><li class="listitem"><p>1.0</p><p>The development targeting the IronJacamar 1.0 releases.</p></li><li class="listitem"><p>1.1</p><p>The development targeting the IronJacamar 1.1 releases.</p></li><li class="listitem"><p>1.2</p><p>The development targeting the IronJacamar 1.2 releases.</p></li></ul></div></div></div><div class="section" title="2.3. Compiling the source code"><div class="titlepage"><div><div><h2 class="title"><a id="compiling"/>2.3. Compiling the source code</h2></div></div></div><p>In order to build the IronJacamar project you execute:</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+ant &lt;target&gt;
+    </pre><p>where target is one of</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>jars</p><p>Builds the JAR archives in the distribution.</p></li><li class="listitem"><p>test</p><p>Builds the JAR archives in the distribution and runs all the test cases.</p></li><li class="listitem"><p>module-test</p><p>Builds the JAR archives in the distribution and runs all the test cases for the specified
+        module (<code class="code">-Dmodule=&lt;modulename&gt;</code>).</p></li><li class="listitem"><p>one-test</p><p>Builds the JAR archives in the distribution and runs the specified test case
+        (<code class="code">-Dmodule=&lt;modulename&gt; -Dtest=&lt;classname&gt;</code>).</p></li><li class="listitem"><p>docs</p><p>Builds the API documentation for the project.</p></li><li class="listitem"><p>aggregated-javadocs</p><p>Builds the Aggregated API documentation for the project.</p></li><li class="listitem"><p>aggregated-javadocs-api-spi</p><p>Builds the Aggregated API documentation for API/SPI of the project.</p></li><li class="listitem"><p>sjc</p><p>Builds the standalone environment using IronJacamar/SJC.</p></li><li class="listitem"><p>release</p><p>Builds a release of the project.</p></li><li class="listitem"><p>clean</p><p>Cleans the project of temporary files.</p></li><li class="listitem"><p>clean-cache</p><p>Cleans the Apache Ivy repository.</p></li></ul></div><p>See the full list of targets in the main build.xml file.</p><p>An example to get the IronJacamar/SJC built and running:</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+ant clean sjc
+cd target/sjc/bin
+./run.sh
+    </pre></div><div class="section" title="2.4. Creating a patch"><div class="titlepage"><div><div><h2 class="title"><a id="creating_a_patch"/>2.4. Creating a patch</h2></div></div></div><p>
+      Our user guide explains in the "I would like to implement a feature" section how to get 
+      started on a writing a new feature or submitting a patch to the project. 
+    </p><p>
+      You should develop your feature on a Git branch using
+    </p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+git checkout -b &lt;feature_name&gt;
+    </pre><p>
+      Once you are done you will need to rebase your work with the latest master
+    </p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+git fetch upstream
+git rebase -i upstream/master
+    </pre><p>
+      You will need to resolve any conflicts of course. Note, that all pull requests
+      must be rebased against upstream master in order to get merged.
+    </p><p>
+      Then push the feature to your repository
+    </p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+git push origin &lt;feature_name&gt;
+    </pre><p>
+      Go to your account on GitHub.com and submit a pull request via the "Pull request" button
+    </p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+https://www.github.com/&lt;your_account&gt;/ironjacamar
+    </pre><p>
+      Remember to select the correct branch, fill in the subject with a short description
+      of the feature, and fill in the description with the full description of the feature.
+    </p><p>
+      If your feature / bug-fix applies to multiple branches you will need to submit
+      multiple pull requests - one pull request per branch.
+    </p></div></div><hr xmlns="" xmlns:d="http://docbook.org/ns/docbook"/><a xmlns="" xmlns:d="http://docbook.org/ns/docbook" href="legalnotice.html"/><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="ch01.html"><strong>Prev</strong>Chapter 1. Introduction</a></li><li class="up"><a accesskey="u" href="#"><strong>Up</strong></a></li><li class="home"><a accesskey="h" href="index.html"><strong>Home</strong></a></li><li class="next"><a accesskey="n" href="ch03.html"><strong>Next</strong>Chapter 3. Releases</a></li></ul></body></html>

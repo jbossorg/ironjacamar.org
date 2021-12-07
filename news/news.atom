@@ -1,0 +1,3057 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<feed xml:lang="en-US" xmlns="http://www.w3.org/2005/Atom">
+  <id>http://localhost:4242/</id>
+  <title>Welcome to IronJacamar.org</title>
+  <updated>2016-11-01T10:24:12-04:00</updated>
+  <link href="http://localhost:4242/news/news.atom" rel="self" type="application/atom+xml" />
+  <link href="http://localhost:4242/" rel="alternate" type="text/html" />
+  <entry>
+    <id>http://localhost:4242/news/2016/11/01/NewProjectLead.html</id>
+    <title>New project lead for IronJacamar</title>
+    <updated>2016-11-01T10:24:12-04:00</updated>
+    <published>2016-11-01T00:00:00+00:00</published>
+    <link href="http://localhost:4242/news/2016/11/01/NewProjectLead.html" rel="alternate" type="text/html" />
+    <summary>
+      New project lead for IronJacamar
+      
+        November 1st, 2016
+      
+      
+      Dear IronJacamar Community,
+      
+      I have decided to accept a new position, and will therefore no longer have time to
+      lead the IronJacamar project.
+      
+      I have enjoyed leading this community over the past 8 years, and I believe that
+      IronJacamar is the best Java EE Connector Architecture implementation available
+      due to its focus on ease-of-use, testing capabilities and being Open Source software.
+      
+      Stefano Maestri will take over as project lead, and I hope that the community will
+      welcome him in this new role.
+      
+      I'm sure that IronJacamar will continue to grow, keep putting out great releases
+      and implement the latest Java EE...
+    </summary>
+    <content type="html">
+      &lt;h1&gt;New project lead for IronJacamar&lt;/h1&gt;
+      &lt;strong&gt;
+        &lt;i&gt;November 1st, 2016&lt;/i&gt;
+      &lt;/strong&gt;
+      &lt;p&gt;&lt;/p&gt;
+      Dear IronJacamar Community,
+      &lt;p&gt;&lt;/p&gt;
+      I have decided to accept a new position, and will therefore no longer have time to
+      lead the IronJacamar project.
+      &lt;p&gt;&lt;/p&gt;
+      I have enjoyed leading this community over the past 8 years, and I believe that
+      IronJacamar is the best Java EE Connector Architecture implementation available
+      due to its focus on ease-of-use, testing capabilities and being Open Source software.
+      &lt;p&gt;&lt;/p&gt;
+      Stefano Maestri will take over as project lead, and I hope that the community will
+      welcome him in this new role.
+      &lt;p&gt;&lt;/p&gt;
+      I'm sure that IronJacamar will continue to grow, keep putting out great releases
+      and implement the latest Java EE Connector Architecture specification standards.
+      &lt;p&gt;&lt;/p&gt;
+      For Those About to Rock, I Salute You !
+      &lt;br /&gt;
+      &lt;i&gt;    Jesper&lt;/i&gt;
+    </content>
+  </entry>
+  <entry>
+    <id>http://localhost:4242/news/2016/03/03/IronJacamar127FinalReleased.html</id>
+    <title>IronJacamar 1.2.7.Final released</title>
+    <updated>2016-11-01T10:24:12-04:00</updated>
+    <published>2016-03-03T00:00:00+00:00</published>
+    <link href="http://localhost:4242/news/2016/03/03/IronJacamar127FinalReleased.html" rel="alternate" type="text/html" />
+    <summary>
+      IronJacamar 1.2.7.Final released
+      
+        March 3rd, 2016
+      
+      
+      I'm proud to announce the IronJacamar 1.2.7.Final release. Full release notes are
+      
+        here
+      
+      .
+      Changes
+      This release is mainly a bug fix release, so people should upgrade their installations. Some issues that stands out
+      
+      
+        
+          [JBJCA-1311]
+          emptyManagedConnectionPool can cause dead lock
+        
+        
+          [JBJCA-1307]
+          MC.associateConnection() not correctly implemented (code generator)
+        
+      
+      The Road Ahead
+      We are making good progress on the IronJacamar 2.0.0.Beta1, and hope that we can release it in near future. Stay tuned !
+      
+      Enjoy !
+      
+      On behalf of the IronJacamar community,
+      
+      ...
+    </summary>
+    <content type="html">
+      &lt;h1&gt;IronJacamar 1.2.7.Final released&lt;/h1&gt;
+      &lt;strong&gt;
+        &lt;i&gt;March 3rd, 2016&lt;/i&gt;
+      &lt;/strong&gt;
+      &lt;p&gt;&lt;/p&gt;
+      I'm proud to announce the IronJacamar 1.2.7.Final release. Full release notes are
+      &lt;a href=&quot;https://issues.jboss.org/projects/JBJCA/versions/12328075&quot;&gt;
+        here
+      &lt;/a&gt;
+      .
+      &lt;h2&gt;Changes&lt;/h2&gt;
+      This release is mainly a bug fix release, so people should upgrade their installations. Some issues that stands out
+      &lt;p&gt;&lt;/p&gt;
+      &lt;ul&gt;
+        &lt;li&gt;
+          &lt;a href=&quot;https://issues.jboss.org/browse/JBJCA-1311&quot;&gt;[JBJCA-1311]&lt;/a&gt;
+          emptyManagedConnectionPool can cause dead lock
+        &lt;/li&gt;
+        &lt;li&gt;
+          &lt;a href=&quot;https://issues.jboss.org/browse/JBJCA-1307&quot;&gt;[JBJCA-1307]&lt;/a&gt;
+          MC.associateConnection() not correctly implemented (code generator)
+        &lt;/li&gt;
+      &lt;/ul&gt;
+      &lt;h2&gt;The Road Ahead&lt;/h2&gt;
+      We are making good progress on the IronJacamar 2.0.0.Beta1, and hope that we can release it in near future. Stay tuned !
+      &lt;p&gt;&lt;/p&gt;
+      Enjoy !
+      &lt;p&gt;&lt;/p&gt;
+      On behalf of the IronJacamar community,
+      &lt;br /&gt;
+      &lt;i&gt;    Jesper&lt;/i&gt;
+      &lt;p&gt;&lt;/p&gt;
+      [
+      &lt;a href=&quot;http://www.ironjacamar.org/&quot;&gt;
+        WebSite
+      &lt;/a&gt;
+      ]
+      [
+      &lt;a href=&quot;http://www.ironjacamar.org/download.html&quot;&gt;
+        Download
+      &lt;/a&gt;
+      ]
+      [
+      &lt;a href=&quot;http://www.ironjacamar.org/documentation.html&quot;&gt;
+        Documentation
+      &lt;/a&gt;
+      ]
+      [
+      &lt;a href=&quot;http://issues.jboss.org/browse/JBJCA&quot;&gt;
+        JIRA
+      &lt;/a&gt;
+      ]
+    </content>
+  </entry>
+  <entry>
+    <id>http://localhost:4242/news/2015/09/01/IronJacamar126FinalReleased.html</id>
+    <title>IronJacamar 1.2.6.Final released</title>
+    <updated>2016-11-01T10:24:12-04:00</updated>
+    <published>2015-09-01T00:00:00+00:00</published>
+    <link href="http://localhost:4242/news/2015/09/01/IronJacamar126FinalReleased.html" rel="alternate" type="text/html" />
+    <summary>
+      IronJacamar 1.2.6.Final released
+      
+        September 1st, 2015
+      
+      
+      I'm proud to announce the IronJacamar 1.2.6.Final release. Full release notes are
+      
+        here
+      
+      .
+      Changes
+      This release contains some minor changes such as
+      
+      
+        
+          [JBJCA-1287]
+          Relax close() requirements for statments and result sets
+        
+        
+          [JBJCA-1286]
+          Allow non-JTA datasources to run without a BootstrapContext
+        
+      
+      
+      The Road Ahead
+      IronJacamar 2 development is processing, so hopefully we can push the first Alpha release soon.
+      
+      Enjoy !
+      
+      On behalf of the IronJacamar community,
+      
+          Jesper
+      
+      [
+      
+        WebSite
+      
+      ]
+      [
+      
+        Download
+      
+      ]
+      [
+      
+        Documentation
+      
+      ]
+      [
+      
+        JIRA
+      
+      ]...
+    </summary>
+    <content type="html">
+      &lt;h1&gt;IronJacamar 1.2.6.Final released&lt;/h1&gt;
+      &lt;strong&gt;
+        &lt;i&gt;September 1st, 2015&lt;/i&gt;
+      &lt;/strong&gt;
+      &lt;p&gt;&lt;/p&gt;
+      I'm proud to announce the IronJacamar 1.2.6.Final release. Full release notes are
+      &lt;a href=&quot;https://issues.jboss.org/secure/ReleaseNote.jspa?projectId=12310691&amp;amp;version=12327680&quot;&gt;
+        here
+      &lt;/a&gt;
+      .
+      &lt;h2&gt;Changes&lt;/h2&gt;
+      This release contains some minor changes such as
+      &lt;p&gt;&lt;/p&gt;
+      &lt;ul&gt;
+        &lt;li&gt;
+          &lt;a href=&quot;https://issues.jboss.org/browse/JBJCA-1287&quot;&gt;[JBJCA-1287]&lt;/a&gt;
+          Relax close() requirements for statments and result sets
+        &lt;/li&gt;
+        &lt;li&gt;
+          &lt;a href=&quot;https://issues.jboss.org/browse/JBJCA-1286&quot;&gt;[JBJCA-1286]&lt;/a&gt;
+          Allow non-JTA datasources to run without a BootstrapContext
+        &lt;/li&gt;
+      &lt;/ul&gt;
+      &lt;p&gt;&lt;/p&gt;
+      &lt;h2&gt;The Road Ahead&lt;/h2&gt;
+      IronJacamar 2 development is processing, so hopefully we can push the first Alpha release soon.
+      &lt;p&gt;&lt;/p&gt;
+      Enjoy !
+      &lt;p&gt;&lt;/p&gt;
+      On behalf of the IronJacamar community,
+      &lt;br /&gt;
+      &lt;i&gt;    Jesper&lt;/i&gt;
+      &lt;p&gt;&lt;/p&gt;
+      [
+      &lt;a href=&quot;http://www.ironjacamar.org/&quot;&gt;
+        WebSite
+      &lt;/a&gt;
+      ]
+      [
+      &lt;a href=&quot;http://www.ironjacamar.org/download.html&quot;&gt;
+        Download
+      &lt;/a&gt;
+      ]
+      [
+      &lt;a href=&quot;http://www.ironjacamar.org/documentation.html&quot;&gt;
+        Documentation
+      &lt;/a&gt;
+      ]
+      [
+      &lt;a href=&quot;http://issues.jboss.org/browse/JBJCA&quot;&gt;
+        JIRA
+      &lt;/a&gt;
+      ]
+    </content>
+  </entry>
+  <entry>
+    <id>http://localhost:4242/news/2015/08/03/IronJacamar125FinalReleased.html</id>
+    <title>IronJacamar 1.2.5.Final released</title>
+    <updated>2016-11-01T10:24:12-04:00</updated>
+    <published>2015-08-03T00:00:00+00:00</published>
+    <link href="http://localhost:4242/news/2015/08/03/IronJacamar125FinalReleased.html" rel="alternate" type="text/html" />
+    <summary>
+      IronJacamar 1.2.5.Final released
+      
+        August 3rd, 2015
+      
+      
+      I'm proud to announce the IronJacamar 1.2.5.Final release. Full release notes are
+      
+        here
+      
+      .
+      
+      This announcement was delayed due to the various issues suffered by
+      
+        SourceForge
+      
+      in July, 2015.
+      Changes
+      This release also added new features to the IronJacamar tracer, but contains some other changes as well,
+      
+      
+        
+          [JBJCA-1275]
+          Send TMFAIL and do setRollbackOnly before connection is killed
+        
+        
+          [JBJCA-1278]
+          Prefill connection leak
+        
+      
+      
+      The
+      
+        tracer
+      
+      can now record the call stacks of the connection lifecycle events such that a full...
+    </summary>
+    <content type="html">
+      &lt;h1&gt;IronJacamar 1.2.5.Final released&lt;/h1&gt;
+      &lt;strong&gt;
+        &lt;i&gt;August 3rd, 2015&lt;/i&gt;
+      &lt;/strong&gt;
+      &lt;p&gt;&lt;/p&gt;
+      I'm proud to announce the IronJacamar 1.2.5.Final release. Full release notes are
+      &lt;a href=&quot;https://issues.jboss.org/secure/ReleaseNote.jspa?projectId=12310691&amp;amp;version=12326963&quot;&gt;
+        here
+      &lt;/a&gt;
+      .
+      &lt;p&gt;&lt;/p&gt;
+      This announcement was delayed due to the various issues suffered by
+      &lt;a href=&quot;http://sourceforge.net&quot;&gt;
+        SourceForge
+      &lt;/a&gt;
+      in July, 2015.
+      &lt;h2&gt;Changes&lt;/h2&gt;
+      This release also added new features to the IronJacamar tracer, but contains some other changes as well,
+      &lt;p&gt;&lt;/p&gt;
+      &lt;ul&gt;
+        &lt;li&gt;
+          &lt;a href=&quot;https://issues.jboss.org/browse/JBJCA-1275&quot;&gt;[JBJCA-1275]&lt;/a&gt;
+          Send TMFAIL and do setRollbackOnly before connection is killed
+        &lt;/li&gt;
+        &lt;li&gt;
+          &lt;a href=&quot;https://issues.jboss.org/browse/JBJCA-1278&quot;&gt;[JBJCA-1278]&lt;/a&gt;
+          Prefill connection leak
+        &lt;/li&gt;
+      &lt;/ul&gt;
+      &lt;p&gt;&lt;/p&gt;
+      The
+      &lt;a href=&quot;https://issues.jboss.org/browse/JBJCA-1271&quot;&gt;
+        tracer
+      &lt;/a&gt;
+      can now record the call stacks of the connection lifecycle events such that a full overview of where connections
+      are obtained and released. A confidential mode was added in order to remove all call stacks from the events if
+      they are not allowed to be distributed. And more reports were added to display information about ManagedConnections
+      and transactions.
+      &lt;h2&gt;The Road Ahead&lt;/h2&gt;
+      We hope that we can switch to IronJacamar 2 development soon, but patches are welcome at any time as always.
+      &lt;p&gt;&lt;/p&gt;
+      Enjoy !
+      &lt;p&gt;&lt;/p&gt;
+      On behalf of the IronJacamar community,
+      &lt;br /&gt;
+      &lt;i&gt;    Jesper&lt;/i&gt;
+      &lt;p&gt;&lt;/p&gt;
+      [
+      &lt;a href=&quot;http://www.ironjacamar.org/&quot;&gt;
+        WebSite
+      &lt;/a&gt;
+      ]
+      [
+      &lt;a href=&quot;http://www.ironjacamar.org/download.html&quot;&gt;
+        Download
+      &lt;/a&gt;
+      ]
+      [
+      &lt;a href=&quot;http://www.ironjacamar.org/documentation.html&quot;&gt;
+        Documentation
+      &lt;/a&gt;
+      ]
+      [
+      &lt;a href=&quot;http://issues.jboss.org/browse/JBJCA&quot;&gt;
+        JIRA
+      &lt;/a&gt;
+      ]
+    </content>
+  </entry>
+  <entry>
+    <id>http://localhost:4242/news/2015/04/14/IronJacamar124FinalReleased.html</id>
+    <title>IronJacamar 1.2.4.Final released</title>
+    <updated>2016-11-01T10:24:12-04:00</updated>
+    <published>2015-04-14T00:00:00+00:00</published>
+    <link href="http://localhost:4242/news/2015/04/14/IronJacamar124FinalReleased.html" rel="alternate" type="text/html" />
+    <summary>
+      IronJacamar 1.2.4.Final released
+      
+        April 14th, 2015
+      
+      
+      I'm proud to announce the IronJacamar 1.2.4.Final release. Full release notes are
+      
+        here
+      
+      .
+      Changes
+      This release is mainly a release supporting new features of the IronJacamar tracer, but contains some other changes as well,
+      
+      
+        
+          [JBJCA-1261]
+          Rework pool policies
+        
+        
+          [JBJCA-1258]
+          Remove JDBC driver cache
+        
+      
+      
+      The
+      
+        tracer
+      
+      can now trace invocation scenarios involving the cached connection manager, and thereby provide an overview of
+      lazy transaction enlistment call stacks.
+      
+      The pool policies have been reworked, such that it is the decrementer...
+    </summary>
+    <content type="html">
+      &lt;h1&gt;IronJacamar 1.2.4.Final released&lt;/h1&gt;
+      &lt;strong&gt;
+        &lt;i&gt;April 14th, 2015&lt;/i&gt;
+      &lt;/strong&gt;
+      &lt;p&gt;&lt;/p&gt;
+      I'm proud to announce the IronJacamar 1.2.4.Final release. Full release notes are
+      &lt;a href=&quot;https://issues.jboss.org/secure/ReleaseNote.jspa?projectId=12310691&amp;amp;version=12326898&quot;&gt;
+        here
+      &lt;/a&gt;
+      .
+      &lt;h2&gt;Changes&lt;/h2&gt;
+      This release is mainly a release supporting new features of the IronJacamar tracer, but contains some other changes as well,
+      &lt;p&gt;&lt;/p&gt;
+      &lt;ul&gt;
+        &lt;li&gt;
+          &lt;a href=&quot;https://issues.jboss.org/browse/JBJCA-1261&quot;&gt;[JBJCA-1261]&lt;/a&gt;
+          Rework pool policies
+        &lt;/li&gt;
+        &lt;li&gt;
+          &lt;a href=&quot;https://issues.jboss.org/browse/JBJCA-1258&quot;&gt;[JBJCA-1258]&lt;/a&gt;
+          Remove JDBC driver cache
+        &lt;/li&gt;
+      &lt;/ul&gt;
+      &lt;p&gt;&lt;/p&gt;
+      The
+      &lt;a href=&quot;https://issues.jboss.org/browse/JBJCA-1259&quot;&gt;
+        tracer
+      &lt;/a&gt;
+      can now trace invocation scenarios involving the cached connection manager, and thereby provide an overview of
+      lazy transaction enlistment call stacks.
+      &lt;p&gt;&lt;/p&gt;
+      The pool policies have been reworked, such that it is the decrementer policy selected that determines how
+      the pool should operate (First In First Out or First In Last Out). Each decrementer policy is descibed in our
+      &lt;a href=&quot;http://www.ironjacamar.org/doc/userguide/1.2/en-US/html/ch05.html#deploying_capacity_policies&quot;&gt;
+        user guide
+      &lt;/a&gt;
+      .
+      &lt;h2&gt;The Road Ahead&lt;/h2&gt;
+      This release also took time away from IronJacamar 2 development, but hopefully soon work will start again.
+      &lt;p&gt;&lt;/p&gt;
+      Enjoy !
+      &lt;p&gt;&lt;/p&gt;
+      On behalf of the IronJacamar community,
+      &lt;br /&gt;
+      &lt;i&gt;    Jesper&lt;/i&gt;
+      &lt;p&gt;&lt;/p&gt;
+      [
+      &lt;a href=&quot;http://www.ironjacamar.org/&quot;&gt;
+        WebSite
+      &lt;/a&gt;
+      ]
+      [
+      &lt;a href=&quot;http://www.ironjacamar.org/download.html&quot;&gt;
+        Download
+      &lt;/a&gt;
+      ]
+      [
+      &lt;a href=&quot;http://www.ironjacamar.org/documentation.html&quot;&gt;
+        Documentation
+      &lt;/a&gt;
+      ]
+      [
+      &lt;a href=&quot;http://issues.jboss.org/browse/JBJCA&quot;&gt;
+        JIRA
+      &lt;/a&gt;
+      ]
+    </content>
+  </entry>
+  <entry>
+    <id>http://localhost:4242/news/2015/03/25/IronJacamar123FinalReleased.html</id>
+    <title>IronJacamar 1.2.3.Final released</title>
+    <updated>2016-11-01T10:24:12-04:00</updated>
+    <published>2015-03-25T00:00:00+00:00</published>
+    <link href="http://localhost:4242/news/2015/03/25/IronJacamar123FinalReleased.html" rel="alternate" type="text/html" />
+    <summary>
+      IronJacamar 1.2.3.Final released
+      
+        March 25th, 2015
+      
+      
+      I'm proud to announce the IronJacamar 1.2.3.Final release. Full release notes are
+      
+        here
+      
+      .
+      Changes
+      This release is mainly a bug fix release, but contains some major changes to the tracer as well,
+      
+      
+        
+          [JBJCA-1252]
+          MCPs can become detached
+        
+        
+          [JBJCA-1250]
+          TotalPoolTime / TotalUsageTime not always updated
+        
+        
+          [JBJCA-1251]
+          Only allow certain decrementer policies for CRI pools
+        
+        
+          [JBJCA-1254]
+          Tracer improvements
+       ...
+    </summary>
+    <content type="html">
+      &lt;h1&gt;IronJacamar 1.2.3.Final released&lt;/h1&gt;
+      &lt;strong&gt;
+        &lt;i&gt;March 25th, 2015&lt;/i&gt;
+      &lt;/strong&gt;
+      &lt;p&gt;&lt;/p&gt;
+      I'm proud to announce the IronJacamar 1.2.3.Final release. Full release notes are
+      &lt;a href=&quot;https://issues.jboss.org/secure/ReleaseNote.jspa?projectId=12310691&amp;amp;version=12326552&quot;&gt;
+        here
+      &lt;/a&gt;
+      .
+      &lt;h2&gt;Changes&lt;/h2&gt;
+      This release is mainly a bug fix release, but contains some major changes to the tracer as well,
+      &lt;p&gt;&lt;/p&gt;
+      &lt;ul&gt;
+        &lt;li&gt;
+          &lt;a href=&quot;https://issues.jboss.org/browse/JBJCA-1252&quot;&gt;[JBJCA-1252]&lt;/a&gt;
+          MCPs can become detached
+        &lt;/li&gt;
+        &lt;li&gt;
+          &lt;a href=&quot;https://issues.jboss.org/browse/JBJCA-1250&quot;&gt;[JBJCA-1250]&lt;/a&gt;
+          TotalPoolTime / TotalUsageTime not always updated
+        &lt;/li&gt;
+        &lt;li&gt;
+          &lt;a href=&quot;https://issues.jboss.org/browse/JBJCA-1251&quot;&gt;[JBJCA-1251]&lt;/a&gt;
+          Only allow certain decrementer policies for CRI pools
+        &lt;/li&gt;
+        &lt;li&gt;
+          &lt;a href=&quot;https://issues.jboss.org/browse/JBJCA-1254&quot;&gt;[JBJCA-1254]&lt;/a&gt;
+          Tracer improvements
+        &lt;/li&gt;
+      &lt;/ul&gt;
+      &lt;p&gt;&lt;/p&gt;
+      Due to JBJCA-1252, all users should upgrade their installations.
+      &lt;h2&gt;The Road Ahead&lt;/h2&gt;
+      This release took some time away from IronJacamar 2 development, but the repository keeps seeing updates, so
+      it is progressing.
+      &lt;p&gt;&lt;/p&gt;
+      Enjoy !
+      &lt;p&gt;&lt;/p&gt;
+      On behalf of the IronJacamar community,
+      &lt;br /&gt;
+      &lt;i&gt;    Jesper&lt;/i&gt;
+      &lt;p&gt;&lt;/p&gt;
+      [
+      &lt;a href=&quot;http://www.ironjacamar.org/&quot;&gt;
+        WebSite
+      &lt;/a&gt;
+      ]
+      [
+      &lt;a href=&quot;http://www.ironjacamar.org/download.html&quot;&gt;
+        Download
+      &lt;/a&gt;
+      ]
+      [
+      &lt;a href=&quot;http://www.ironjacamar.org/documentation.html&quot;&gt;
+        Documentation
+      &lt;/a&gt;
+      ]
+      [
+      &lt;a href=&quot;http://issues.jboss.org/browse/JBJCA&quot;&gt;
+        JIRA
+      &lt;/a&gt;
+      ]
+    </content>
+  </entry>
+  <entry>
+    <id>http://localhost:4242/news/2015/01/13/IronJacamar122FinalReleased.html</id>
+    <title>IronJacamar 1.2.2.Final released</title>
+    <updated>2016-11-01T10:24:12-04:00</updated>
+    <published>2015-01-13T00:00:00+00:00</published>
+    <link href="http://localhost:4242/news/2015/01/13/IronJacamar122FinalReleased.html" rel="alternate" type="text/html" />
+    <summary>
+      IronJacamar 1.2.2.Final released
+      
+        January 13th, 2015
+      
+      
+      I'm proud to announce the IronJacamar 1.2.2.Final release. Full release notes are
+      
+        here
+      
+      .
+      Changes
+      This release is a small bug fix release, but with a change to the tracer too,
+      
+      
+        
+          [JBJCA-1241]
+          Tracer improvements
+        
+      
+      
+      The
+      
+        tracer
+      
+      now records more information, and we have worked our way through more scenarios where using the tracer
+      could be of benefit, so feel free to use your own scenarios with it and report back.
+      The Road Ahead
+      Our IronJacamar 2 development is progressing nicely, so hopefully we can start on Alpha releases soon.
+      
+      Enjoy !
+      
+      On...
+    </summary>
+    <content type="html">
+      &lt;h1&gt;IronJacamar 1.2.2.Final released&lt;/h1&gt;
+      &lt;strong&gt;
+        &lt;i&gt;January 13th, 2015&lt;/i&gt;
+      &lt;/strong&gt;
+      &lt;p&gt;&lt;/p&gt;
+      I'm proud to announce the IronJacamar 1.2.2.Final release. Full release notes are
+      &lt;a href=&quot;https://issues.jboss.org/secure/ReleaseNote.jspa?projectId=12310691&amp;amp;version=12326342&quot;&gt;
+        here
+      &lt;/a&gt;
+      .
+      &lt;h2&gt;Changes&lt;/h2&gt;
+      This release is a small bug fix release, but with a change to the tracer too,
+      &lt;p&gt;&lt;/p&gt;
+      &lt;ul&gt;
+        &lt;li&gt;
+          &lt;a href=&quot;https://issues.jboss.org/browse/JBJCA-1241&quot;&gt;[JBJCA-1241]&lt;/a&gt;
+          Tracer improvements
+        &lt;/li&gt;
+      &lt;/ul&gt;
+      &lt;p&gt;&lt;/p&gt;
+      The
+      &lt;a href=&quot;http://localhost:4242/doc/roadto12/tracer.html&quot;&gt;
+        tracer
+      &lt;/a&gt;
+      now records more information, and we have worked our way through more scenarios where using the tracer
+      could be of benefit, so feel free to use your own scenarios with it and report back.
+      &lt;h2&gt;The Road Ahead&lt;/h2&gt;
+      Our IronJacamar 2 development is progressing nicely, so hopefully we can start on Alpha releases soon.
+      &lt;p&gt;&lt;/p&gt;
+      Enjoy !
+      &lt;p&gt;&lt;/p&gt;
+      On behalf of the IronJacamar community,
+      &lt;br /&gt;
+      &lt;i&gt;    Jesper&lt;/i&gt;
+      &lt;p&gt;&lt;/p&gt;
+      [
+      &lt;a href=&quot;http://www.ironjacamar.org/&quot;&gt;
+        WebSite
+      &lt;/a&gt;
+      ]
+      [
+      &lt;a href=&quot;http://www.ironjacamar.org/download.html&quot;&gt;
+        Download
+      &lt;/a&gt;
+      ]
+      [
+      &lt;a href=&quot;http://www.ironjacamar.org/documentation.html&quot;&gt;
+        Documentation
+      &lt;/a&gt;
+      ]
+      [
+      &lt;a href=&quot;http://issues.jboss.org/browse/JBJCA&quot;&gt;
+        JIRA
+      &lt;/a&gt;
+      ]
+    </content>
+  </entry>
+  <entry>
+    <id>http://localhost:4242/news/2014/12/09/IronJacamar121FinalReleased.html</id>
+    <title>IronJacamar 1.2.1.Final released</title>
+    <updated>2016-11-01T10:24:12-04:00</updated>
+    <published>2014-12-09T00:00:00+00:00</published>
+    <link href="http://localhost:4242/news/2014/12/09/IronJacamar121FinalReleased.html" rel="alternate" type="text/html" />
+    <summary>
+      IronJacamar 1.2.1.Final released
+      
+        December 9th, 2014
+      
+      
+      I'm proud to announce the IronJacamar 1.2.1.Final release. Full release notes are
+      
+        here
+      
+      .
+      Changes
+      This release is mainly a bug fix release, but some changes were made as well,
+      
+      
+        
+          [JBJCA-1231]
+          Allow existing connection to be obtained during MARKED_FOR_ROLLBACK
+        
+        
+          [JBJCA-1233]
+          Make pool lock across all credentials
+        
+      
+      
+      Once a transaction is marked for rollback, f.ex. through
+      setRollbackOnly()
+      , any future work involving connections to Enterprise Information System will be rollbacked (well, du'h) and the work "wasted".
+      However, previously this would result...
+    </summary>
+    <content type="html">
+      &lt;h1&gt;IronJacamar 1.2.1.Final released&lt;/h1&gt;
+      &lt;strong&gt;
+        &lt;i&gt;December 9th, 2014&lt;/i&gt;
+      &lt;/strong&gt;
+      &lt;p&gt;&lt;/p&gt;
+      I'm proud to announce the IronJacamar 1.2.1.Final release. Full release notes are
+      &lt;a href=&quot;https://issues.jboss.org/secure/ReleaseNote.jspa?projectId=12310691&amp;amp;version=12325984&quot;&gt;
+        here
+      &lt;/a&gt;
+      .
+      &lt;h2&gt;Changes&lt;/h2&gt;
+      This release is mainly a bug fix release, but some changes were made as well,
+      &lt;p&gt;&lt;/p&gt;
+      &lt;ul&gt;
+        &lt;li&gt;
+          &lt;a href=&quot;https://issues.jboss.org/browse/JBJCA-1231&quot;&gt;[JBJCA-1231]&lt;/a&gt;
+          Allow existing connection to be obtained during MARKED_FOR_ROLLBACK
+        &lt;/li&gt;
+        &lt;li&gt;
+          &lt;a href=&quot;https://issues.jboss.org/browse/JBJCA-1233&quot;&gt;[JBJCA-1233]&lt;/a&gt;
+          Make pool lock across all credentials
+        &lt;/li&gt;
+      &lt;/ul&gt;
+      &lt;p&gt;&lt;/p&gt;
+      Once a transaction is marked for rollback, f.ex. through
+      &lt;i&gt;setRollbackOnly()&lt;/i&gt;
+      , any future work involving connections to Enterprise Information System will be rollbacked (well, du'h) and the work &quot;wasted&quot;.
+      However, previously this would result in an exception when trying to obtain a connection, which meant that applications
+      would have to do a more &quot;defensive&quot; style of coding. This change will allow to keep using an existing connection, and hence
+      applications has an easier job to guard against these scenarios, as the transaction status doesn't have to checked all the time.
+      The end result is of course the same. The old behavior can be activated by a system property (
+      &lt;i&gt;ironjacamar.allow_marked_for_rollback_fast_fail&lt;/i&gt;
+      ).
+      &lt;p&gt;&lt;/p&gt;
+      Previously our &amp;lt;
+      &lt;i&gt;max-pool-size&lt;/i&gt;
+      &amp;gt; was per credential, e.g. you could obtain up to &amp;lt;
+      &lt;i&gt;max-pool-size&lt;/i&gt;
+      &amp;gt; connections per credential used.
+      This could make it difficult to calculate how many connections were needed against the Enterprise Information System when using configuration
+      elements like &amp;lt;
+      &lt;i&gt;allow-multiple-users/&lt;/i&gt;
+      &amp;gt; or &amp;lt;
+      &lt;i&gt;application/&lt;/i&gt;
+      &amp;gt;. The &amp;lt;
+      &lt;i&gt;max-pool-size&lt;/i&gt;
+      &amp;gt; element is now across all credentials used
+      to make it simpler to configure, and to understand.
+      &lt;h2&gt;The Road Ahead&lt;/h2&gt;
+      We should soon see new code coming into our master branch, which is where our IronJacamar 2.0 development is happening. Keep an eye on the repository as well as the forums for updates, and
+      provide your feedback.
+      &lt;p&gt;&lt;/p&gt;
+      Enjoy !
+      &lt;p&gt;&lt;/p&gt;
+      On behalf of the IronJacamar community,
+      &lt;br /&gt;
+      &lt;i&gt;    Jesper&lt;/i&gt;
+      &lt;p&gt;&lt;/p&gt;
+      [
+      &lt;a href=&quot;http://www.ironjacamar.org/&quot;&gt;
+        WebSite
+      &lt;/a&gt;
+      ]
+      [
+      &lt;a href=&quot;http://www.ironjacamar.org/download.html&quot;&gt;
+        Download
+      &lt;/a&gt;
+      ]
+      [
+      &lt;a href=&quot;http://www.ironjacamar.org/documentation.html&quot;&gt;
+        Documentation
+      &lt;/a&gt;
+      ]
+      [
+      &lt;a href=&quot;http://issues.jboss.org/browse/JBJCA&quot;&gt;
+        JIRA
+      &lt;/a&gt;
+      ]
+    </content>
+  </entry>
+  <entry>
+    <id>http://localhost:4242/news/2014/10/21/IronJacamar120Finalreleased.html</id>
+    <title>IronJacamar 1.2.0.Final released</title>
+    <updated>2016-11-01T10:24:12-04:00</updated>
+    <published>2014-10-21T00:00:00+00:00</published>
+    <link href="http://localhost:4242/news/2014/10/21/IronJacamar120Finalreleased.html" rel="alternate" type="text/html" />
+    <summary>
+      IronJacamar 1.2.0.Final released
+      
+        October 21th, 2014
+      
+      
+      I'm very proud to announce IronJacamar 1.2.0.Final, the first stable release of our IronJacamar 1.2 series.
+      
+      Only minor issues were found during our CR testing, so the release is small.
+      Full release notes are
+      
+        here
+      
+      .
+      IronJamamar 1.2
+      IronJacamar is an implementation of the Java EE Connector Architecture 1.7 specification featured in the Java EE 7 Full Profile.
+      
+      Java EE Connector Architecture (JCA) defines a standard architecture for connecting the Java EE platform to heterogeneous Enterprise Information Systems (EIS), like Enterprise Resource Planning (ERP), database and messaging systems.
+      
+      IronJacamar 1.2 is the third major feature release, which brings a lot...
+    </summary>
+    <content type="html">
+      &lt;h1&gt;IronJacamar 1.2.0.Final released&lt;/h1&gt;
+      &lt;strong&gt;
+        &lt;i&gt;October 21th, 2014&lt;/i&gt;
+      &lt;/strong&gt;
+      &lt;p&gt;&lt;/p&gt;
+      I'm very proud to announce IronJacamar 1.2.0.Final, the first stable release of our IronJacamar 1.2 series.
+      &lt;p&gt;&lt;/p&gt;
+      Only minor issues were found during our CR testing, so the release is small.
+      Full release notes are
+      &lt;a href=&quot;https://issues.jboss.org/secure/ReleaseNote.jspa?projectId=12310691&amp;amp;version=12325830&quot;&gt;
+        here
+      &lt;/a&gt;
+      .
+      &lt;h2&gt;IronJamamar 1.2&lt;/h2&gt;
+      IronJacamar is an implementation of the Java EE Connector Architecture 1.7 specification featured in the Java EE 7 Full Profile.
+      &lt;p&gt;&lt;/p&gt;
+      Java EE Connector Architecture (JCA) defines a standard architecture for connecting the Java EE platform to heterogeneous Enterprise Information Systems (EIS), like Enterprise Resource Planning (ERP), database and messaging systems.
+      &lt;p&gt;&lt;/p&gt;
+      IronJacamar 1.2 is the third major feature release, which brings a lot of new functionality to the Java EE Connector
+      Architecture community.
+      &lt;p&gt;&lt;/p&gt;
+      The major new features include
+      &lt;p&gt;&lt;/p&gt;
+      &lt;ul&gt;
+        &lt;li&gt;Support for graceful shutdown of ConnectionManager and WorkManager&lt;/li&gt;
+        &lt;li&gt;Support for connectable XAResources&lt;/li&gt;
+        &lt;li&gt;Support tracking of connection handles across transaction boundaries&lt;/li&gt;
+        &lt;li&gt;Additional statistics for pools&lt;/li&gt;
+        &lt;li&gt;Event tracer for easier debugging&lt;/li&gt;
+      &lt;/ul&gt;
+      &lt;p&gt;&lt;/p&gt;
+      Lets do a run through.
+      &lt;h2&gt;Support for graceful shutdown of ConnectionManager and WorkManager&lt;/h2&gt;
+      Graceful shutdown support allows the ConnectionManager and the WorkManager to process
+      existing requests, but not allow new requests.
+      &lt;p&gt;&lt;/p&gt;
+      Thereby it is possible to shutdown the resource adapters in a &quot;nice&quot; manner.
+      &lt;h2&gt;Support for connectable XAResources&lt;/h2&gt;
+      Connectable XAResource allows the transaction manager to obtain a connection to the underlying
+      Enterprise Information System - f.ex. a database - in order to perform operations during the
+      transaction lifecycle.
+      &lt;p&gt;&lt;/p&gt;
+      The
+      &lt;a href=&quot;http://www.narayana.io/&quot;&gt;
+        Narayana
+      &lt;/a&gt;
+      project supports this extension.
+      &lt;h2&gt;Support tracking of connection handles across transaction boundaries&lt;/h2&gt;
+      If a connection handle is used across a transaction boundary it could indicate that
+      there is an error in the application flow. By tracking the connection handles on the
+      boundary it can be identified where the issue is.
+      &lt;p&gt;&lt;/p&gt;
+      Further information can be found
+      &lt;a href=&quot;http://localhost:4242/doc/roadto12/txtracking.html&quot;&gt;
+        here
+      &lt;/a&gt;
+      .
+      &lt;h2&gt;Additional statistics for pools&lt;/h2&gt;
+      Statistics about the pool usage is important in order to optimize settings, so more information
+      has been added.
+      &lt;p&gt;&lt;/p&gt;
+      Statistics at the XAResource level has also been added to get information about the underlying
+      Enterprise Information System interaction.
+      &lt;h2&gt;Event tracer for easier debugging&lt;/h2&gt;
+      Usage of ConnectionEventListeners and thereby the physical connections to the Enterprise Information System
+      can be a complex scenario to debug when errors occurs.
+      &lt;p&gt;&lt;/p&gt;
+      The IronJacamar tracer module will ease the debugging, as reports are generated about the usage that are
+      more human readable.
+      &lt;p&gt;&lt;/p&gt;
+      Further information can be found
+      &lt;a href=&quot;http://localhost:4242/doc/roadto12/tracer.html&quot;&gt;
+        here
+      &lt;/a&gt;
+      .
+      &lt;h2&gt;The Road Ahead&lt;/h2&gt;
+      We will continue our quest to create the best Java EE Connector Architecture implementation in our 2.0 series, where we will look at how to improve and push the boundaries for what is possible, but first more importantly:
+      &lt;p&gt;&lt;/p&gt;
+      &lt;b&gt;
+        Champagne !!
+      &lt;/b&gt;
+      &lt;p&gt;&lt;/p&gt;
+      Please, raise your glass, and celebrate with us.
+      &lt;p&gt;&lt;/p&gt;
+      Last, but not least - A
+      &lt;b&gt;
+        HUGE
+      &lt;/b&gt;
+      shout-out to our community and developers who helped with this release. You know who you are !
+      &lt;p&gt;&lt;/p&gt;
+      On behalf of the IronJacamar community,
+      &lt;br /&gt;
+      &lt;i&gt;    Jesper&lt;/i&gt;
+      &lt;p&gt;&lt;/p&gt;
+      [
+      &lt;a href=&quot;http://www.ironjacamar.org/&quot;&gt;
+        WebSite
+      &lt;/a&gt;
+      ]
+      [
+      &lt;a href=&quot;http://www.ironjacamar.org/download.html&quot;&gt;
+        Download
+      &lt;/a&gt;
+      ]
+      [
+      &lt;a href=&quot;http://www.ironjacamar.org/documentation.html&quot;&gt;
+        Documentation
+      &lt;/a&gt;
+      ]
+      [
+      &lt;a href=&quot;http://issues.jboss.org/browse/JBJCA&quot;&gt;
+        JIRA
+      &lt;/a&gt;
+      ]
+    </content>
+  </entry>
+  <entry>
+    <id>http://localhost:4242/news/2014/09/30/IronJacamar120CR1Released.html</id>
+    <title>IronJacamar 1.2.0.CR1 released</title>
+    <updated>2016-11-01T10:24:12-04:00</updated>
+    <published>2014-09-30T00:00:00+00:00</published>
+    <link href="http://localhost:4242/news/2014/09/30/IronJacamar120CR1Released.html" rel="alternate" type="text/html" />
+    <summary>
+      IronJacamar 1.2.0.CR1 released
+      
+        September 30th, 2014
+      
+      
+      I'm proud to announce the IronJacamar 1.2.0.CR1 release. Full release notes are
+      
+        here
+      
+      .
+      Candidate for Release
+      Reaching Candidate for Release is an important milestone for the IronJacamar community. The journey towards our
+      1.2 release has been longer than expected, but saw quite a number of new features that hopefully will
+      serve the Java EE Connector Architecture community in their work.
+      
+      The feedback we have received has really benefitted the release, so a huge thanks for that ! Of course
+      our forums are open for additional feedback, so feel free to speak up on any issues you may find, or...
+    </summary>
+    <content type="html">
+      &lt;h1&gt;IronJacamar 1.2.0.CR1 released&lt;/h1&gt;
+      &lt;strong&gt;
+        &lt;i&gt;September 30th, 2014&lt;/i&gt;
+      &lt;/strong&gt;
+      &lt;p&gt;&lt;/p&gt;
+      I'm proud to announce the IronJacamar 1.2.0.CR1 release. Full release notes are
+      &lt;a href=&quot;https://issues.jboss.org/secure/ReleaseNote.jspa?projectId=12310691&amp;amp;version=12324492&quot;&gt;
+        here
+      &lt;/a&gt;
+      .
+      &lt;h2&gt;Candidate for Release&lt;/h2&gt;
+      Reaching Candidate for Release is an important milestone for the IronJacamar community. The journey towards our
+      1.2 release has been longer than expected, but saw quite a number of new features that hopefully will
+      serve the Java EE Connector Architecture community in their work.
+      &lt;p&gt;&lt;/p&gt;
+      The feedback we have received has really benefitted the release, so a huge thanks for that ! Of course
+      our forums are open for additional feedback, so feel free to speak up on any issues you may find, or just
+      getting help on your JCA development tasks.
+      &lt;h2&gt;Changes&lt;/h2&gt;
+      This release was relative quiet, as we went through the existing functionality to look for missing parts.
+      There were a couple of new features that stands out,
+      &lt;p&gt;&lt;/p&gt;
+      &lt;ul&gt;
+        &lt;li&gt;
+          &lt;a href=&quot;https://issues.jboss.org/browse/JBJCA-1208&quot;&gt;[JBJCA-1208]&lt;/a&gt;
+          Eclipse plugin updates for IronJacamar 1.2
+        &lt;/li&gt;
+        &lt;li&gt;
+          &lt;a href=&quot;https://issues.jboss.org/browse/JBJCA-1220&quot;&gt;[JBJCA-1220]&lt;/a&gt;
+          Enhancements of our graceful shutdown functionality
+        &lt;/li&gt;
+        &lt;li&gt;
+          &lt;a href=&quot;https://issues.jboss.org/browse/JBJCA-1214&quot;&gt;[JBJCA-1214]&lt;/a&gt;
+          XAResource statistics for each pool
+        &lt;/li&gt;
+        &lt;li&gt;
+          &lt;a href=&quot;https://issues.jboss.org/browse/JBJCA-1211&quot;&gt;[JBJCA-1211]&lt;/a&gt;
+          Support for JDK 8
+        &lt;/li&gt;
+      &lt;/ul&gt;
+      &lt;p&gt;&lt;/p&gt;
+      The release contains some bug fixes as well.
+      &lt;h2&gt;The Road Ahead&lt;/h2&gt;
+      Hopefully testing will go smooth over the next couple of weeks, and hence we will see a Final release some time during October. Please, report anything you may
+      find, as the next development series will be 2.0, and a completely new journey :)
+      &lt;p&gt;&lt;/p&gt;
+      Enjoy !
+      &lt;p&gt;&lt;/p&gt;
+      On behalf of the IronJacamar community,
+      &lt;br /&gt;
+      &lt;i&gt;    Jesper&lt;/i&gt;
+      &lt;p&gt;&lt;/p&gt;
+      [
+      &lt;a href=&quot;http://www.ironjacamar.org/&quot;&gt;
+        WebSite
+      &lt;/a&gt;
+      ]
+      [
+      &lt;a href=&quot;http://www.ironjacamar.org/download.html&quot;&gt;
+        Download
+      &lt;/a&gt;
+      ]
+      [
+      &lt;a href=&quot;http://www.ironjacamar.org/documentation.html&quot;&gt;
+        Documentation
+      &lt;/a&gt;
+      ]
+      [
+      &lt;a href=&quot;http://issues.jboss.org/browse/JBJCA&quot;&gt;
+        JIRA
+      &lt;/a&gt;
+      ]
+    </content>
+  </entry>
+  <entry>
+    <id>http://localhost:4242/news/2014/08/12/IronJacamar120Beta4Released.html</id>
+    <title>IronJacamar 1.2.0.Beta4 released</title>
+    <updated>2016-11-01T10:24:12-04:00</updated>
+    <published>2014-08-12T00:00:00+00:00</published>
+    <link href="http://localhost:4242/news/2014/08/12/IronJacamar120Beta4Released.html" rel="alternate" type="text/html" />
+    <summary>
+      IronJacamar 1.2.0.Beta4 released
+      
+        August 12th, 2014
+      
+      
+      I'm proud to announce the IronJacamar 1.2.0.Beta4 release. Full release notes are
+      
+        here
+      
+      .
+      Almost at the end
+      Our Beta4 release should mark the end of the beta series for the 1.2 branch, which means the
+      next release will hopefully be a candidate for release.
+      
+      So, now is really the time to speak up if you did spot a missing feature that you think is critical
+      to get into the 1.2 series. Use our forums to make your voice heard.
+      Changes
+      A couple of changes stands out,
+      
+      
+        
+          [JBJCA-1190]
+          Graceful shutdown of ConnectionManager
+       ...
+    </summary>
+    <content type="html">
+      &lt;h1&gt;IronJacamar 1.2.0.Beta4 released&lt;/h1&gt;
+      &lt;strong&gt;
+        &lt;i&gt;August 12th, 2014&lt;/i&gt;
+      &lt;/strong&gt;
+      &lt;p&gt;&lt;/p&gt;
+      I'm proud to announce the IronJacamar 1.2.0.Beta4 release. Full release notes are
+      &lt;a href=&quot;https://issues.jboss.org/secure/ReleaseNote.jspa?projectId=12310691&amp;amp;version=12325275&quot;&gt;
+        here
+      &lt;/a&gt;
+      .
+      &lt;h2&gt;Almost at the end&lt;/h2&gt;
+      Our Beta4 release should mark the end of the beta series for the 1.2 branch, which means the
+      next release will hopefully be a candidate for release.
+      &lt;p&gt;&lt;/p&gt;
+      So, now is really the time to speak up if you did spot a missing feature that you think is critical
+      to get into the 1.2 series. Use our forums to make your voice heard.
+      &lt;h2&gt;Changes&lt;/h2&gt;
+      A couple of changes stands out,
+      &lt;p&gt;&lt;/p&gt;
+      &lt;ul&gt;
+        &lt;li&gt;
+          &lt;a href=&quot;https://issues.jboss.org/browse/JBJCA-1190&quot;&gt;[JBJCA-1190]&lt;/a&gt;
+          Graceful shutdown of ConnectionManager
+        &lt;/li&gt;
+        &lt;li&gt;
+          &lt;a href=&quot;https://issues.jboss.org/browse/JBJCA-1201&quot;&gt;[JBJCA-1201]&lt;/a&gt;
+          Port JDBC resource adapter to JCA 1.6
+        &lt;/li&gt;
+        &lt;li&gt;
+          &lt;a href=&quot;https://issues.jboss.org/browse/JBJCA-1180&quot;&gt;[JBJCA-1180]&lt;/a&gt;
+          Security SPI
+        &lt;/li&gt;
+      &lt;/ul&gt;
+      &lt;p&gt;&lt;/p&gt;
+      The graceful shutdown feature will allow resource adapters, and thereby datasources too, to be put into
+      shutdown mode allowing existing connections to finish their work, but reject new connections. The shutdown
+      can be canceled within the specified timeout value.
+      &lt;p&gt;&lt;/p&gt;
+      Porting the JDBC resource adapter to Java EE Connector Architecture 1.6 eliminates some internal transaction integration hacks making the resource
+      adapter much more &quot;clean&quot;. The resource adapter was also updated to use the JBoss Logging framework to provide
+      unique codes for important log statements and exceptions.
+      &lt;p&gt;&lt;/p&gt;
+      The addition of our security SPI will allow IronJacamar to use different security frameworks to provide the necessary
+      functionality. IronJacamar will continue to ship with PicketBox as the default provider.
+      &lt;p&gt;&lt;/p&gt;
+      The release contains some critical bug fixes as well.
+      &lt;h2&gt;The Road Ahead&lt;/h2&gt;
+      We have added a lot of new functionality to the 1.2 series, so getting to the candidate for release stage is an important milestone for
+      the project.
+      &lt;p&gt;&lt;/p&gt;
+      Now, we need your help to really hammer the release to find any bugs that have escaped us so far. Also try out the new features, and
+      report back any issues you see, or things that we need to make more clear.
+      &lt;p&gt;&lt;/p&gt;
+      For people that would like to stay on a stable release we have released IronJacamar 1.1.7.Final too.
+      &lt;p&gt;&lt;/p&gt;
+      Enjoy !
+      &lt;p&gt;&lt;/p&gt;
+      On behalf of the IronJacamar community,
+      &lt;br /&gt;
+      &lt;i&gt;    Jesper&lt;/i&gt;
+      &lt;p&gt;&lt;/p&gt;
+      [
+      &lt;a href=&quot;http://www.ironjacamar.org/&quot;&gt;
+        WebSite
+      &lt;/a&gt;
+      ]
+      [
+      &lt;a href=&quot;http://www.ironjacamar.org/download.html&quot;&gt;
+        Download
+      &lt;/a&gt;
+      ]
+      [
+      &lt;a href=&quot;http://www.ironjacamar.org/documentation.html&quot;&gt;
+        Documentation
+      &lt;/a&gt;
+      ]
+      [
+      &lt;a href=&quot;http://issues.jboss.org/browse/JBJCA&quot;&gt;
+        JIRA
+      &lt;/a&gt;
+      ]
+    </content>
+  </entry>
+  <entry>
+    <id>http://localhost:4242/news/2014/07/15/ArticlesConversationalInflow.html</id>
+    <title>Articles Conversational Inflow</title>
+    <updated>2016-11-01T10:24:12-04:00</updated>
+    <published>2014-07-15T00:00:00+00:00</published>
+    <link href="http://localhost:4242/news/2014/07/15/ArticlesConversationalInflow.html" rel="alternate" type="text/html" />
+    <summary>
+      Articles: Conversational inflow
+      
+        July 15th, 2014
+      
+      
+      I have posted an article about conversational inflow that I plan to submit to the next Java EE Connector Architecture
+      specification for discussion.
+      
+      This article discuss how conversational interactions between the Enterprise Information System and the application
+      server could happen through a resource adapter.
+      
+      You can find the article
+      
+        here
+      
+      .
+      
+      Feel free to join the discussion at
+      
+        IronJacamar Users Forum
+      
+      such that we can consider all use-cases before taking it to the Java Community Process.
+      
+      Looking forward to your feedback !
+      
+          Jesper...
+    </summary>
+    <content type="html">
+      &lt;h1&gt;Articles: Conversational inflow&lt;/h1&gt;
+      &lt;strong&gt;
+        &lt;i&gt;July 15th, 2014&lt;/i&gt;
+      &lt;/strong&gt;
+      &lt;p&gt;&lt;/p&gt;
+      I have posted an article about conversational inflow that I plan to submit to the next Java EE Connector Architecture
+      specification for discussion.
+      &lt;p&gt;&lt;/p&gt;
+      This article discuss how conversational interactions between the Enterprise Information System and the application
+      server could happen through a resource adapter.
+      &lt;p&gt;&lt;/p&gt;
+      You can find the article
+      &lt;a href=&quot;http://localhost:4242/doc/conversationalinflow.html&quot;&gt;
+        here
+      &lt;/a&gt;
+      .
+      &lt;p&gt;&lt;/p&gt;
+      Feel free to join the discussion at
+      &lt;a href=&quot;https://groups.google.com/forum/#!topic/ironjacamar-users/bkjLI9SQ6Yw&quot;&gt;
+        IronJacamar Users Forum
+      &lt;/a&gt;
+      such that we can consider all use-cases before taking it to the Java Community Process.
+      &lt;p&gt;&lt;/p&gt;
+      Looking forward to your feedback !
+      &lt;br /&gt;
+      &lt;i&gt;    Jesper&lt;/i&gt;
+    </content>
+  </entry>
+  <entry>
+    <id>http://localhost:4242/news/2014/06/24/IronJacamar120Beta3Released.html</id>
+    <title>IronJacamar 1.2.0.Beta3 released</title>
+    <updated>2016-11-01T10:24:12-04:00</updated>
+    <published>2014-06-24T00:00:00+00:00</published>
+    <link href="http://localhost:4242/news/2014/06/24/IronJacamar120Beta3Released.html" rel="alternate" type="text/html" />
+    <summary>
+      IronJacamar 1.2.0.Beta3 released
+      
+        June 24th, 2014
+      
+      
+      I'm proud to announce the IronJacamar 1.2.0.Beta3 release. Full release notes are
+      
+        here
+      
+      .
+      Changes
+      The third Beta release features one new feature (
+      
+        [JBJCA-1185]
+      
+      ) which enables validation of resource adapters when a connection is obtained.
+      
+      Most of the time spent during this cycle involved changing our entire metadata layer in order to
+      make new features easier to add, and to greatly simplify the code.
+      The Road Ahead
+      We will have yet another Beta, as there are still some areas to explore. And, we need to make sure that the metadata
+      changes doesn't cause regressions for projects using IronJacamar.
+      
+      Feedback on...
+    </summary>
+    <content type="html">
+      &lt;h1&gt;IronJacamar 1.2.0.Beta3 released&lt;/h1&gt;
+      &lt;strong&gt;
+        &lt;i&gt;June 24th, 2014&lt;/i&gt;
+      &lt;/strong&gt;
+      &lt;p&gt;&lt;/p&gt;
+      I'm proud to announce the IronJacamar 1.2.0.Beta3 release. Full release notes are
+      &lt;a href=&quot;https://issues.jboss.org/secure/ReleaseNote.jspa?projectId=12310691&amp;amp;version=12324889&quot;&gt;
+        here
+      &lt;/a&gt;
+      .
+      &lt;h2&gt;Changes&lt;/h2&gt;
+      The third Beta release features one new feature (
+      &lt;a href=&quot;https://issues.jboss.org/browse/JBJCA-1185&quot;&gt;
+        [JBJCA-1185]
+      &lt;/a&gt;
+      ) which enables validation of resource adapters when a connection is obtained.
+      &lt;p&gt;&lt;/p&gt;
+      Most of the time spent during this cycle involved changing our entire metadata layer in order to
+      make new features easier to add, and to greatly simplify the code.
+      &lt;h2&gt;The Road Ahead&lt;/h2&gt;
+      We will have yet another Beta, as there are still some areas to explore. And, we need to make sure that the metadata
+      changes doesn't cause regressions for projects using IronJacamar.
+      &lt;p&gt;&lt;/p&gt;
+      Feedback on the release is as always most welcome ! Enjoy !
+      &lt;p&gt;&lt;/p&gt;
+      On behalf of the IronJacamar community,
+      &lt;br /&gt;
+      &lt;i&gt;    Jesper&lt;/i&gt;
+      &lt;p&gt;&lt;/p&gt;
+      [
+      &lt;a href=&quot;http://www.ironjacamar.org/&quot;&gt;
+        WebSite
+      &lt;/a&gt;
+      ]
+      [
+      &lt;a href=&quot;http://www.ironjacamar.org/download.html&quot;&gt;
+        Download
+      &lt;/a&gt;
+      ]
+      [
+      &lt;a href=&quot;http://www.ironjacamar.org/documentation.html&quot;&gt;
+        Documentation
+      &lt;/a&gt;
+      ]
+      [
+      &lt;a href=&quot;http://issues.jboss.org/browse/JBJCA&quot;&gt;
+        JIRA
+      &lt;/a&gt;
+      ]
+    </content>
+  </entry>
+  <entry>
+    <id>http://localhost:4242/news/2014/05/14/Roadto12Tracer.html</id>
+    <title>Road to 1.2 The IronJacamar tracer</title>
+    <updated>2016-11-01T10:24:12-04:00</updated>
+    <published>2014-05-14T00:00:00+00:00</published>
+    <link href="http://localhost:4242/news/2014/05/14/Roadto12Tracer.html" rel="alternate" type="text/html" />
+    <summary>
+      Road to 1.2: The IronJacamar tracer
+      
+        May 14th, 2014
+      
+      
+      Our next article in our "Road to 1.2" series have been posted.
+      
+      This article discuss our new tracer which will help identify problems in the Java EE Connector Architecture
+      interaction quicker.
+      
+      You can find the article
+      
+        here
+      
+      .
+      
+      Feel free to suggest which articles could be interesting for this section with a comment here.
+      
+      As always, enjoy !...
+    </summary>
+    <content type="html">
+      &lt;h1&gt;Road to 1.2: The IronJacamar tracer&lt;/h1&gt;
+      &lt;strong&gt;
+        &lt;i&gt;May 14th, 2014&lt;/i&gt;
+      &lt;/strong&gt;
+      &lt;p&gt;&lt;/p&gt;
+      Our next article in our &quot;Road to 1.2&quot; series have been posted.
+      &lt;p&gt;&lt;/p&gt;
+      This article discuss our new tracer which will help identify problems in the Java EE Connector Architecture
+      interaction quicker.
+      &lt;p&gt;&lt;/p&gt;
+      You can find the article
+      &lt;a href=&quot;http://localhost:4242/doc/roadto12/tracer.html&quot;&gt;
+        here
+      &lt;/a&gt;
+      .
+      &lt;p&gt;&lt;/p&gt;
+      Feel free to suggest which articles could be interesting for this section with a comment here.
+      &lt;p&gt;&lt;/p&gt;
+      As always, enjoy !
+    </content>
+  </entry>
+  <entry>
+    <id>http://localhost:4242/news/2014/05/13/IronJacamar120Beta2Released.html</id>
+    <title>IronJacamar 1.2.0.Beta2 released</title>
+    <updated>2016-11-01T10:24:12-04:00</updated>
+    <published>2014-05-13T00:00:00+00:00</published>
+    <link href="http://localhost:4242/news/2014/05/13/IronJacamar120Beta2Released.html" rel="alternate" type="text/html" />
+    <summary>
+      IronJacamar 1.2.0.Beta2 released
+      
+        May 13th, 2014
+      
+      
+      I'm proud to announce the IronJacamar 1.2.0.Beta2 release. Full release notes are
+      
+        here
+      
+      .
+      Changes
+      The second Beta release features some new features, like
+      
+      
+        
+          [JBJCA-1167]
+          Statistics: Usage time
+        
+        
+          [JBJCA-1168]
+          Statistics: Pool time
+        
+        
+          [JBJCA-1173]
+          Tracer tool - more on this later
+        
+      
+      
+      and critical bug fixes as well.
+      The Road Ahead
+      We will have at least one more Beta in the 1.2 series, as we are looking to improve our metadata...
+    </summary>
+    <content type="html">
+      &lt;h1&gt;IronJacamar 1.2.0.Beta2 released&lt;/h1&gt;
+      &lt;strong&gt;
+        &lt;i&gt;May 13th, 2014&lt;/i&gt;
+      &lt;/strong&gt;
+      &lt;p&gt;&lt;/p&gt;
+      I'm proud to announce the IronJacamar 1.2.0.Beta2 release. Full release notes are
+      &lt;a href=&quot;https://issues.jboss.org/secure/ReleaseNote.jspa?projectId=12310691&amp;amp;version=12324669&quot;&gt;
+        here
+      &lt;/a&gt;
+      .
+      &lt;h2&gt;Changes&lt;/h2&gt;
+      The second Beta release features some new features, like
+      &lt;p&gt;&lt;/p&gt;
+      &lt;ul&gt;
+        &lt;li&gt;
+          &lt;a href=&quot;https://issues.jboss.org/browse/JBJCA-1167&quot;&gt;[JBJCA-1167]&lt;/a&gt;
+          Statistics: Usage time
+        &lt;/li&gt;
+        &lt;li&gt;
+          &lt;a href=&quot;https://issues.jboss.org/browse/JBJCA-1168&quot;&gt;[JBJCA-1168]&lt;/a&gt;
+          Statistics: Pool time
+        &lt;/li&gt;
+        &lt;li&gt;
+          &lt;a href=&quot;https://issues.jboss.org/browse/JBJCA-1173&quot;&gt;[JBJCA-1173]&lt;/a&gt;
+          Tracer tool - more on this later
+        &lt;/li&gt;
+      &lt;/ul&gt;
+      &lt;p&gt;&lt;/p&gt;
+      and critical bug fixes as well.
+      &lt;h2&gt;The Road Ahead&lt;/h2&gt;
+      We will have at least one more Beta in the 1.2 series, as we are looking to improve our metadata layer. And, likely new cool features too.
+      &lt;p&gt;&lt;/p&gt;
+      For people that would like to stay on a stable release we have released IronJacamar 1.1.6.Final too.
+      &lt;p&gt;&lt;/p&gt;
+      Feedback on the release is as always most welcome ! Enjoy !
+      &lt;p&gt;&lt;/p&gt;
+      On behalf of the IronJacamar community,
+      &lt;br /&gt;
+      &lt;i&gt;    Jesper&lt;/i&gt;
+      &lt;p&gt;&lt;/p&gt;
+      [
+      &lt;a href=&quot;http://www.ironjacamar.org/&quot;&gt;
+        WebSite
+      &lt;/a&gt;
+      ]
+      [
+      &lt;a href=&quot;http://www.ironjacamar.org/download.html&quot;&gt;
+        Download
+      &lt;/a&gt;
+      ]
+      [
+      &lt;a href=&quot;http://www.ironjacamar.org/documentation.html&quot;&gt;
+        Documentation
+      &lt;/a&gt;
+      ]
+      [
+      &lt;a href=&quot;http://issues.jboss.org/browse/JBJCA&quot;&gt;
+        JIRA
+      &lt;/a&gt;
+      ]
+    </content>
+  </entry>
+  <entry>
+    <id>http://localhost:4242/news/2014/04/14/Roadto12TXTracking.html</id>
+    <title>Road to 1.2 Transactional ConnectionEventListener tracking</title>
+    <updated>2016-11-01T10:24:12-04:00</updated>
+    <published>2014-04-14T00:00:00+00:00</published>
+    <link href="http://localhost:4242/news/2014/04/14/Roadto12TXTracking.html" rel="alternate" type="text/html" />
+    <summary>
+      Road to 1.2: Transactional ConnectionEventListener tracking
+      
+        April 14th, 2014
+      
+      
+      We have started a new series called "Road to 1.2", which will highlight new features in IronJacamar 1.2, or
+      discuss topics around Java EE Connector Architecture solved by IronJacamar.
+      
+      The first article is about our new transactional
+      
+        ConnectionEventListener
+      
+      tracking feature.
+      
+      You can find the article
+      
+        here
+      
+      .
+      
+      All articles will be located in our new
+      
+        Articles
+      
+      section.
+      
+      Feel free to suggest which articles could be interesting for this section with a comment here.
+      
+      As always, enjoy !...
+    </summary>
+    <content type="html">
+      &lt;h1&gt;Road to 1.2: Transactional ConnectionEventListener tracking&lt;/h1&gt;
+      &lt;strong&gt;
+        &lt;i&gt;April 14th, 2014&lt;/i&gt;
+      &lt;/strong&gt;
+      &lt;p&gt;&lt;/p&gt;
+      We have started a new series called &quot;Road to 1.2&quot;, which will highlight new features in IronJacamar 1.2, or
+      discuss topics around Java EE Connector Architecture solved by IronJacamar.
+      &lt;p&gt;&lt;/p&gt;
+      The first article is about our new transactional
+      &lt;i&gt;
+        ConnectionEventListener
+      &lt;/i&gt;
+      tracking feature.
+      &lt;p&gt;&lt;/p&gt;
+      You can find the article
+      &lt;a href=&quot;http://localhost:4242/doc/roadto12/txtracking.html&quot;&gt;
+        here
+      &lt;/a&gt;
+      .
+      &lt;p&gt;&lt;/p&gt;
+      All articles will be located in our new
+      &lt;a href=&quot;http://localhost:4242/doc/articles.html&quot;&gt;
+        Articles
+      &lt;/a&gt;
+      section.
+      &lt;p&gt;&lt;/p&gt;
+      Feel free to suggest which articles could be interesting for this section with a comment here.
+      &lt;p&gt;&lt;/p&gt;
+      As always, enjoy !
+    </content>
+  </entry>
+  <entry>
+    <id>http://localhost:4242/news/2014/04/10/IronJacamar120Beta1Released.html</id>
+    <title>IronJacamar 1.2.0.Beta1 released</title>
+    <updated>2016-11-01T10:24:12-04:00</updated>
+    <published>2014-04-10T00:00:00+00:00</published>
+    <link href="http://localhost:4242/news/2014/04/10/IronJacamar120Beta1Released.html" rel="alternate" type="text/html" />
+    <summary>
+      IronJacamar 1.2.0.Beta1 released
+      
+        April 10th, 2014
+      
+      
+      I'm proud to announce the IronJacamar 1.2.0.Beta1 release. Full release notes are
+      
+        here
+      
+      .
+      IronJacamar 1.2
+      We have decided to do a 1.2 series with some new features, as the IronJacamar 2.0 work has been stalled for
+      a while.
+      
+      We will try and limit the scope of the release to what will "fit" into the architecture of the 1.x series,
+      so expect that IronJacamar 1.2.0.Final will be a "super-set" of the 1.1.x releases in regards to configuration
+      and features.
+      
+      We are therefore hoping for a quick release cycle such that the IronJacamar 2.0 work can continue.
+      Lets get started
+      The first Beta release...
+    </summary>
+    <content type="html">
+      &lt;h1&gt;IronJacamar 1.2.0.Beta1 released&lt;/h1&gt;
+      &lt;strong&gt;
+        &lt;i&gt;April 10th, 2014&lt;/i&gt;
+      &lt;/strong&gt;
+      &lt;p&gt;&lt;/p&gt;
+      I'm proud to announce the IronJacamar 1.2.0.Beta1 release. Full release notes are
+      &lt;a href=&quot;https://issues.jboss.org/secure/ReleaseNote.jspa?projectId=12310691&amp;amp;version=12323837&quot;&gt;
+        here
+      &lt;/a&gt;
+      .
+      &lt;h2&gt;IronJacamar 1.2&lt;/h2&gt;
+      We have decided to do a 1.2 series with some new features, as the IronJacamar 2.0 work has been stalled for
+      a while.
+      &lt;p&gt;&lt;/p&gt;
+      We will try and limit the scope of the release to what will &quot;fit&quot; into the architecture of the 1.x series,
+      so expect that IronJacamar 1.2.0.Final will be a &quot;super-set&quot; of the 1.1.x releases in regards to configuration
+      and features.
+      &lt;p&gt;&lt;/p&gt;
+      We are therefore hoping for a quick release cycle such that the IronJacamar 2.0 work can continue.
+      &lt;h2&gt;Lets get started&lt;/h2&gt;
+      The first Beta release features some new features, like
+      &lt;p&gt;&lt;/p&gt;
+      &lt;ul&gt;
+        &lt;li&gt;
+          &lt;a href=&quot;https://issues.jboss.org/browse/JBJCA-1134&quot;&gt;[JBJCA-1134]&lt;/a&gt;
+          Add method to dump queued threads
+        &lt;/li&gt;
+        &lt;li&gt;
+          &lt;a href=&quot;https://issues.jboss.org/browse/JBJCA-1135&quot;&gt;[JBJCA-1135]&lt;/a&gt;
+          Synchronize shutdown
+        &lt;/li&gt;
+        &lt;li&gt;
+          &lt;a href=&quot;https://issues.jboss.org/browse/JBJCA-1141&quot;&gt;[JBJCA-1141]&lt;/a&gt;
+          Allow 'connectable' to be configured per deployment
+        &lt;/li&gt;
+        &lt;li&gt;
+          &lt;a href=&quot;https://issues.jboss.org/browse/JBJCA-1163&quot;&gt;[JBJCA-1163]&lt;/a&gt;
+          Support TxConnectionListener tracking
+        &lt;/li&gt;
+      &lt;/ul&gt;
+      &lt;p&gt;&lt;/p&gt;
+      and bug fixes as well. We will expand on certain features in upcoming articles to give a more in-depth description.
+      &lt;p&gt;&lt;/p&gt;
+      There are new deployment descriptors to enable/disable some of these new features.
+      &lt;h2&gt;The Road Ahead&lt;/h2&gt;
+      As stated above, we will try and do a quick release cycle, but there will likely be a couple of Beta's before
+      we do a feature freeze.
+      &lt;p&gt;&lt;/p&gt;
+      So, if you have an idea of what is missing be sure to stop by our forums or the IRC channel to discuss it.
+      &lt;p&gt;&lt;/p&gt;
+      Feedback on the release is as always most welcome ! Enjoy !
+      &lt;p&gt;&lt;/p&gt;
+      On behalf of the IronJacamar community,
+      &lt;br /&gt;
+      &lt;i&gt;    Jesper&lt;/i&gt;
+      &lt;p&gt;&lt;/p&gt;
+      [
+      &lt;a href=&quot;http://www.ironjacamar.org/&quot;&gt;
+        WebSite
+      &lt;/a&gt;
+      ]
+      [
+      &lt;a href=&quot;http://www.ironjacamar.org/download.html&quot;&gt;
+        Download
+      &lt;/a&gt;
+      ]
+      [
+      &lt;a href=&quot;http://www.ironjacamar.org/documentation.html&quot;&gt;
+        Documentation
+      &lt;/a&gt;
+      ]
+      [
+      &lt;a href=&quot;http://issues.jboss.org/browse/JBJCA&quot;&gt;
+        JIRA
+      &lt;/a&gt;
+      ]
+    </content>
+  </entry>
+  <entry>
+    <id>http://localhost:4242/news/2014/04/08/IronJacamar115FinalReleased.html</id>
+    <title>IronJacamar 1.1.5.Final released</title>
+    <updated>2016-11-01T10:24:12-04:00</updated>
+    <published>2014-04-08T00:00:00+00:00</published>
+    <link href="http://localhost:4242/news/2014/04/08/IronJacamar115FinalReleased.html" rel="alternate" type="text/html" />
+    <summary>
+      IronJacamar 1.1.5.Final released
+      
+        April 8th, 2014
+      
+      
+      I'm proud to announce the IronJacamar 1.1.5.Final release. Full release notes are
+      
+        here
+      
+      .
+      
+      This release is mainly a bug fix release, but initial Kerberos support was added too.
+      
+      Feedback on the release is as always most welcome ! Enjoy !
+      
+      On behalf of the IronJacamar community,
+      
+          Jesper
+      
+      [
+      
+        WebSite
+      
+      ]
+      [
+      
+        Download
+      
+      ]
+      [
+      
+        Documentation
+      
+      ]
+      [
+      
+        JIRA
+      
+      ]...
+    </summary>
+    <content type="html">
+      &lt;h1&gt;IronJacamar 1.1.5.Final released&lt;/h1&gt;
+      &lt;strong&gt;
+        &lt;i&gt;April 8th, 2014&lt;/i&gt;
+      &lt;/strong&gt;
+      &lt;p&gt;&lt;/p&gt;
+      I'm proud to announce the IronJacamar 1.1.5.Final release. Full release notes are
+      &lt;a href=&quot;https://issues.jboss.org/secure/ReleaseNote.jspa?projectId=12310691&amp;amp;version=12324482&quot;&gt;
+        here
+      &lt;/a&gt;
+      .
+      &lt;p&gt;&lt;/p&gt;
+      This release is mainly a bug fix release, but initial Kerberos support was added too.
+      &lt;p&gt;&lt;/p&gt;
+      Feedback on the release is as always most welcome ! Enjoy !
+      &lt;p&gt;&lt;/p&gt;
+      On behalf of the IronJacamar community,
+      &lt;br /&gt;
+      &lt;i&gt;    Jesper&lt;/i&gt;
+      &lt;p&gt;&lt;/p&gt;
+      [
+      &lt;a href=&quot;http://www.ironjacamar.org/&quot;&gt;
+        WebSite
+      &lt;/a&gt;
+      ]
+      [
+      &lt;a href=&quot;http://www.ironjacamar.org/download.html&quot;&gt;
+        Download
+      &lt;/a&gt;
+      ]
+      [
+      &lt;a href=&quot;http://www.ironjacamar.org/documentation.html&quot;&gt;
+        Documentation
+      &lt;/a&gt;
+      ]
+      [
+      &lt;a href=&quot;http://issues.jboss.org/browse/JBJCA&quot;&gt;
+        JIRA
+      &lt;/a&gt;
+      ]
+    </content>
+  </entry>
+  <entry>
+    <id>http://localhost:4242/news/2014/03/26/MeetJesper.html</id>
+    <title>Meet Jesper</title>
+    <updated>2016-11-01T10:24:18-04:00</updated>
+    <published>2014-03-26T00:00:00+00:00</published>
+    <link href="http://localhost:4242/news/2014/03/26/MeetJesper.html" rel="alternate" type="text/html" />
+    <summary>
+      Meet Jesper
+      
+        March 26th, 2014
+      
+      
+      An
+      
+        interview
+      
+      with project lead Jesper Pedersen have been posted in our
+      
+        interviews
+      
+      section....
+    </summary>
+    <content type="html">
+      &lt;h1&gt;Meet Jesper&lt;/h1&gt;
+      &lt;strong&gt;
+        &lt;i&gt;March 26th, 2014&lt;/i&gt;
+      &lt;/strong&gt;
+      &lt;p&gt;&lt;/p&gt;
+      An
+      &lt;a href=&quot;http://localhost:4242/interviews/jesper.html&quot;&gt;
+        interview
+      &lt;/a&gt;
+      with project lead Jesper Pedersen have been posted in our
+      &lt;a href=&quot;http://localhost:4242/interviews/index.html&quot;&gt;
+        interviews
+      &lt;/a&gt;
+      section.
+    </content>
+  </entry>
+  <entry>
+    <id>http://localhost:4242/news/2014/03/13/IronJacamar114Finalreleased.html</id>
+    <title>IronJacamar 1.1.4.Final released</title>
+    <updated>2016-11-01T10:24:12-04:00</updated>
+    <published>2014-03-13T00:00:00+00:00</published>
+    <link href="http://localhost:4242/news/2014/03/13/IronJacamar114Finalreleased.html" rel="alternate" type="text/html" />
+    <summary>
+      IronJacamar 1.1.4.Final released
+      
+        March 13th, 2014
+      
+      
+      I'm proud to announce the IronJacamar 1.1.4.Final release. Full release notes are
+      
+        here
+      
+      .
+      
+      This release is a bug fix release, especially
+      
+        JBJCA-1147
+      
+      is important, with some developer guide updates as well.
+      
+      Feedback on the release is as always most welcome ! Enjoy !
+      
+      On behalf of the IronJacamar community,
+      
+          Jesper
+      
+      [
+      
+        WebSite
+      
+      ]
+      [
+      
+        Download
+      
+      ]
+      [
+      
+        Documentation
+      
+      ]
+      [
+      
+        JIRA
+      
+      ]...
+    </summary>
+    <content type="html">
+      &lt;h1&gt;IronJacamar 1.1.4.Final released&lt;/h1&gt;
+      &lt;strong&gt;
+        &lt;i&gt;March 13th, 2014&lt;/i&gt;
+      &lt;/strong&gt;
+      &lt;p&gt;&lt;/p&gt;
+      I'm proud to announce the IronJacamar 1.1.4.Final release. Full release notes are
+      &lt;a href=&quot;https://issues.jboss.org/secure/ReleaseNote.jspa?projectId=12310691&amp;amp;version=12323928&quot;&gt;
+        here
+      &lt;/a&gt;
+      .
+      &lt;p&gt;&lt;/p&gt;
+      This release is a bug fix release, especially
+      &lt;a href=&quot;http://issues.jboss.org/browse/JBJCA-1147&quot;&gt;
+        JBJCA-1147
+      &lt;/a&gt;
+      is important, with some developer guide updates as well.
+      &lt;p&gt;&lt;/p&gt;
+      Feedback on the release is as always most welcome ! Enjoy !
+      &lt;p&gt;&lt;/p&gt;
+      On behalf of the IronJacamar community,
+      &lt;br /&gt;
+      &lt;i&gt;    Jesper&lt;/i&gt;
+      &lt;p&gt;&lt;/p&gt;
+      [
+      &lt;a href=&quot;http://www.ironjacamar.org/&quot;&gt;
+        WebSite
+      &lt;/a&gt;
+      ]
+      [
+      &lt;a href=&quot;http://www.ironjacamar.org/download.html&quot;&gt;
+        Download
+      &lt;/a&gt;
+      ]
+      [
+      &lt;a href=&quot;http://www.ironjacamar.org/documentation.html&quot;&gt;
+        Documentation
+      &lt;/a&gt;
+      ]
+      [
+      &lt;a href=&quot;http://issues.jboss.org/browse/JBJCA&quot;&gt;
+        JIRA
+      &lt;/a&gt;
+      ]
+    </content>
+  </entry>
+  <entry>
+    <id>http://localhost:4242/news/2014/01/24/MeetTyronne.html</id>
+    <title>Meet Tyronne</title>
+    <updated>2016-11-01T10:24:18-04:00</updated>
+    <published>2014-01-24T00:00:00+00:00</published>
+    <link href="http://localhost:4242/news/2014/01/24/MeetTyronne.html" rel="alternate" type="text/html" />
+    <summary>
+      Meet Tyronne
+      
+        January 24th, 2014
+      
+      
+      An
+      
+        interview
+      
+      with support engineer Tyronne Wickramarathne have been posted in our
+      
+        interviews
+      
+      section....
+    </summary>
+    <content type="html">
+      &lt;h1&gt;Meet Tyronne&lt;/h1&gt;
+      &lt;strong&gt;
+        &lt;i&gt;January 24th, 2014&lt;/i&gt;
+      &lt;/strong&gt;
+      &lt;p&gt;&lt;/p&gt;
+      An
+      &lt;a href=&quot;http://localhost:4242/interviews/tyronne.html&quot;&gt;
+        interview
+      &lt;/a&gt;
+      with support engineer Tyronne Wickramarathne have been posted in our
+      &lt;a href=&quot;http://localhost:4242/interviews/index.html&quot;&gt;
+        interviews
+      &lt;/a&gt;
+      section.
+    </content>
+  </entry>
+  <entry>
+    <id>http://localhost:4242/news/2014/01/10/IronJacamar113Finalreleased.html</id>
+    <title>IronJacamar 1.1.3.Final released</title>
+    <updated>2016-11-01T10:24:12-04:00</updated>
+    <published>2014-01-10T00:00:00+00:00</published>
+    <link href="http://localhost:4242/news/2014/01/10/IronJacamar113Finalreleased.html" rel="alternate" type="text/html" />
+    <summary>
+      IronJacamar 1.1.3.Final released
+      
+        January 10th, 2014
+      
+      
+      I'm proud to announce the IronJacamar 1.1.3.Final release. Full release notes are
+      
+        here
+      
+      .
+      
+      This release is a bug fix release, with some performance updates as well.
+      
+      Feedback on the release is as always most welcome ! Enjoy !
+      
+      On behalf of the IronJacamar community,
+      
+          Jesper
+      
+      [
+      
+        WebSite
+      
+      ]
+      [
+      
+        Download
+      
+      ]
+      [
+      
+        Documentation
+      
+      ]
+      [
+      
+        JIRA
+      
+      ]...
+    </summary>
+    <content type="html">
+      &lt;h1&gt;IronJacamar 1.1.3.Final released&lt;/h1&gt;
+      &lt;strong&gt;
+        &lt;i&gt;January 10th, 2014&lt;/i&gt;
+      &lt;/strong&gt;
+      &lt;p&gt;&lt;/p&gt;
+      I'm proud to announce the IronJacamar 1.1.3.Final release. Full release notes are
+      &lt;a href=&quot;https://issues.jboss.org/secure/ReleaseNote.jspa?projectId=12310691&amp;amp;version=12323803&quot;&gt;
+        here
+      &lt;/a&gt;
+      .
+      &lt;p&gt;&lt;/p&gt;
+      This release is a bug fix release, with some performance updates as well.
+      &lt;p&gt;&lt;/p&gt;
+      Feedback on the release is as always most welcome ! Enjoy !
+      &lt;p&gt;&lt;/p&gt;
+      On behalf of the IronJacamar community,
+      &lt;br /&gt;
+      &lt;i&gt;    Jesper&lt;/i&gt;
+      &lt;p&gt;&lt;/p&gt;
+      [
+      &lt;a href=&quot;http://www.ironjacamar.org/&quot;&gt;
+        WebSite
+      &lt;/a&gt;
+      ]
+      [
+      &lt;a href=&quot;http://www.ironjacamar.org/download.html&quot;&gt;
+        Download
+      &lt;/a&gt;
+      ]
+      [
+      &lt;a href=&quot;http://www.ironjacamar.org/documentation.html&quot;&gt;
+        Documentation
+      &lt;/a&gt;
+      ]
+      [
+      &lt;a href=&quot;http://issues.jboss.org/browse/JBJCA&quot;&gt;
+        JIRA
+      &lt;/a&gt;
+      ]
+    </content>
+  </entry>
+  <entry>
+    <id>http://localhost:4242/news/2013/12/11/MeetLin.html</id>
+    <title>Meet Lin</title>
+    <updated>2016-11-01T10:24:18-04:00</updated>
+    <published>2013-12-11T00:00:00+00:00</published>
+    <link href="http://localhost:4242/news/2013/12/11/MeetLin.html" rel="alternate" type="text/html" />
+    <summary>
+      Meet Lin
+      
+        December 11th, 2013
+      
+      
+      An
+      
+        interview
+      
+      with core developer Lin Gao have been posted in our
+      
+        interviews
+      
+      section....
+    </summary>
+    <content type="html">
+      &lt;h1&gt;Meet Lin&lt;/h1&gt;
+      &lt;strong&gt;
+        &lt;i&gt;December 11th, 2013&lt;/i&gt;
+      &lt;/strong&gt;
+      &lt;p&gt;&lt;/p&gt;
+      An
+      &lt;a href=&quot;http://localhost:4242/interviews/lin.html&quot;&gt;
+        interview
+      &lt;/a&gt;
+      with core developer Lin Gao have been posted in our
+      &lt;a href=&quot;http://localhost:4242/interviews/index.html&quot;&gt;
+        interviews
+      &lt;/a&gt;
+      section.
+    </content>
+  </entry>
+  <entry>
+    <id>http://localhost:4242/news/2013/11/27/IronJacamar112Finalreleased.html</id>
+    <title>IronJacamar 1.1.2.Final released</title>
+    <updated>2016-11-01T10:24:12-04:00</updated>
+    <published>2013-11-27T00:00:00+00:00</published>
+    <link href="http://localhost:4242/news/2013/11/27/IronJacamar112Finalreleased.html" rel="alternate" type="text/html" />
+    <summary>
+      IronJacamar 1.1.2.Final released
+      
+        November 27th, 2013
+      
+      
+      I'm proud to announce the IronJacamar 1.1.2.Final release. Full release notes are
+      
+        here
+      
+      .
+      
+      This release is a bug fix release, which fixes some critical issues.
+      
+      So everybody should upgrade to this release in order to get these fixes.
+      
+      Feedback on the release is as always most welcome ! Enjoy !
+      
+      On behalf of the IronJacamar community,
+      
+          Jesper
+      
+      [
+      
+        WebSite
+      
+      ]
+      [
+      
+        Download
+      
+      ]
+      [
+      
+        Documentation
+      
+      ]
+      [
+      
+        JIRA
+      
+      ]...
+    </summary>
+    <content type="html">
+      &lt;h1&gt;IronJacamar 1.1.2.Final released&lt;/h1&gt;
+      &lt;strong&gt;
+        &lt;i&gt;November 27th, 2013&lt;/i&gt;
+      &lt;/strong&gt;
+      &lt;p&gt;&lt;/p&gt;
+      I'm proud to announce the IronJacamar 1.1.2.Final release. Full release notes are
+      &lt;a href=&quot;http://issues.jboss.org/secure/ReleaseNote.jspa?projectId=12310691&amp;amp;version=12323133&quot;&gt;
+        here
+      &lt;/a&gt;
+      .
+      &lt;p&gt;&lt;/p&gt;
+      This release is a bug fix release, which fixes some critical issues.
+      &lt;p&gt;&lt;/p&gt;
+      So everybody should upgrade to this release in order to get these fixes.
+      &lt;p&gt;&lt;/p&gt;
+      Feedback on the release is as always most welcome ! Enjoy !
+      &lt;p&gt;&lt;/p&gt;
+      On behalf of the IronJacamar community,
+      &lt;br /&gt;
+      &lt;i&gt;    Jesper&lt;/i&gt;
+      &lt;p&gt;&lt;/p&gt;
+      [
+      &lt;a href=&quot;http://www.ironjacamar.org/&quot;&gt;
+        WebSite
+      &lt;/a&gt;
+      ]
+      [
+      &lt;a href=&quot;http://www.ironjacamar.org/download.html&quot;&gt;
+        Download
+      &lt;/a&gt;
+      ]
+      [
+      &lt;a href=&quot;http://www.ironjacamar.org/documentation.html&quot;&gt;
+        Documentation
+      &lt;/a&gt;
+      ]
+      [
+      &lt;a href=&quot;http://issues.jboss.org/browse/JBJCA&quot;&gt;
+        JIRA
+      &lt;/a&gt;
+      ]
+    </content>
+  </entry>
+  <entry>
+    <id>http://localhost:4242/news/2013/11/20/MeetVladimir.html</id>
+    <title>Meet Vladimir</title>
+    <updated>2016-11-01T10:24:18-04:00</updated>
+    <published>2013-11-20T00:00:00+00:00</published>
+    <link href="http://localhost:4242/news/2013/11/20/MeetVladimir.html" rel="alternate" type="text/html" />
+    <summary>
+      Meet Vladimir
+      
+        November 20th, 2013
+      
+      
+      An
+      
+        interview
+      
+      with core developer Vladimir Rastseluev have been posted in our
+      
+        interviews
+      
+      section....
+    </summary>
+    <content type="html">
+      &lt;h1&gt;Meet Vladimir&lt;/h1&gt;
+      &lt;strong&gt;
+        &lt;i&gt;November 20th, 2013&lt;/i&gt;
+      &lt;/strong&gt;
+      &lt;p&gt;&lt;/p&gt;
+      An
+      &lt;a href=&quot;http://localhost:4242/interviews/vladimir.html&quot;&gt;
+        interview
+      &lt;/a&gt;
+      with core developer Vladimir Rastseluev have been posted in our
+      &lt;a href=&quot;http://localhost:4242/interviews/index.html&quot;&gt;
+        interviews
+      &lt;/a&gt;
+      section.
+    </content>
+  </entry>
+  <entry>
+    <id>http://localhost:4242/news/2013/10/25/IronJacamar111Finalreleased.html</id>
+    <title>IronJacamar 1.1.1.Final released</title>
+    <updated>2016-11-01T10:24:12-04:00</updated>
+    <published>2013-10-25T00:00:00+00:00</published>
+    <link href="http://localhost:4242/news/2013/10/25/IronJacamar111Finalreleased.html" rel="alternate" type="text/html" />
+    <summary>
+      IronJacamar 1.1.1.Final released
+      
+        October 25th, 2013
+      
+      
+      I'm proud to announce the IronJacamar 1.1.1.Final release. Full release notes are
+      
+        here
+      
+      .
+      
+      This is the first update to our 1.1 series, and contains a number of bug-fixes found
+      over the last months.
+      
+      The release also upgrades a lot of components to align with their counterpart found
+      in the
+      
+        WildFly
+      
+      project to bring in more Java Enterprise Edition 7 functionality.
+      
+      There was one new feature in the release, namely
+      
+        JBJCA-1107
+      
+      , which allows a connection to be obtained even when the transaction is in MARKED_FOR_ROLLBACK mode.
+      This should not be considered best practice to enable this feature, but more...
+    </summary>
+    <content type="html">
+      &lt;h1&gt;IronJacamar 1.1.1.Final released&lt;/h1&gt;
+      &lt;strong&gt;
+        &lt;i&gt;October 25th, 2013&lt;/i&gt;
+      &lt;/strong&gt;
+      &lt;p&gt;&lt;/p&gt;
+      I'm proud to announce the IronJacamar 1.1.1.Final release. Full release notes are
+      &lt;a href=&quot;http://issues.jboss.org/secure/ReleaseNote.jspa?projectId=12310691&amp;amp;version=12322339&quot;&gt;
+        here
+      &lt;/a&gt;
+      .
+      &lt;p&gt;&lt;/p&gt;
+      This is the first update to our 1.1 series, and contains a number of bug-fixes found
+      over the last months.
+      &lt;p&gt;&lt;/p&gt;
+      The release also upgrades a lot of components to align with their counterpart found
+      in the
+      &lt;a href=&quot;http://www.wildfly.org/&quot;&gt;
+        WildFly
+      &lt;/a&gt;
+      project to bring in more Java Enterprise Edition 7 functionality.
+      &lt;p&gt;&lt;/p&gt;
+      There was one new feature in the release, namely
+      &lt;a href=&quot;http://issues.jboss.org/browse/JBJCA-1107&quot;&gt;
+        JBJCA-1107
+      &lt;/a&gt;
+      , which allows a connection to be obtained even when the transaction is in MARKED_FOR_ROLLBACK mode.
+      This should not be considered best practice to enable this feature, but more as a help while
+      porting the application to actually check the transaction status before doing any work.
+      &lt;p&gt;&lt;/p&gt;
+      Feedback on the release is as always most welcome ! Enjoy !
+      &lt;p&gt;&lt;/p&gt;
+      On behalf of the IronJacamar community,
+      &lt;br /&gt;
+      &lt;i&gt;    Jesper&lt;/i&gt;
+      &lt;p&gt;&lt;/p&gt;
+      [
+      &lt;a href=&quot;http://www.ironjacamar.org/&quot;&gt;
+        WebSite
+      &lt;/a&gt;
+      ]
+      [
+      &lt;a href=&quot;http://www.ironjacamar.org/download.html&quot;&gt;
+        Download
+      &lt;/a&gt;
+      ]
+      [
+      &lt;a href=&quot;http://www.ironjacamar.org/documentation.html&quot;&gt;
+        Documentation
+      &lt;/a&gt;
+      ]
+      [
+      &lt;a href=&quot;http://issues.jboss.org/browse/JBJCA&quot;&gt;
+        JIRA
+      &lt;/a&gt;
+      ]
+    </content>
+  </entry>
+  <entry>
+    <id>http://localhost:4242/news/2013/10/08/MeetJohn.html</id>
+    <title>Meet John</title>
+    <updated>2016-11-01T10:24:18-04:00</updated>
+    <published>2013-10-08T00:00:00+00:00</published>
+    <link href="http://localhost:4242/news/2013/10/08/MeetJohn.html" rel="alternate" type="text/html" />
+    <summary>
+      Meet John
+      
+        October 8th, 2013
+      
+      
+      An
+      
+        interview
+      
+      with support engineer Johnathon Lee have been posted in our
+      
+        interviews
+      
+      section....
+    </summary>
+    <content type="html">
+      &lt;h1&gt;Meet John&lt;/h1&gt;
+      &lt;strong&gt;
+        &lt;i&gt;October 8th, 2013&lt;/i&gt;
+      &lt;/strong&gt;
+      &lt;p&gt;&lt;/p&gt;
+      An
+      &lt;a href=&quot;http://localhost:4242/interviews/john.html&quot;&gt;
+        interview
+      &lt;/a&gt;
+      with support engineer Johnathon Lee have been posted in our
+      &lt;a href=&quot;http://localhost:4242/interviews/index.html&quot;&gt;
+        interviews
+      &lt;/a&gt;
+      section.
+    </content>
+  </entry>
+  <entry>
+    <id>http://localhost:4242/news/2013/09/18/IronJacamarAtJavaOne.html</id>
+    <title>IronJacamar at JavaOne</title>
+    <updated>2016-11-01T10:24:18-04:00</updated>
+    <published>2013-09-18T00:00:00+00:00</published>
+    <link href="http://localhost:4242/news/2013/09/18/IronJacamarAtJavaOne.html" rel="alternate" type="text/html" />
+    <summary>
+      IronJacamar at JavaOne
+      
+        September 18th, 2013
+      
+      
+      I'll be at
+      
+        JavaOne
+      
+      where I'll co-present a session about Java EE Connector Architecture with the other members of the
+      expert group.
+      
+      We will go over the latest changes in Java EE Connector Architecture 1.7, included in Java EE 7,
+      but more importantly open the floor for a discussion about where the specification should be
+      heading in future Java Enterprise Edition updates.
+      
+      Java EE Connector Architecture is developed under the
+      
+        Java Community Process
+      
+      , so your voice matters, either as feedback or as an active member of the group.
+      
+      So you should definitely attend this session if you are interested...
+    </summary>
+    <content type="html">
+      &lt;h1&gt;IronJacamar at JavaOne&lt;/h1&gt;
+      &lt;strong&gt;
+        &lt;i&gt;September 18th, 2013&lt;/i&gt;
+      &lt;/strong&gt;
+      &lt;p&gt;&lt;/p&gt;
+      I'll be at
+      &lt;a href=&quot;http://www.oracle.com/javaone/index.html&quot;&gt;
+        JavaOne
+      &lt;/a&gt;
+      where I'll co-present a session about Java EE Connector Architecture with the other members of the
+      expert group.
+      &lt;p&gt;&lt;/p&gt;
+      We will go over the latest changes in Java EE Connector Architecture 1.7, included in Java EE 7,
+      but more importantly open the floor for a discussion about where the specification should be
+      heading in future Java Enterprise Edition updates.
+      &lt;p&gt;&lt;/p&gt;
+      Java EE Connector Architecture is developed under the
+      &lt;a href=&quot;http://www.jcp.org/&quot;&gt;
+        Java Community Process
+      &lt;/a&gt;
+      , so your voice matters, either as feedback or as an active member of the group.
+      &lt;p&gt;&lt;/p&gt;
+      So you should definitely attend this session if you are interested how the future of integrating
+      Enterprise Information Systems into the Java EE platform should look, or if you are interested in
+      learning more about Java EE Connector Architecture in general.
+      &lt;p&gt;&lt;/p&gt;
+      The session details:
+      &lt;hr /&gt;
+      &lt;quote&gt;
+        &lt;b&gt;
+          &lt;i&gt;
+            What’s Next for the Java EE Connector Architecture [BOF7904]
+          &lt;/i&gt;
+        &lt;/b&gt;
+        &lt;p&gt;&lt;/p&gt;
+        The Connector architecture is a key standard on the Java EE platform for enterprise application
+        integration. It provides the ability for an application to work with disparate enterprise
+        information systems (EISs) such as messaging middleware and transaction monitors.
+        &lt;p&gt;&lt;/p&gt;
+        This session details the new features added to the Connectors specification in the Java EE 7
+        specification and discusses potential enhancements to the standard in a future version.
+        &lt;p&gt;&lt;/p&gt;
+        Come and share your views on how the standard must evolve. This discussion is led by the specification
+        lead and the expert group members of the Connector specification.
+        &lt;p&gt;&lt;/p&gt;
+        &lt;b&gt;
+          &lt;i&gt;
+            Location:
+          &lt;/i&gt;
+        &lt;/b&gt;
+        &lt;br /&gt;
+        Parc 55 - Mission
+        &lt;p&gt;&lt;/p&gt;
+        &lt;b&gt;
+          &lt;i&gt;
+            Time:
+          &lt;/i&gt;
+        &lt;/b&gt;
+        &lt;br /&gt;
+        Tuesday, Sep 24, 5:30 - 6:15 PM
+      &lt;/quote&gt;
+      &lt;hr /&gt;
+      I hope to see you all there, and remember that there is the Red Hat party after the session, so be sure to stop by the
+      booth to pick up your ticket !
+      &lt;p&gt;&lt;/p&gt;
+      For Those About to Rock, We Salute You !
+      &lt;br /&gt;
+      &lt;i&gt;    Jesper&lt;/i&gt;
+    </content>
+  </entry>
+  <entry>
+    <id>http://localhost:4242/news/2013/09/10/MeetJeff.html</id>
+    <title>Meet Jeff</title>
+    <updated>2016-11-01T10:24:18-04:00</updated>
+    <published>2013-09-10T00:00:00+00:00</published>
+    <link href="http://localhost:4242/news/2013/09/10/MeetJeff.html" rel="alternate" type="text/html" />
+    <summary>
+      Meet Jeff
+      
+        September 10th, 2013
+      
+      
+      An
+      
+        interview
+      
+      with core developer Jeff Zhang have been posted in our
+      
+        interviews
+      
+      section....
+    </summary>
+    <content type="html">
+      &lt;h1&gt;Meet Jeff&lt;/h1&gt;
+      &lt;strong&gt;
+        &lt;i&gt;September 10th, 2013&lt;/i&gt;
+      &lt;/strong&gt;
+      &lt;p&gt;&lt;/p&gt;
+      An
+      &lt;a href=&quot;http://localhost:4242/interviews/jeff.html&quot;&gt;
+        interview
+      &lt;/a&gt;
+      with core developer Jeff Zhang have been posted in our
+      &lt;a href=&quot;http://localhost:4242/interviews/index.html&quot;&gt;
+        interviews
+      &lt;/a&gt;
+      section.
+    </content>
+  </entry>
+  <entry>
+    <id>http://localhost:4242/news/2013/08/14/IronJacamar2ProjectLaunch.html</id>
+    <title>IronJacamar 2 project launch</title>
+    <updated>2016-11-01T10:24:12-04:00</updated>
+    <published>2013-08-14T00:00:00+00:00</published>
+    <link href="http://localhost:4242/news/2013/08/14/IronJacamar2ProjectLaunch.html" rel="alternate" type="text/html" />
+    <summary>
+      IronJacamar 2 project launch
+      
+        August 14th, 2013
+      
+      
+      Today, we are launching the IronJacamar 2 project.
+      
+      IronJacamar 2 will redefine the project in key areas, and provide the Java EE Connector Architecture
+      community with a customizable platform that fits their use-case.
+      
+      The first major change will be a change to our license. The project will now be relased under the
+      Eclipse Public License v1.0
+      license. This change is done in order to support projects, which doesn't allow a GNU Lesser
+      Public License based project to be used.
+      
+      The second major change will be a change to our package name. The project will from now on use the
+      "org.ironjacamar" package...
+    </summary>
+    <content type="html">
+      &lt;h1&gt;IronJacamar 2 project launch&lt;/h1&gt;
+      &lt;strong&gt;
+        &lt;i&gt;August 14th, 2013&lt;/i&gt;
+      &lt;/strong&gt;
+      &lt;p&gt;&lt;/p&gt;
+      Today, we are launching the IronJacamar 2 project.
+      &lt;p&gt;&lt;/p&gt;
+      IronJacamar 2 will redefine the project in key areas, and provide the Java EE Connector Architecture
+      community with a customizable platform that fits their use-case.
+      &lt;p&gt;&lt;/p&gt;
+      The first major change will be a change to our license. The project will now be relased under the
+      &lt;a href=&quot;http://www.eclipse.org/legal/epl-v10.html&quot;&gt;Eclipse Public License v1.0&lt;/a&gt;
+      license. This change is done in order to support projects, which doesn't allow a GNU Lesser
+      Public License based project to be used.
+      &lt;p&gt;&lt;/p&gt;
+      The second major change will be a change to our package name. The project will from now on use the
+      &quot;org.ironjacamar&quot; package namespace for all code and tools.
+      &lt;p&gt;&lt;/p&gt;
+      The third major change is how the container is assembled at run-time. As Java EE Connector Architecture
+      containers are used for important areas, like controlling
+      &lt;a href=&quot;http://docs.oracle.com/javase/7/docs/api/javax/sql/DataSource.html&quot;&gt;
+        datasources
+      &lt;/a&gt;
+      and providing the integration for
+      &lt;a href=&quot;http://docs.oracle.com/javaee/7/api/javax/ejb/MessageDrivenBean.html&quot;&gt;
+        Enterprise Messaging Beans
+      &lt;/a&gt;
+      into Java EE environments it is important that each project can choose which parts of the IronJacamar
+      container to enable. This will be made possible by providing a service-oriented architecture which
+      will enable a specific component of the container, and the required dependencies.
+      &lt;p&gt;&lt;/p&gt;
+      There will also be new functionality as compared to the IronJacamar 1.x project. Wishlist includes
+      &lt;p&gt;&lt;/p&gt;
+      &lt;ul&gt;
+        &lt;li&gt;Proof of Concept for Java EE Connector Architecture 2.0&lt;/li&gt;
+        &lt;li&gt;Pool less container&lt;/li&gt;
+        &lt;li&gt;Lazy association for transacted based scenarios&lt;/li&gt;
+        &lt;li&gt;Serializable connection manager&lt;/li&gt;
+        &lt;li&gt;Fat pool lock&lt;/li&gt;
+      &lt;/ul&gt;
+      &lt;p&gt;&lt;/p&gt;
+      Especially the first bullet is of interest, since the current Java EE Connector Architecture specification
+      has been using the same overall architecture since version 1.0. The proof of concept will provide a more
+      modern way of implementing a resource adapter, only requiring the necessary parts to be implemented and also
+      allow injection of major components, like
+      &lt;i&gt;BootstrapContext&lt;/i&gt;
+      and
+      &lt;i&gt;WorkManager&lt;/i&gt;
+      .
+      &lt;p&gt;&lt;/p&gt;
+      Of course the project will continue to support the latest
+      &lt;a href=&quot;http://jcp.org/en/jsr/detail?id=322&quot;&gt;
+        Java EE Connector Architecture
+      &lt;/a&gt;
+      specification.
+      &lt;p&gt;&lt;/p&gt;
+      We have constructed an IronJacamar 2
+      &lt;a href=&quot;http://localhost:4242/doc/ironjacamar2.html&quot;&gt;development&lt;/a&gt;
+      area, where overall goals for each component is described. These documents will be expanded over time.
+      &lt;p&gt;&lt;/p&gt;
+      We invite you to join our
+      &lt;a href=&quot;http://localhost:4242/community.html&quot;&gt;community&lt;/a&gt;
+      , contribute with ideas, and help to build the next generation of a Java EE Connector Architecture container.
+      &lt;p&gt;&lt;/p&gt;
+      On behalf of the IronJacamar community,
+      &lt;br /&gt;
+      &lt;i&gt;    Jesper&lt;/i&gt;
+    </content>
+  </entry>
+  <entry>
+    <id>http://localhost:4242/news/2013/08/06/IronJacamar110Finalreleased.html</id>
+    <title>IronJacamar 1.1.0.Final released</title>
+    <updated>2016-11-01T10:24:12-04:00</updated>
+    <published>2013-08-06T00:00:00+00:00</published>
+    <link href="http://localhost:4242/news/2013/08/06/IronJacamar110Finalreleased.html" rel="alternate" type="text/html" />
+    <summary>
+      IronJacamar 1.1.0.Final released
+      
+        August 6th, 2013
+      
+      
+      I'm very proud to announce IronJacamar 1.1.0.Final, the first stable release of our IronJacamar 1.1 series.
+      
+      Only minor issues were found during our CR2 testing, so the release are small.
+      Full release notes are
+      
+        here
+      
+      .
+      IronJamamar 1.1
+      IronJacamar is an implementation of the Java EE Connector Architecture 1.7 specification featured in the Java EE 7 Full Profile.
+      
+      Java EE Connector Architecture (JCA) defines a standard architecture for connecting the Java EE platform to heterogeneous Enterprise Information Systems (EIS), like Enterprise Resource Planning (ERP), database and messaging systems.
+      
+      IronJacamar 1.1 is the second major feature release, which brings a lot...
+    </summary>
+    <content type="html">
+      &lt;h1&gt;IronJacamar 1.1.0.Final released&lt;/h1&gt;
+      &lt;strong&gt;
+        &lt;i&gt;August 6th, 2013&lt;/i&gt;
+      &lt;/strong&gt;
+      &lt;p&gt;&lt;/p&gt;
+      I'm very proud to announce IronJacamar 1.1.0.Final, the first stable release of our IronJacamar 1.1 series.
+      &lt;p&gt;&lt;/p&gt;
+      Only minor issues were found during our CR2 testing, so the release are small.
+      Full release notes are
+      &lt;a href=&quot;https://issues.jboss.org/secure/ReleaseNote.jspa?projectId=12310691&amp;amp;version=12322281&quot;&gt;
+        here
+      &lt;/a&gt;
+      .
+      &lt;h2&gt;IronJamamar 1.1&lt;/h2&gt;
+      IronJacamar is an implementation of the Java EE Connector Architecture 1.7 specification featured in the Java EE 7 Full Profile.
+      &lt;p&gt;&lt;/p&gt;
+      Java EE Connector Architecture (JCA) defines a standard architecture for connecting the Java EE platform to heterogeneous Enterprise Information Systems (EIS), like Enterprise Resource Planning (ERP), database and messaging systems.
+      &lt;p&gt;&lt;/p&gt;
+      IronJacamar 1.1 is the second major feature release, which brings a lot of new functionality to the Java EE Connector
+      Architecture community.
+      &lt;p&gt;&lt;/p&gt;
+      The major new features includes
+      &lt;p&gt;&lt;/p&gt;
+      &lt;ul&gt;
+        &lt;li&gt;Java EE Connector Architecture 1.7 certified&lt;/li&gt;
+        &lt;li&gt;Lazy connection manager&lt;/li&gt;
+        &lt;li&gt;Distributed work manager&lt;/li&gt;
+        &lt;li&gt;Advanced pool capacity policies and flush strategies&lt;/li&gt;
+        &lt;li&gt;Enhanced Arquillian integration&lt;/li&gt;
+        &lt;li&gt;Eclipse development plugin&lt;/li&gt;
+        &lt;li&gt;Enterprise Information System testing server&lt;/li&gt;
+        &lt;li&gt;Resource adapter information tool&lt;/li&gt;
+        &lt;li&gt;Migration tools&lt;/li&gt;
+      &lt;/ul&gt;
+      &lt;p&gt;&lt;/p&gt;
+      Lets do a run through.
+      &lt;h2&gt;Java EE Connector Architecture 1.7&lt;/h2&gt;
+      The Java Connector Architecture 1.7 specification adds the following areas:
+      &lt;p&gt;&lt;/p&gt;
+      &lt;ul&gt;
+        &lt;li&gt;Adds an activation name for message endpoints to uniquely identify them&lt;/li&gt;
+        &lt;li&gt;Adds message endpoint class access&lt;/li&gt;
+        &lt;li&gt;Deployment annotations for connection factories and administration objects&lt;/li&gt;
+      &lt;/ul&gt;
+      &lt;p&gt;&lt;/p&gt;
+      So, this would be considered a small update to the Java EE Connector Architecture specification
+      in order to align with some of the new functionality in Java EE 7, especially for JMS 2.0.
+      &lt;h2&gt;Lazy connection manager&lt;/h2&gt;
+      A lazy connection manager allows the JCA container to move a physical connection to an Enterprise Information
+      System from one logical connection handle to another logical connection handle.
+      &lt;p&gt;&lt;/p&gt;
+      The logical connection handle is the connection that the Java EE application interacts with, while the physical
+      connection handle is the real connection controlled by the JCA container.
+      &lt;p&gt;&lt;/p&gt;
+      This means that there can be more logical connection handles than physical ones - so basically the physical connections
+      are multiplexed between the logical ones when needed, say 1000 logical connections to 100 physical connections.
+      &lt;p&gt;&lt;/p&gt;
+      You can read more about this optional Java EE Connector Architecture feature in chapter 7.16.
+      &lt;h2&gt;Distributed work manager&lt;/h2&gt;
+      A distributed workmanager is able to execute a
+      &lt;p&gt;&lt;/p&gt;
+      &lt;div class=&quot;code&quot;&gt;
+        javax.resource.spi.work.DistributableWork
+      &lt;/div&gt;
+      &lt;p&gt;&lt;/p&gt;
+      instance on any node in the cluster where the associated resource adapter is deployed, and configured in the
+      same way.
+      &lt;p&gt;&lt;/p&gt;
+      This allows more optimal use of the JCA based resources across the entire cluster.
+      &lt;p&gt;&lt;/p&gt;
+      The &quot;when&quot; and &quot;where&quot; is defined by policies and selectors configured on the DistributedWorkManager instance, f.ex.
+      a policy of &quot;Always&quot; and a selector of &quot;PingTime&quot; will always send the work instance to the node which has the lowest
+      ping time - excluding the node where the work instance was submitted to of course.
+      &lt;p&gt;&lt;/p&gt;
+      Read more about the DistributedWorkManager in chapter 10.3.11 of the specification.
+      &lt;h2&gt;Advanced pools&lt;/h2&gt;
+      Capacity policies and additional flush strategies have been added to the connection pool backing the physical connections.
+      &lt;p&gt;&lt;/p&gt;
+      A capacity policy defines how a pool grows or shrinks when either being asked for a connection, or triggered by the idle connection
+      scanner.
+      &lt;p&gt;&lt;/p&gt;
+      This means that you can get your pool to grow by 2 connections if none are available, leading to not having the connection
+      overhead for the next incoming request. Same goes for shrinking where you can remove all idle connections in the pool in
+      order to limit resources spent.
+      &lt;h2&gt;Tooling&lt;/h2&gt;
+      IronJacamar 1.1 saw a lot of tooling improvements.
+      &lt;p&gt;&lt;/p&gt;
+      The integration with modern testing methods using
+      &lt;a href=&quot;http://www.arquillian.org&quot;&gt;
+        Arquillian
+      &lt;/a&gt;
+      and
+      &lt;a href=&quot;http://www.jboss.org/shrinkwrap&quot;&gt;
+        ShrinkWrap
+      &lt;/a&gt;
+      are now much easy to use with our embedded JCA environment, leading to easier unit test for resource adapters.
+      Especially since we now have an Enterprise Information System testing server which can eliminate the need
+      to actually have the real Enterprise Information System installed.
+      &lt;p&gt;&lt;/p&gt;
+      This is also made available by a new IronJacamar Eclipse plugin.
+      &lt;p&gt;&lt;/p&gt;
+      Last, but not least, there is a tool for getting valuable information about a resource adapter, and tools
+      for migrating old configuration files.
+      &lt;p&gt;&lt;/p&gt;
+      Our
+      &lt;a href=&quot;http://www.ironjacamar.org/doc/userguide/1.1/en-US/html/index.html&quot;&gt;
+        user guide
+      &lt;/a&gt;
+      contains much more information about these subjects, so check it out.
+      &lt;h2&gt;The Road Ahead&lt;/h2&gt;
+      Planning for IronJacamar 2.0 has begun, but first more importantly:
+      &lt;p&gt;&lt;/p&gt;
+      &lt;b&gt;
+        Champagne !!
+      &lt;/b&gt;
+      &lt;p&gt;&lt;/p&gt;
+      Please, raise your glass, and celebrate with us.
+      &lt;p&gt;&lt;/p&gt;
+      Last, but not least - A
+      &lt;b&gt;
+        HUGE
+      &lt;/b&gt;
+      shout-out to our community and developers who helped with this release. You know who you are !
+      &lt;p&gt;&lt;/p&gt;
+      On behalf of the IronJacamar community,
+      &lt;br /&gt;
+      &lt;i&gt;    Jesper&lt;/i&gt;
+      &lt;p&gt;&lt;/p&gt;
+      [
+      &lt;a href=&quot;http://www.ironjacamar.org/&quot;&gt;
+        WebSite
+      &lt;/a&gt;
+      ]
+      [
+      &lt;a href=&quot;http://www.ironjacamar.org/download.html&quot;&gt;
+        Download
+      &lt;/a&gt;
+      ]
+      [
+      &lt;a href=&quot;http://www.ironjacamar.org/documentation.html&quot;&gt;
+        Documentation
+      &lt;/a&gt;
+      ]
+      [
+      &lt;a href=&quot;http://issues.jboss.org/browse/JBJCA&quot;&gt;
+        JIRA
+      &lt;/a&gt;
+      ]
+    </content>
+  </entry>
+  <entry>
+    <id>http://localhost:4242/news/2013/07/23/IronJacamar110CR2released.html</id>
+    <title>IronJacamar 1.1.0.CR2 released</title>
+    <updated>2016-11-01T10:24:12-04:00</updated>
+    <published>2013-07-23T00:00:00+00:00</published>
+    <link href="http://localhost:4242/news/2013/07/23/IronJacamar110CR2released.html" rel="alternate" type="text/html" />
+    <summary>
+      IronJacamar 1.1.0.CR2 released
+      
+        July 23th, 2013
+      
+      
+      I'm happy to announce the second, and hopefully final, candidate for release of IronJacamar 1.1, aka IronJacamar 1.1.0.CR2.
+      
+      Full release notes are
+      
+        here
+      
+      .
+      Bug fixes
+      This release focused on fixing bugs found during our WildFly integration for the upcoming pull request.
+      
+      We added a new feature however, namely a way to clear the statistics for WorkManager instances to align with the statistics plugins for datasources and resource adapter connection factories.
+      The Road Ahead
+      We are hoping that we can release 1.1.0.Final in 2 weeks unless something else major is found, so any help with testing this release would be...
+    </summary>
+    <content type="html">
+      &lt;h1&gt;IronJacamar 1.1.0.CR2 released&lt;/h1&gt;
+      &lt;strong&gt;
+        &lt;i&gt;July 23th, 2013&lt;/i&gt;
+      &lt;/strong&gt;
+      &lt;p&gt;&lt;/p&gt;
+      I'm happy to announce the second, and hopefully final, candidate for release of IronJacamar 1.1, aka IronJacamar 1.1.0.CR2.
+      &lt;p&gt;&lt;/p&gt;
+      Full release notes are
+      &lt;a href=&quot;http://issues.jboss.org/secure/ReleaseNote.jspa?projectId=12310691&amp;amp;version=12322145&quot;&gt;
+        here
+      &lt;/a&gt;
+      .
+      &lt;h2&gt;Bug fixes&lt;/h2&gt;
+      This release focused on fixing bugs found during our WildFly integration for the upcoming pull request.
+      &lt;p&gt;&lt;/p&gt;
+      We added a new feature however, namely a way to clear the statistics for WorkManager instances to align with the statistics plugins for datasources and resource adapter connection factories.
+      &lt;h2&gt;The Road Ahead&lt;/h2&gt;
+      We are hoping that we can release 1.1.0.Final in 2 weeks unless something else major is found, so any help with testing this release would be great.
+      &lt;p&gt;&lt;/p&gt;
+      For Those About to Rock, We Salute You !
+      &lt;p&gt;&lt;/p&gt;
+      [
+      &lt;a href=&quot;http://www.ironjacamar.org/&quot;&gt;
+        WebSite
+      &lt;/a&gt;
+      ]
+      [
+      &lt;a href=&quot;http://www.ironjacamar.org/download.html&quot;&gt;
+        Download
+      &lt;/a&gt;
+      ]
+      [
+      &lt;a href=&quot;http://www.ironjacamar.org/documentation.html&quot;&gt;
+        Documentation
+      &lt;/a&gt;
+      ]
+      [
+      &lt;a href=&quot;http://issues.jboss.org/browse/JBJCA&quot;&gt;
+        JIRA
+      &lt;/a&gt;
+      ]
+    </content>
+  </entry>
+  <entry>
+    <id>http://localhost:4242/news/2013/07/16/MeetStefano.html</id>
+    <title>Meet Stefano</title>
+    <updated>2016-11-01T10:24:18-04:00</updated>
+    <published>2013-07-16T00:00:00+00:00</published>
+    <link href="http://localhost:4242/news/2013/07/16/MeetStefano.html" rel="alternate" type="text/html" />
+    <summary>
+      Meet Stefano
+      
+        July 16th, 2013
+      
+      
+      An
+      
+        interview
+      
+      with core developer Stefano Maestri have been posted in our
+      
+        interviews
+      
+      section....
+    </summary>
+    <content type="html">
+      &lt;h1&gt;Meet Stefano&lt;/h1&gt;
+      &lt;strong&gt;
+        &lt;i&gt;July 16th, 2013&lt;/i&gt;
+      &lt;/strong&gt;
+      &lt;p&gt;&lt;/p&gt;
+      An
+      &lt;a href=&quot;http://localhost:4242/interviews/stefano.html&quot;&gt;
+        interview
+      &lt;/a&gt;
+      with core developer Stefano Maestri have been posted in our
+      &lt;a href=&quot;http://localhost:4242/interviews/index.html&quot;&gt;
+        interviews
+      &lt;/a&gt;
+      section.
+    </content>
+  </entry>
+  <entry>
+    <id>http://localhost:4242/news/2013/07/09/IronJacamar110CR1released.html</id>
+    <title>IronJacamar 1.1.0.CR1 released</title>
+    <updated>2016-11-01T10:24:12-04:00</updated>
+    <published>2013-07-09T00:00:00+00:00</published>
+    <link href="http://localhost:4242/news/2013/07/09/IronJacamar110CR1released.html" rel="alternate" type="text/html" />
+    <summary>
+      IronJacamar 1.1.0.CR1 released
+      
+        July 9th, 2013
+      
+      
+      I'm happy to announce the first candidate for release of IronJacamar 1.1, aka IronJacamar 1.1.0.CR1.
+      
+      Full release notes are
+      
+        here
+      
+      .
+      Java EE Connector Architecture 1.7
+      The main focus for this release was to continue the alignment with EE 7 related dependencies in
+      order to prepare for Java EE Connector Architecture 1.7 certification.
+      
+      Furthermore, to squash as many bugs as possible - found a couple of big ones, especially
+      
+        one
+      
+      needed the heavy guns.
+      Tools
+      Our
+      
+        resource adapter information
+      
+      tool saw some updates to support the new features of the IronJacamar 1.1 container.
+      
+      The
+      
+        code generator
+      
+      also saw updates to improve the...
+    </summary>
+    <content type="html">
+      &lt;h1&gt;IronJacamar 1.1.0.CR1 released&lt;/h1&gt;
+      &lt;strong&gt;
+        &lt;i&gt;July 9th, 2013&lt;/i&gt;
+      &lt;/strong&gt;
+      &lt;p&gt;&lt;/p&gt;
+      I'm happy to announce the first candidate for release of IronJacamar 1.1, aka IronJacamar 1.1.0.CR1.
+      &lt;p&gt;&lt;/p&gt;
+      Full release notes are
+      &lt;a href=&quot;http://issues.jboss.org/secure/ReleaseNote.jspa?projectId=12310691&amp;amp;version=12314491&quot;&gt;
+        here
+      &lt;/a&gt;
+      .
+      &lt;h2&gt;Java EE Connector Architecture 1.7&lt;/h2&gt;
+      The main focus for this release was to continue the alignment with EE 7 related dependencies in
+      order to prepare for Java EE Connector Architecture 1.7 certification.
+      &lt;p&gt;&lt;/p&gt;
+      Furthermore, to squash as many bugs as possible - found a couple of big ones, especially
+      &lt;a href=&quot;http://issues.jboss.org/browse/JBJCA-1053&quot;&gt;
+        one
+      &lt;/a&gt;
+      needed the heavy guns.
+      &lt;h2&gt;Tools&lt;/h2&gt;
+      Our
+      &lt;a href=&quot;http://www.ironjacamar.org/doc/userguide/1.1/en-US/html/ch10.html#tools_rarinfo&quot;&gt;
+        resource adapter information
+      &lt;/a&gt;
+      tool saw some updates to support the new features of the IronJacamar 1.1 container.
+      &lt;p&gt;&lt;/p&gt;
+      The
+      &lt;a href=&quot;http://www.ironjacamar.org/doc/userguide/1.1/en-US/html/ch08.html&quot;&gt;
+        code generator
+      &lt;/a&gt;
+      also saw updates to improve the generated code templates by adding input validation.
+      &lt;h2&gt;The Road Ahead&lt;/h2&gt;
+      We now consider IronJacamar 1.1 stable for integration, so help with testing it out on your
+      deployments, and configuration.
+      &lt;p&gt;&lt;/p&gt;
+      We will submit a patch for
+      &lt;a href=&quot;http://www.wildfly.org/&quot;&gt;
+        WildFly
+      &lt;/a&gt;
+      shortly, such that the Java EE community can benefit from all the new IronJacamar 1.1 features.
+      &lt;p&gt;&lt;/p&gt;
+      Since we are now in Candidate for Release stage we have deprecated our IronJacamar 1.0 release line,
+      so expect that 1.0.18.Final will be the last binary released. IronJacamar 1.1 is much better anyway :)
+      &lt;p&gt;&lt;/p&gt;
+      For Those About to Rock, We Salute You !
+      &lt;p&gt;&lt;/p&gt;
+      [
+      &lt;a href=&quot;http://www.ironjacamar.org/&quot;&gt;
+        WebSite
+      &lt;/a&gt;
+      ]
+      [
+      &lt;a href=&quot;http://www.ironjacamar.org/download.html&quot;&gt;
+        Download
+      &lt;/a&gt;
+      ]
+      [
+      &lt;a href=&quot;http://www.ironjacamar.org/documentation.html&quot;&gt;
+        Documentation
+      &lt;/a&gt;
+      ]
+      [
+      &lt;a href=&quot;http://issues.jboss.org/browse/JBJCA&quot;&gt;
+        JIRA
+      &lt;/a&gt;
+      ]
+    </content>
+  </entry>
+  <entry>
+    <id>http://localhost:4242/news/2013/06/04/IronJacamarOrgLaunched.html</id>
+    <title>IronJacamar.org launched</title>
+    <updated>2016-11-01T10:24:12-04:00</updated>
+    <published>2013-06-04T00:00:00+00:00</published>
+    <link href="http://localhost:4242/news/2013/06/04/IronJacamarOrgLaunched.html" rel="alternate" type="text/html" />
+    <summary>
+      IronJacamar.org launched
+      
+        June 4th, 2013
+      
+      
+      Today the
+      
+        IronJacamar.org
+      
+      community site was launched.
+      
+      The new site will provide the IronJacamar community with a place to interact, discuss
+      
+        Java EE Connector Architecture
+      
+      and the IronJacamar implementation.
+      
+      Our
+      
+        source code
+      
+      is now hosted on
+      
+        GitHub
+      
+      which we hope will foster community contributions to the project, and help make IronJacamar the best
+      platform for developing and hosting resource adapters.
+      
+      We have many improvements for the site planned, which we will roll out over the coming months.
+      However, that shouldn't stop anybody from joining our community and helping out. We welcome contributions
+      in all areas;
+      
+        code
+      
+      ,
+      
+        examples
+      
+      ,
+      
+        documentation
+      
+      ,
+      
+      ...
+    </summary>
+    <content type="html">
+      &lt;h1&gt;IronJacamar.org launched&lt;/h1&gt;
+      &lt;strong&gt;
+        &lt;i&gt;June 4th, 2013&lt;/i&gt;
+      &lt;/strong&gt;
+      &lt;p&gt;&lt;/p&gt;
+      Today the
+      &lt;a href=&quot;http://www.ironjacamar.org/&quot;&gt;
+        IronJacamar.org
+      &lt;/a&gt;
+      community site was launched.
+      &lt;p&gt;&lt;/p&gt;
+      The new site will provide the IronJacamar community with a place to interact, discuss
+      &lt;a href=&quot;http://jcp.org/en/jsr/detail?id=322&quot;&gt;
+        Java EE Connector Architecture
+      &lt;/a&gt;
+      and the IronJacamar implementation.
+      &lt;p&gt;&lt;/p&gt;
+      Our
+      &lt;a href=&quot;http://localhost:4242/sourcecode.html&quot;&gt;
+        source code
+      &lt;/a&gt;
+      is now hosted on
+      &lt;a href=&quot;http://www.github.com/ironjacamar/&quot;&gt;
+        GitHub
+      &lt;/a&gt;
+      which we hope will foster community contributions to the project, and help make IronJacamar the best
+      platform for developing and hosting resource adapters.
+      &lt;p&gt;&lt;/p&gt;
+      We have many improvements for the site planned, which we will roll out over the coming months.
+      However, that shouldn't stop anybody from joining our community and helping out. We welcome contributions
+      in all areas;
+      &lt;a href=&quot;http://www.github.com/ironjacamar/ironjacamar&quot;&gt;
+        code
+      &lt;/a&gt;
+      ,
+      &lt;a href=&quot;http://www.ironjacamar.org/doc/userguide/1.1/en-US/html/apb.html&quot;&gt;
+        examples
+      &lt;/a&gt;
+      ,
+      &lt;a href=&quot;http://localhost:4242/documentation.html&quot;&gt;
+        documentation
+      &lt;/a&gt;
+      ,
+      &lt;a href=&quot;http://www.github.com/ironjacamar/ironjacamar.org&quot;&gt;
+        web design
+      &lt;/a&gt;
+      and
+      &lt;a href=&quot;http://localhost:4242/community.html&quot;&gt;
+        helping other users
+      &lt;/a&gt;
+      .
+      &lt;p&gt;&lt;/p&gt;
+      We know that Java EE Connector Architecture is one of the more complex Java EE platform specifications, but
+      it is our goal to make the technology more accessible for developers such that integrating external systems
+      becomes easier. We have ideas on how this can be achieved through new programming models and tooling. More on this
+      in a future post.
+      &lt;p&gt;&lt;/p&gt;
+      We look forward to welcoming you to our community !
+      &lt;p&gt;&lt;/p&gt;
+      On behalf of the IronJacamar community,
+      &lt;br /&gt;
+      &lt;i&gt;    Jesper&lt;/i&gt;
+    </content>
+  </entry>
+</feed>

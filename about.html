@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>IronJacamar.org - About</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="What is IronJacamar ?" name="description">
+    <link href="/stylesheets/styles.css" rel="stylesheet" type="text/css">
+    <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon">
+    <!--[if lt IE 9]>
+      <script src="//html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <header>
+      <section style="padding: -20px auto;">
+        <a href="/">
+          <img alt="IronJacamar" src="/images/banner.png">
+        </a>
+      </section>
+    </header>
+    <article>
+      <h1>About</h1>
+      The Java Connector Architecture (JCA) defines a standard architecture for connecting the Java EE platform to
+      heterogeneous Enterprise Information Systems (EIS). Examples of EISs include Enterprise Resource
+      Planning (ERP), mainframe transaction processing (TP), database and messaging systems.
+      <p></p>
+      The connector architecture defines a set of scalable, secure, and transactional mechanisms that enable
+      the integration of EISs with application servers and enterprise applications.
+      <p></p>
+      The connector architecture also defines a Common Client Interface (CCI) for EIS access. The CCI defines
+      a client API for interacting with heterogeneous EISs.
+      <p></p>
+      The connector architecture enables an EIS vendor to provide a standard resource adapter for its EIS.
+      A resource adapter is a system-level software driver that is used by a Java application to connect
+      to an EIS. The resource adapter plugs into an application server and provides connectivity between
+      the EIS, the application server, and the enterprise application. The resource adapter serves as a
+      protocol adapter that allows any arbitrary EIS communication protocol to be used for connectivity.
+      An application server vendor extends its system once to support the connector architecture and is
+      then assured of seamless connectivity to multiple EISs. Likewise, an EIS vendor provides one standard
+      resource adapter which has the capability to plug in to any application server that supports
+      the connector architecture.
+      <h2>Use cases for Java EE Connector Architecture</h2>
+      Examples of resource adapters
+      <p></p>
+      <ul>
+        <li>A Java Database Connectivity (JDBC) resource adapter, which provides the foundation for datasources inside an application server, like WildFly</li>
+        <li>A Java Message Service (JMS) resource adapter, which enables communication with messaging systems, like HornetQ, ActiveMQ or WebSphereMQ</li>
+        <li>A Java Mail resource adapter, which allows email to trigger EJB3/Message-Driven Beans</li>
+        <li>A resource adapter for a legacy system that speak a weird binary protocol to be integrated with a Java Enterprise Edition server</li>
+      </ul>
+      <p></p>
+      In short - when ever you have a situation where the system that you want to integrate with
+      doesn't support a standard protocol, or when you want to take advantage of the cool features
+      of Java EE Connector Architecture like pooling, security and transaction integration it is
+      time to write a resource adapter !
+      <h2>Team</h2>
+      <h3>Stefano Maestri</h3>
+      <a href="/interviews/stefano.html">
+        Stefano Maestri
+      </a>
+      is the lead for IronJacamar.
+      <h3>Lin Gao</h3>
+      <a href="/interviews/lin.html">
+        Lin Gao
+      </a>
+      is a core developer on the IronJacamar team.
+      <h3>Johnaton Lee</h3>
+      <a href="/interviews/john.html">
+        Johnaton Lee
+      </a>
+      helps out in the IronJacamar community with identifying issues, and fixing them.
+      <h3>Tyronne Wickramarathne</h3>
+      <a href="/interviews/tyronne.html">
+        Tyronne Wickramarathne
+      </a>
+      helps out in the IronJacamar community with identifying issues, and fixing them.
+      <h2>Alumni</h2>
+      <h3>Jesper Pedersen</h3>
+      <a href="/interviews/jesper.html">
+        Jesper Pedersen
+      </a>
+      was previously the lead for IronJacamar.
+      <h3>Jeff Zhang</h3>
+      <a href="/interviews/jeff.html">
+        Jeff Zhang
+      </a>
+      was a core developer on the IronJacamar team.
+      <h3>Vladimir Rastseluev</h3>
+      <a href="/interviews/vladimir.html">
+        Vladimir Rastseluev
+      </a>
+      was a core developer on the IronJacamar team.
+      <h3>Dimitris Andreadis</h3>
+      <a href="mailto:dimitris (at) ironjacamar (dot) org">
+        Dimitris Andreadis
+      </a>
+      was an advocate for the IronJacamar project.
+      <h2>Thanks to</h2>
+      Adrian Brock, Carlo de Wolf, Gurkan Erdogdu, Bruno Georges, Paul Gier,
+      Jason Greene, Stefan Guilhen, Jonathan Halliday, S&oslash;ren Hilmer, Tom Jenkinson, Ales Justin,
+      Vicky Kak, Aslak Knutsen, Sacha Labourey, Mark Little, Alexey Loubyansky, Patrick MacDonald,
+      Scott Marlow, Shelly McGowan, Andrig Miller, Marcus Moyses, Weston Price, Andrew Lee Rubinger,
+      Heiko Rupp, Anil Saldhana, Scott Stark, Clebert Suconic, Andy Taylor, Vladimir Vasilev,
+      Jeremy Whiting, Yang Yong and Leslie York.
+      <br>
+      <br>
+    </article>
+    <footer>
+      <ul>
+        <li>
+          <a href="/">Home</a>
+        </li>
+        <li>
+          <a href="/about.html">About</a>
+        </li>
+        <li>
+          <a href="/download.html">Download</a>
+        </li>
+        <li>
+          <a href="/documentation.html">Documentation</a>
+        </li>
+        <li>
+          <a href="/community.html">Community</a>
+        </li>
+        <li>
+          <a href="/sourcecode.html">Source Code</a>
+        </li>
+        <li>
+          <a href="/issues.html">Issues</a>
+        </li>
+      </ul>
+      <a href="http://www.redhat.com">
+        <img alt="Proudly sponsored by Red Hat" src="/images/redhat_logo.png">
+      </a>
+    </footer>
+  </body>
+</html>

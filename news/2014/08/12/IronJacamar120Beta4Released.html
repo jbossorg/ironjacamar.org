@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>IronJacamar 1.2.0.Beta4 released</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="2014-08-12 IronJacamar 1.2.0.Beta4 released" name="description">
+    <link href="/stylesheets/styles.css" rel="stylesheet" type="text/css">
+    <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon">
+    <!--[if lt IE 9]>
+      <script src="//html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <header>
+      <section style="padding: -20px auto;">
+        <a href="/">
+          <img alt="IronJacamar" src="/images/banner.png">
+        </a>
+      </section>
+    </header>
+    <article>
+      <h1>IronJacamar 1.2.0.Beta4 released</h1>
+      <strong>
+        <i>August 12th, 2014</i>
+      </strong>
+      <p></p>
+      I'm proud to announce the IronJacamar 1.2.0.Beta4 release. Full release notes are
+      <a href="https://issues.jboss.org/secure/ReleaseNote.jspa?projectId=12310691&amp;version=12325275">
+        here
+      </a>
+      .
+      <h2>Almost at the end</h2>
+      Our Beta4 release should mark the end of the beta series for the 1.2 branch, which means the
+      next release will hopefully be a candidate for release.
+      <p></p>
+      So, now is really the time to speak up if you did spot a missing feature that you think is critical
+      to get into the 1.2 series. Use our forums to make your voice heard.
+      <h2>Changes</h2>
+      A couple of changes stands out,
+      <p></p>
+      <ul>
+        <li>
+          <a href="https://issues.jboss.org/browse/JBJCA-1190">[JBJCA-1190]</a>
+          Graceful shutdown of ConnectionManager
+        </li>
+        <li>
+          <a href="https://issues.jboss.org/browse/JBJCA-1201">[JBJCA-1201]</a>
+          Port JDBC resource adapter to JCA 1.6
+        </li>
+        <li>
+          <a href="https://issues.jboss.org/browse/JBJCA-1180">[JBJCA-1180]</a>
+          Security SPI
+        </li>
+      </ul>
+      <p></p>
+      The graceful shutdown feature will allow resource adapters, and thereby datasources too, to be put into
+      shutdown mode allowing existing connections to finish their work, but reject new connections. The shutdown
+      can be canceled within the specified timeout value.
+      <p></p>
+      Porting the JDBC resource adapter to Java EE Connector Architecture 1.6 eliminates some internal transaction integration hacks making the resource
+      adapter much more "clean". The resource adapter was also updated to use the JBoss Logging framework to provide
+      unique codes for important log statements and exceptions.
+      <p></p>
+      The addition of our security SPI will allow IronJacamar to use different security frameworks to provide the necessary
+      functionality. IronJacamar will continue to ship with PicketBox as the default provider.
+      <p></p>
+      The release contains some critical bug fixes as well.
+      <h2>The Road Ahead</h2>
+      We have added a lot of new functionality to the 1.2 series, so getting to the candidate for release stage is an important milestone for
+      the project.
+      <p></p>
+      Now, we need your help to really hammer the release to find any bugs that have escaped us so far. Also try out the new features, and
+      report back any issues you see, or things that we need to make more clear.
+      <p></p>
+      For people that would like to stay on a stable release we have released IronJacamar 1.1.7.Final too.
+      <p></p>
+      Enjoy !
+      <p></p>
+      On behalf of the IronJacamar community,
+      <br>
+      <i>&nbsp;&nbsp;&nbsp; Jesper</i>
+      <p></p>
+      [
+      <a href="http://www.ironjacamar.org/">
+        WebSite
+      </a>
+      ]
+      [
+      <a href="http://www.ironjacamar.org/download.html">
+        Download
+      </a>
+      ]
+      [
+      <a href="http://www.ironjacamar.org/documentation.html">
+        Documentation
+      </a>
+      ]
+      [
+      <a href="http://issues.jboss.org/browse/JBJCA">
+        JIRA
+      </a>
+      ]
+      <p></p>
+      
+                  <div id="disqus_thread"></div>
+                  <script type="text/javascript">
+                  var disqus_shortname = 'ironjacamar';
+                  var disqus_url = "http://localhost:4242/news/2014/08/12/IronJacamar120Beta4Released.html";
+                  
+                  (function() {
+                    var dsq = document.createElement("script"); dsq.type = "text/javascript"; dsq.async = true;
+                    dsq.src = "http://ironjacamar.disqus.com/embed.js";
+                    (document.getElementsByTagName("head")[0] || document.getElementsByTagName("body")[0]).appendChild(dsq);
+                  })();
+                  </script>
+                  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript=ironjacamar">comments powered by Disqus.</a></noscript>
+      <br>
+      <br>
+    </article>
+    <footer>
+      <ul>
+        <li>
+          <a href="/">Home</a>
+        </li>
+        <li>
+          <a href="/about.html">About</a>
+        </li>
+        <li>
+          <a href="/download.html">Download</a>
+        </li>
+        <li>
+          <a href="/documentation.html">Documentation</a>
+        </li>
+        <li>
+          <a href="/community.html">Community</a>
+        </li>
+        <li>
+          <a href="/sourcecode.html">Source Code</a>
+        </li>
+        <li>
+          <a href="/issues.html">Issues</a>
+        </li>
+      </ul>
+      <a href="http://www.redhat.com">
+        <img alt="Proudly sponsored by Red Hat" src="/images/redhat_logo.png">
+      </a>
+    </footer>
+  </body>
+</html>

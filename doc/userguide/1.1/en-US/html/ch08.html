@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Chapter 8. Code generator</title><link rel="stylesheet" type="text/css" href="css/ironjacamar.css"/><meta name="generator" content="DocBook XSL Stylesheets V1.76.1"/><link rel="home" href="index.html" title="IronJacamar 1.1 User's Guide"/><link rel="up" href="index.html" title="IronJacamar 1.1 User's Guide"/><link rel="prev" href="ch07.html" title="Chapter 7. Validator"/><link rel="next" href="ch09.html" title="Chapter 9. Eclipse plugin"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" http-equiv="Content-Type" content="text/html; charset=UTF-8"/></head><body><p xmlns:d="http://docbook.org/ns/docbook" id="title"><a href="http://www.ironjacamar.org/" class="site_href"><strong>www.ironjacamar.org</strong></a><a href="http://www.ironjacamar.org/documentation.html" class="doc_href"><strong>Community Documentation</strong></a></p><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="ch07.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="ch09.html"><strong>Next</strong></a></li></ul><div class="chapter" title="Chapter 8. Code generator"><div class="titlepage"><div><div><h2 class="title"><a id="codegenerator"/>Chapter 8. Code generator</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl><dt><span class="section"><a href="ch08.html#codegenerator_introduction">8.1. Introduction</a></span></dt><dt><span class="section"><a href="ch08.html#codegenerator_functionality">8.2. Functionality</a></span></dt><dt><span class="section"><a href="ch08.html#codegenerator_running">8.3. Running the tool</a></span></dt><dd><dl><dt><span class="section"><a href="ch08.html#codegenerator_input">8.3.1. Developer Input</a></span></dt></dl></dd><dt><span class="section"><a href="ch08.html#codegenerator_code">8.4. Generated code</a></span></dt><dd><dl><dt><span class="section"><a href="ch08.html#codegenerator_ant">8.4.1. Apache Ant build environment</a></span></dt><dt><span class="section"><a href="ch08.html#codegenerator_ant_ivy">8.4.2. Apache Ant + Ivy build environment</a></span></dt><dt><span class="section"><a href="ch08.html#codegenerator_gradle">8.4.3. Gradle build environment</a></span></dt><dt><span class="section"><a href="ch08.html#codegenerator_maven">8.4.4. Apache Maven build environment</a></span></dt></dl></dd></dl></div><div class="section" title="8.1. Introduction"><div class="titlepage"><div><div><h2 class="title"><a id="codegenerator_introduction"/>8.1. Introduction</h2></div></div></div><p>The IronJacamar project includes a resource adapter code generator which can
+        generate a complete code skeleton that will help developers get started with
+        their development tasks.</p></div><div class="section" title="8.2. Functionality"><div class="titlepage"><div><div><h2 class="title"><a id="codegenerator_functionality"/>8.2. Functionality</h2></div></div></div><p>The code generator will generate a resource adapter code skeleton based
+        on the user input. The code generator supports</p><div class="itemizedlist"><ul class="itemizedlist" compact="compact"><li class="listitem">
+          Resource adapter using JCA 1.7 annotations
+        </li><li class="listitem">
+          Resource adapter using JCA 1.7 metadata
+        </li><li class="listitem">
+          Resource adapter using JCA 1.6 annotations
+        </li><li class="listitem">
+          Resource adapter using JCA 1.6 metadata
+        </li><li class="listitem">
+          Resource adapter using JCA 1.5
+        </li><li class="listitem">
+          Resource adapter using JCA 1.0
+        </li><li class="listitem">
+          Apache Ant build environment
+        </li><li class="listitem">
+          Apache Ant + Ivy build environment
+        </li><li class="listitem">
+          Gradle build environment
+        </li><li class="listitem">
+          Apache Maven build environment
+        </li><li class="listitem">
+          Test suite environment
+        </li></ul></div></div><div class="section" title="8.3. Running the tool"><div class="titlepage"><div><div><h2 class="title"><a id="codegenerator_running"/>8.3. Running the tool</h2></div></div></div><p>The code generator can be run on the command line by</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+./codegenerator.sh
+      </pre><p>from the <code class="code">doc/codegenerator</code> directory.</p><p>The code generator supports the following arguments</p><div class="table"><a id="d0e4395"/><p class="title"><strong>Table 8.1. Code generator arguments</strong></p><div class="table-contents"><table summary="Code generator arguments" border="1"><colgroup><col align="left" class="c1"/><col align="left" class="c2"/></colgroup><thead><tr><th align="left">Argument</th><th align="left">Desciption</th></tr></thead><tbody><tr><td align="left"><code class="code">-o</code></td><td align="left">
+                Specifies the output directory for the code skeleton.
+              </td></tr></tbody></table></div></div><br class="table-break"/><p>The developer must then answer various questions regarding the
+        properties of the resource adapter.</p><div class="section" title="8.3.1. Developer Input"><div class="titlepage"><div><div><h3 class="title"><a id="codegenerator_input"/>8.3.1. Developer Input</h3></div></div></div><p>This section describes the questions that are asked
+          in order to generate the code.</p><div class="table"><a id="d0e4421"/><p class="title"><strong>Table 8.2. Developer input</strong></p><div class="table-contents"><table summary="Developer input" border="1"><colgroup><col align="left" class="c1"/><col align="left" class="c2"/><col align="left" class="c3"/><col align="left" class="c4"/></colgroup><thead><tr><th align="left">Question</th><th align="left">Spec</th><th align="left">Desciption</th><th align="left">Type</th></tr></thead><tbody><tr><td align="left">
+                  Profile version (1.7/1.6/1.5/1.0)
+                </td><td align="left">All</td><td align="left">
+                  Defines which Java EE Connector Architecture specification that
+                  the resource adapter should target
+                </td><td align="left"> </td></tr><tr><td align="left">
+                  Type (O/Outbound/I/Inbound/B/Bidirectional)
+                </td><td align="left">JCA 1.5+</td><td align="left">
+                  Defines if the resource adapter should contain outbound communication., inbound communication
+                  or both
+                </td><td align="left"> </td></tr><tr><td align="left">
+                  Package name
+                </td><td align="left">All</td><td align="left">
+                  The package name of the resource adapter
+                </td><td align="left"> </td></tr><tr><td align="left">
+                  Transaction support (N/NoTransaction/L/LocalTransaction/X/XATransaction)
+                </td><td align="left">All</td><td align="left">
+                  The transaction support level
+                </td><td align="left"> </td></tr><tr><td align="left">
+                  Reauthentication (Y/Yes/N/No)
+                </td><td align="left">All</td><td align="left">
+                  If the resource adapter supports reauthentication
+                </td><td align="left"> </td></tr><tr><td align="left">
+                  Use annotations (Y/Yes/N/No)
+                </td><td align="left">JCA 1.6+</td><td align="left">
+                  Should annotations be used for specifying the structure. If 'No' is selected a <code class="code">META-INF/ra.xml</code>
+                  is generated
+                </td><td align="left"> </td></tr><tr><td align="left">
+                  Include a ResourceAdapter (Y/Yes/N/No)
+                </td><td align="left">JCA 1.5+</td><td align="left">
+                  Should an instance of a resource adapter class be included in the archive
+                </td><td align="left">Outbound</td></tr><tr><td align="left">
+                  Resource adapter class name 
+                </td><td align="left">JCA 1.5+</td><td align="left">
+                  The class name of the resource adapter
+                </td><td align="left">Outbound or Bidirectional</td></tr><tr><td align="left">
+                  Should the resource adapter class be Serializable (Y/Yes/N/No)
+                </td><td align="left">JCA 1.5+</td><td align="left">
+                  Should the resource adapter class be serializable
+                </td><td align="left">Outbound</td></tr><tr><td align="left">
+                  Managed connection factory class name
+                </td><td align="left">All</td><td align="left">
+                  The class name of the managed connection factory
+                </td><td align="left">Outbound or Bidirectional</td></tr><tr><td align="left">
+                  Managed connection class name
+                </td><td align="left">All</td><td align="left">
+                  The class name of the managed connection
+                </td><td align="left">Outbound or Bidirectional</td></tr><tr><td align="left">
+                  Connection interface class name
+                </td><td align="left">All</td><td align="left">
+                  The class name of the connection interface
+                </td><td align="left">Outbound or Bidirectional</td></tr><tr><td align="left">
+                  Connection implementation class name
+                </td><td align="left">All</td><td align="left">
+                  The class name of the connection implementation
+                </td><td align="left">Outbound or Bidirectional</td></tr><tr><td align="left">
+                  Connection factory interface class name
+                </td><td align="left">All</td><td align="left">
+                  The class name of the connection factory interface
+                </td><td align="left">Outbound or Bidirectional</td></tr><tr><td align="left">
+                  Connection factory implementation class name
+                </td><td align="left">All</td><td align="left">
+                  The class name of the connection factory implementation
+                </td><td align="left">Outbound or Bidirectional</td></tr><tr><td align="left">
+                  Resource adapter config properties
+                </td><td align="left">All</td><td align="left">
+                  Include a configuration properties in the resource adapter instance
+                </td><td align="left">Outbound or Bidirectional</td></tr><tr><td align="left">
+                  Managed connection factory config properties
+                </td><td align="left">All</td><td align="left">
+                  Include a configuration properties in the managed connection factory instance
+                </td><td align="left">Outbound or Bidirectional</td></tr><tr><td align="left">
+                  Use ResourceAdapterAssociation (Y/Yes/N/No)
+                </td><td align="left">All</td><td align="left">
+                  Associate the managed connection factory instance with the resource adapter instance
+                </td><td align="left">Outbound or Bidirectional</td></tr><tr><td align="left">
+                  Use CCI (Y/Yes/N/No)
+                </td><td align="left">All</td><td align="left">
+                  Use the Common Client Interface for the connection / connection factory in the 'Outbound' part
+                  of the resource adapter
+                </td><td align="left">Outbound or Bidirectional</td></tr><tr><td align="left">
+                  MessageListener interface name
+                </td><td align="left">JCA 1.5+</td><td align="left">
+                  The name of the message listener interface for the activation
+                </td><td align="left">Inbound or Bidirectional</td></tr><tr><td align="left">
+                  ActivationSpec class name
+                </td><td align="left">JCA 1.5+</td><td align="left">
+                  The class name of the activation specification instance
+                </td><td align="left">Inbound or Bidirectional</td></tr><tr><td align="left">
+                  ActivationSpec config properties
+                </td><td align="left">JCA 1.5+</td><td align="left">
+                  Include configuration properties in the activation specification instance
+                </td><td align="left">Inbound or Bidirectional</td></tr><tr><td align="left">
+                  Activation class name
+                </td><td align="left">JCA 1.5+</td><td align="left">
+                  The class name of the activation instance
+                </td><td align="left">Inbound or Bidirectional</td></tr><tr><td align="left">
+                  Add methods to connection interface (Y/Yes/N/No) [N]:
+                </td><td align="left">All</td><td align="left">
+                  Use for add methods to connection interface
+                </td><td align="left">Outbound or Bidirectional</td></tr><tr><td align="left">
+                  Include an admin object (Y/Yes/N/No) 
+                </td><td align="left">JCA 1.5+</td><td align="left">
+                  Should an admin object be added to the project
+                </td><td align="left"> </td></tr><tr><td align="left">
+                  Use ResourceAdapterAssociation on admin object(Y/Yes/N/No)
+                </td><td align="left">JCA 1.5</td><td align="left">
+                  Associate the admin object instance with the resource adapter instance
+                </td><td align="left"> </td></tr><tr><td align="left">
+                  Admin object interface name
+                </td><td align="left">JCA 1.5+</td><td align="left">
+                  The interface name of the admin object
+                </td><td align="left"> </td></tr><tr><td align="left">
+                  Admin object class name
+                </td><td align="left">JCA 1.5+</td><td align="left">
+                  The class name of the admin object
+                </td><td align="left"> </td></tr><tr><td align="left">
+                  Admin object config properties
+                </td><td align="left">JCA 1.5</td><td align="left">
+                  Include a configuration properties in the admin object instance
+                </td><td align="left"> </td></tr><tr><td align="left">
+                  Generate a MBean class (Y/Yes/N/No)
+                </td><td align="left">All</td><td align="left">
+                  Generate a MBean for the resource adapter
+                </td><td align="left"> </td></tr><tr><td align="left">
+                  Integrate EIS test server (Y/Yes/N/No)
+                </td><td align="left">All</td><td align="left">
+                  Should the IronJacamar test EIS server be integrated
+                </td><td align="left"> </td></tr><tr><td align="left">
+                  Use JBoss Logging (Y/Yes/N/No) [N]:
+                </td><td align="left">All</td><td align="left">
+                  Use JBoss Logging instead of Java Util Logging
+                </td><td align="left"> </td></tr><tr><td align="left">
+                  Build environment [A/Ant/I/Ant+Ivy/M/Maven/G/Gradle]
+                </td><td align="left">All</td><td align="left">
+                  Type of build environment
+                </td><td align="left"> </td></tr></tbody></table></div></div><br class="table-break"/></div></div><div class="section" title="8.4. Generated code"><div class="titlepage"><div><div><h2 class="title"><a id="codegenerator_code"/>8.4. Generated code</h2></div></div></div><p>The generated code will consist of the classes making up the resource adapter
+        and a test suite environment based on the embedded distribution.</p><div class="section" title="8.4.1. Apache Ant build environment"><div class="titlepage"><div><div><h3 class="title"><a id="codegenerator_ant"/>8.4.1. Apache Ant build environment</h3></div></div></div><p>The following targets are supported in the Apache Ant build environment</p><div class="table"><a id="d0e4735"/><p class="title"><strong>Table 8.3. Apache Ant build environment</strong></p><div class="table-contents"><table summary="Apache Ant build environment" border="1"><colgroup><col align="left" class="c1"/><col align="left" class="c2"/></colgroup><thead><tr><th align="left">Target</th><th align="left">Desciption</th></tr></thead><tbody><tr><td align="left"><code class="code">compile</code></td><td align="left">
+                Compiles all the files
+              </td></tr><tr><td align="left"><code class="code">rar</code></td><td align="left">
+                Builds the resource adapter archive
+              </td></tr><tr><td align="left"><code class="code">prepare-test</code></td><td align="left">
+                Prepares the test environment
+              </td></tr><tr><td align="left"><code class="code">test</code></td><td align="left">
+                Executes the tests
+              </td></tr><tr><td align="left"><code class="code">docs</code></td><td align="left">
+                Generates the documentation
+              </td></tr></tbody></table></div></div><br class="table-break"/></div><div class="section" title="8.4.2. Apache Ant + Ivy build environment"><div class="titlepage"><div><div><h3 class="title"><a id="codegenerator_ant_ivy"/>8.4.2. Apache Ant + Ivy build environment</h3></div></div></div><p>The following targets are supported in the Apache Ant + Ivy build environment</p><div class="table"><a id="d0e4783"/><p class="title"><strong>Table 8.4. Apache Ant + Ivy build environment</strong></p><div class="table-contents"><table summary="Apache Ant + Ivy build environment" border="1"><colgroup><col align="left" class="c1"/><col align="left" class="c2"/></colgroup><thead><tr><th align="left">Target</th><th align="left">Desciption</th></tr></thead><tbody><tr><td align="left"><code class="code">compile</code></td><td align="left">
+                Compiles all the files
+              </td></tr><tr><td align="left"><code class="code">rar</code></td><td align="left">
+                Builds the resource adapter archive
+              </td></tr><tr><td align="left"><code class="code">prepare-test</code></td><td align="left">
+                Prepares the test environment
+              </td></tr><tr><td align="left"><code class="code">test</code></td><td align="left">
+                Executes the tests
+              </td></tr><tr><td align="left"><code class="code">docs</code></td><td align="left">
+                Generates the documentation
+              </td></tr></tbody></table></div></div><br class="table-break"/></div><div class="section" title="8.4.3. Gradle build environment"><div class="titlepage"><div><div><h3 class="title"><a id="codegenerator_gradle"/>8.4.3. Gradle build environment</h3></div></div></div><p>The Gradle build environment currently support the standard tasks such as</p><div class="table"><a id="d0e4831"/><p class="title"><strong>Table 8.5. Gradle build environment</strong></p><div class="table-contents"><table summary="Gradle build environment" border="1"><colgroup><col align="left" class="c1"/><col align="left" class="c2"/></colgroup><thead><tr><th align="left">Target</th><th align="left">Desciption</th></tr></thead><tbody><tr><td align="left"><code class="code">compile</code></td><td align="left">
+                Compiles all the files
+              </td></tr><tr><td align="left"><code class="code">test</code></td><td align="left">
+                Executes the tests
+              </td></tr></tbody></table></div></div><br class="table-break"/></div><div class="section" title="8.4.4. Apache Maven build environment"><div class="titlepage"><div><div><h3 class="title"><a id="codegenerator_maven"/>8.4.4. Apache Maven build environment</h3></div></div></div><p>The following targets are supported in the Apache Maven build environment</p><div class="table"><a id="d0e4861"/><p class="title"><strong>Table 8.6. Apache Maven build environment</strong></p><div class="table-contents"><table summary="Apache Maven build environment" border="1"><colgroup><col align="left" class="c1"/><col align="left" class="c2"/></colgroup><thead><tr><th align="left">Target</th><th align="left">Desciption</th></tr></thead><tbody><tr><td align="left"><code class="code">compile</code></td><td align="left">
+                Compiles all the files
+              </td></tr><tr><td align="left"><code class="code">test</code></td><td align="left">
+                Executes the tests
+              </td></tr></tbody></table></div></div><br class="table-break"/></div></div></div><hr xmlns="" xmlns:d="http://docbook.org/ns/docbook"/><a xmlns="" xmlns:d="http://docbook.org/ns/docbook" href="legalnotice.html"/><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="ch07.html"><strong>Prev</strong>Chapter 7. Validator</a></li><li class="up"><a accesskey="u" href="#"><strong>Up</strong></a></li><li class="home"><a accesskey="h" href="index.html"><strong>Home</strong></a></li><li class="next"><a accesskey="n" href="ch09.html"><strong>Next</strong>Chapter 9. Eclipse plugin</a></li></ul></body></html>

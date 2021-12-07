@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>IronJacamar 2 project launch</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="2013-08-14 IronJacamar 2 project launch" name="description">
+    <link href="/stylesheets/styles.css" rel="stylesheet" type="text/css">
+    <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon">
+    <!--[if lt IE 9]>
+      <script src="//html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <header>
+      <section style="padding: -20px auto;">
+        <a href="/">
+          <img alt="IronJacamar" src="/images/banner.png">
+        </a>
+      </section>
+    </header>
+    <article>
+      <h1>IronJacamar 2 project launch</h1>
+      <strong>
+        <i>August 14th, 2013</i>
+      </strong>
+      <p></p>
+      Today, we are launching the IronJacamar 2 project.
+      <p></p>
+      IronJacamar 2 will redefine the project in key areas, and provide the Java EE Connector Architecture
+      community with a customizable platform that fits their use-case.
+      <p></p>
+      The first major change will be a change to our license. The project will now be relased under the
+      <a href="http://www.eclipse.org/legal/epl-v10.html">Eclipse Public License v1.0</a>
+      license. This change is done in order to support projects, which doesn't allow a GNU Lesser
+      Public License based project to be used.
+      <p></p>
+      The second major change will be a change to our package name. The project will from now on use the
+      "org.ironjacamar" package namespace for all code and tools.
+      <p></p>
+      The third major change is how the container is assembled at run-time. As Java EE Connector Architecture
+      containers are used for important areas, like controlling
+      <a href="http://docs.oracle.com/javase/7/docs/api/javax/sql/DataSource.html">
+        datasources
+      </a>
+      and providing the integration for
+      <a href="http://docs.oracle.com/javaee/7/api/javax/ejb/MessageDrivenBean.html">
+        Enterprise Messaging Beans
+      </a>
+      into Java EE environments it is important that each project can choose which parts of the IronJacamar
+      container to enable. This will be made possible by providing a service-oriented architecture which
+      will enable a specific component of the container, and the required dependencies.
+      <p></p>
+      There will also be new functionality as compared to the IronJacamar 1.x project. Wishlist includes
+      <p></p>
+      <ul>
+        <li>Proof of Concept for Java EE Connector Architecture 2.0</li>
+        <li>Pool less container</li>
+        <li>Lazy association for transacted based scenarios</li>
+        <li>Serializable connection manager</li>
+        <li>Fat pool lock</li>
+      </ul>
+      <p></p>
+      Especially the first bullet is of interest, since the current Java EE Connector Architecture specification
+      has been using the same overall architecture since version 1.0. The proof of concept will provide a more
+      modern way of implementing a resource adapter, only requiring the necessary parts to be implemented and also
+      allow injection of major components, like
+      <i>BootstrapContext</i>
+      and
+      <i>WorkManager</i>
+      .
+      <p></p>
+      Of course the project will continue to support the latest
+      <a href="http://jcp.org/en/jsr/detail?id=322">
+        Java EE Connector Architecture
+      </a>
+      specification.
+      <p></p>
+      We have constructed an IronJacamar 2
+      <a href="/doc/ironjacamar2.html">development</a>
+      area, where overall goals for each component is described. These documents will be expanded over time.
+      <p></p>
+      We invite you to join our
+      <a href="/community.html">community</a>
+      , contribute with ideas, and help to build the next generation of a Java EE Connector Architecture container.
+      <p></p>
+      On behalf of the IronJacamar community,
+      <br>
+      <i>&nbsp;&nbsp;&nbsp; Jesper</i>
+      <p></p>
+      
+                  <div id="disqus_thread"></div>
+                  <script type="text/javascript">
+                  var disqus_shortname = 'ironjacamar';
+                  var disqus_url = "http://localhost:4242/news/2013/08/14/IronJacamar2ProjectLaunch.html";
+                  
+                  (function() {
+                    var dsq = document.createElement("script"); dsq.type = "text/javascript"; dsq.async = true;
+                    dsq.src = "http://ironjacamar.disqus.com/embed.js";
+                    (document.getElementsByTagName("head")[0] || document.getElementsByTagName("body")[0]).appendChild(dsq);
+                  })();
+                  </script>
+                  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript=ironjacamar">comments powered by Disqus.</a></noscript>
+      <br>
+      <br>
+    </article>
+    <footer>
+      <ul>
+        <li>
+          <a href="/">Home</a>
+        </li>
+        <li>
+          <a href="/about.html">About</a>
+        </li>
+        <li>
+          <a href="/download.html">Download</a>
+        </li>
+        <li>
+          <a href="/documentation.html">Documentation</a>
+        </li>
+        <li>
+          <a href="/community.html">Community</a>
+        </li>
+        <li>
+          <a href="/sourcecode.html">Source Code</a>
+        </li>
+        <li>
+          <a href="/issues.html">Issues</a>
+        </li>
+      </ul>
+      <a href="http://www.redhat.com">
+        <img alt="Proudly sponsored by Red Hat" src="/images/redhat_logo.png">
+      </a>
+    </footer>
+  </body>
+</html>

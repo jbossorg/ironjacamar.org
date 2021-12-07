@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>IronJacamar 2 / Deployers</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="IronJacamar 2 deployers module" name="description">
+    <link href="/stylesheets/styles.css" rel="stylesheet" type="text/css">
+    <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon">
+    <!--[if lt IE 9]>
+      <script src="//html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <header>
+      <section style="padding: -20px auto;">
+        <a href="/">
+          <img alt="IronJacamar" src="/images/banner.png">
+        </a>
+      </section>
+    </header>
+    <article>
+      <h1>IronJacamcar 2 / Deployers</h1>
+      <h2>Activation metadata</h2>
+      The ironjacamar.xml and -ra.xml files will be converted into an activation metadata
+      type, which is used in the deployer chain.
+      <p></p>
+      The ironjacamar.xml will be converted into 1 activation metadata entry, where -ra.xml will
+      be converted into X activation metadata entries based on the number of resource-adapter elements
+      there are.
+      <p></p>
+      Any services which deploys at run-time will use 1 activation metadata entry to describe the
+      activation.
+      <h2>Deployer chain</h2>
+      The deployer chain will contain a state machine which will "progress" the deployment along
+      while filling out the deployment structure for the deployment repository.
+      <p></p>
+      For standalone and embedded the state machine and deployment structure will be kept in the
+      <p></p>
+      <div class="code">
+        com.github.fungal.spi.deployers.Context
+      </div>
+      <p></p>
+      instance attached to the deployer chain.
+      <p></p>
+      The deployer chain must be as fine grained as possible, with clear functionality separation, like
+      <p></p>
+      <ul>
+        <li>Create java.io.File descriptor (extract archive)</li>
+        <li>Parse META-INF/ra.xml</li>
+        <li>Parse META-INF/ironjacamar.xml</li>
+        <li>Parse -ra.xml</li>
+        <li>Create ResourceAdapter instance</li>
+        <li>Create ConnectionFactory instances</li>
+        <li>Create AdminObject instances</li>
+      </ul>
+      <p></p>
+      and so on. The priority of the deployer must be defined in the central location.
+      <p></p>
+      All the deployer chain modules must delegate as much as possible to an abstract class or
+      static library methods in order to re-use as much functionality as possible across deployment models.
+      <p></p>
+      Data from each step should be recorded in order to maximize feedback to the end-user once the
+      deployment has been processed successfully or rejected. Validation feedback of the created or used objects
+      must be included in these reports.
+      <p></p>
+      The deployer chain must be documented in the developer guide.
+      <br>
+      <br>
+    </article>
+    <footer>
+      <ul>
+        <li>
+          <a href="/">Home</a>
+        </li>
+        <li>
+          <a href="/about.html">About</a>
+        </li>
+        <li>
+          <a href="/download.html">Download</a>
+        </li>
+        <li>
+          <a href="/documentation.html">Documentation</a>
+        </li>
+        <li>
+          <a href="/community.html">Community</a>
+        </li>
+        <li>
+          <a href="/sourcecode.html">Source Code</a>
+        </li>
+        <li>
+          <a href="/issues.html">Issues</a>
+        </li>
+      </ul>
+      <a href="http://www.redhat.com">
+        <img alt="Proudly sponsored by Red Hat" src="/images/redhat_logo.png">
+      </a>
+    </footer>
+  </body>
+</html>

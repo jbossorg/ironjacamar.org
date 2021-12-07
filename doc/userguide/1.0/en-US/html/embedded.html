@@ -1,0 +1,480 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 9. Embedded</title><link rel="stylesheet" type="text/css" href="css/jbossorg.css"/><meta xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL Stylesheets V1.76.1"/><link rel="home" href="index.html" title="IronJacamar 1.0 User's Guide"/><link rel="up" href="index.html" title="IronJacamar 1.0 User's Guide"/><link rel="prev" href="codegenerator.html" title="Chapter 8. Code generator"/><link rel="next" href="community.html" title="Chapter 10. Community"/></head><body><p id="title"><a href="http://www.jboss.org" class="site_href"><strong>JBoss.org</strong></a><a href="http://docs.jboss.org/" class="doc_href"><strong>Community Documentation</strong></a></p><ul class="docnav"><li class="previous"><a accesskey="p" href="codegenerator.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="community.html"><strong>Next</strong></a></li></ul><div class="chapter" title="Chapter 9. Embedded"><div class="titlepage"><div><div><h2 class="title"><a id="embedded"/>Chapter 9. Embedded</h2></div></div></div><div class="toc"><dl><dt><span class="section"><a href="embedded.html#embedded_overview">9.1. Overview</a></span></dt><dt><span class="section"><a href="embedded.html#embedded_deployment">9.2. Deployment</a></span></dt><dt><span class="section"><a href="embedded.html#embedded_usage">9.3. Usage</a></span></dt><dd><dl><dt><span class="section"><a href="embedded.html#embedded_usage_simple">9.3.1. Simple usage</a></span></dt><dt><span class="section"><a href="embedded.html#embedded_usage_advanced">9.3.2. Advanced usage</a></span></dt></dl></dd></dl></div><div class="section" title="9.1. Overview"><div class="titlepage"><div><div><h2 class="title"><a id="embedded_overview"/>9.1. Overview</h2></div></div></div><p>The IronJacamar embedded configuration provides a way of running a JCA container
+        in-VM.</p><p>The configuration is useful when you want a</p><div class="itemizedlist"><ul class="itemizedlist" compact="compact"><li class="listitem">
+          JCA container within your environment
+        </li><li class="listitem">
+          JCA container when doing unit testing
+        </li></ul></div><p>Especially the ability to unit test your resource adapter archives before deploying them
+        into a testing or a production environment will benefit developers.</p><p>In order to enhance the experience with working with the embedded configuration the container 
+        integrates with the <a class="ulink" href="http://www.jboss.org/community/wiki/ShrinkWrap">ShrinkWrap</a>
+        and <a class="ulink" href="http://community.jboss.org/en/arquillian">Arquillian</a> frameworks.</p></div><div class="section" title="9.2. Deployment"><div class="titlepage"><div><div><h2 class="title"><a id="embedded_deployment"/>9.2. Deployment</h2></div></div></div><p>You will need all the JAR files located in the</p><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+$IRON_JACAMAR_HOME/bin
+$IRON_JACAMAR_HOME/lib
+$IRON_JACAMAR_HOME/lib/embedded
+      </pre><p>directories on your application class loader - f.ex.</p><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+java -classpath allthejarfiles.jar yourapp
+      </pre><p>in order to use the embedded configuration.</p><p>If you want integration with the Arquillian framework you need to add the JAR files located
+        in the</p><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+$IRON_JACAMAR_HOME/lib/embedded/arquillian
+      </pre><p>directory as well.</p><p>Furthermore you will need to configure Java Naming and Directory Interface (JNDI) and logging
+        using for example property files.</p><p><code class="code">jndi.properties</code> file:</p><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+java.naming.factory.initial=org.jnp.interfaces.LocalOnlyContextFactory
+java.naming.factory.url.pkgs=org.jboss.naming:org.jnp.interfaces
+      </pre><p><code class="code">logging.properties</code> file:</p><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+# Additional logger names to configure (root logger is always configured)
+loggers=org.jboss.jca,org.jboss,org.jnp,com.arjuna
+
+# Root logger level
+logger.level=${iron.jacamar.log.level:INFO}
+logger.handlers=CONSOLE, FILE
+
+# org.jboss.jca
+logger.org.jboss.jca.level=DEBUG
+
+# org.jboss
+logger.org.jboss.level=INFO
+
+# org.jnp
+logger.org.jnp.level=INFO
+
+# com.arjuna
+logger.com.arjuna.level=INFO
+
+# Console handler configuration
+handler.CONSOLE=org.jboss.logmanager.handlers.ConsoleHandler
+handler.CONSOLE.properties=autoFlush
+handler.CONSOLE.level=${iron.jacamar.log.console.level:INFO}
+handler.CONSOLE.autoFlush=true
+handler.CONSOLE.formatter=PATTERN
+
+# File handler configuration
+handler.FILE=org.jboss.logmanager.handlers.FileHandler
+handler.FILE.level=${iron.jacamar.log.file.level:DEBUG}
+handler.FILE.properties=autoFlush,fileName
+handler.FILE.autoFlush=true
+handler.FILE.fileName=${test.dir}/embedded/test.log
+handler.FILE.formatter=PATTERN
+
+# Formatter pattern configuration
+formatter.PATTERN=org.jboss.logmanager.formatters.PatternFormatter
+formatter.PATTERN.properties=pattern
+formatter.PATTERN.pattern=%d{HH:mm:ss,SSS} %-5p [%c{1}] %m%n
+      </pre><p>These files needs to be available to the application classloader.</p><p>The code generator will generate a test suite based on the Arquillian functionality, so
+        that environment can be used as a starting point for your own integration.</p><p>This setup will show you how to use dependencies from the JBoss Nexus Maven repository instead
+        if you choose the Maven or Ant+Ivy based build environment.</p><div xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="note"><h2>Note</h2>Note that, if you want to be able to deploy datasources you will need to deploy the <code class="code">jdbc-local.rar</code>
+        for <code class="code">&lt;datasource&gt;</code> support, or <code class="code">jdbc-xa.rar</code>
+        for <code class="code">&lt;xa-datasource&gt;</code> support. Both archives can be found in the
+        <code class="code">system/</code> directory.</div></div><div class="section" title="9.3. Usage"><div class="titlepage"><div><div><h2 class="title"><a id="embedded_usage"/>9.3. Usage</h2></div></div></div><p>IronJacamar Embedded supports both a simple and an advanced usage model, using pre-assembled
+        resource adapter archives (.rar) or dynamic resource adapter archives based on ShrinkWrap.</p><p>The embedded environment supports registering resource adapters and datasources in the platform
+        <code class="code">MBeanServer</code> by setting the system property
+        <code class="code">ironjacamar.embedded.management</code> to <code class="code">true</code> before starting the environment.</p><div class="section" title="9.3.1. Simple usage"><div class="titlepage"><div><div><h3 class="title"><a id="embedded_usage_simple"/>9.3.1. Simple usage</h3></div></div></div><p>The code sample below shows a simple usage of deploying a pre-assembled resource adapter archive
+          into the IronJacamar Embedded environment.</p><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="JAVA"></span>
+<!--  --><br/><span class="java_keyword">import</span><span class="java_plain">&nbsp;org</span><span class="java_separator">.</span><span class="java_plain">jboss</span><span class="java_separator">.</span><span class="java_plain">jca</span><span class="java_separator">.</span><span class="java_plain">embedded</span><span class="java_separator">.</span><span class="java_type">Embedded</span><span class="java_separator">;</span>
+<!--  --><br/><span class="java_keyword">import</span><span class="java_plain">&nbsp;org</span><span class="java_separator">.</span><span class="java_plain">jboss</span><span class="java_separator">.</span><span class="java_plain">jca</span><span class="java_separator">.</span><span class="java_plain">embedded</span><span class="java_separator">.</span><span class="java_type">EmbeddedFactory</span><span class="java_separator">;</span>
+</span>
+<!--  --><br/><span class="java_keyword">import</span><span class="java_plain">&nbsp;java</span><span class="java_separator">.</span><span class="java_plain">net</span><span class="java_separator">.</span><span class="java_plain">URL</span><span class="java_separator">;</span>
+</span>
+<!--  --><br/><span class="java_keyword">import</span><span class="java_plain">&nbsp;javax</span><span class="java_separator">.</span><span class="java_plain">naming</span><span class="java_separator">.</span><span class="java_type">Context</span><span class="java_separator">;</span>
+<!--  --><br/><span class="java_keyword">import</span><span class="java_plain">&nbsp;javax</span><span class="java_separator">.</span><span class="java_plain">naming</span><span class="java_separator">.</span><span class="java_type">InitialContext</span><span class="java_separator">;</span>
+<!--  --><br/><span class="java_keyword">import</span><span class="java_plain">&nbsp;javax</span><span class="java_separator">.</span><span class="java_plain">naming</span><span class="java_separator">.</span><span class="java_type">NamingException</span><span class="java_separator">;</span>
+</span>
+<!--  --><br/><span class="java_keyword">import</span><span class="java_plain">&nbsp;org</span><span class="java_separator">.</span><span class="java_plain">junit</span><span class="java_separator">.</span><span class="java_type">AfterClass</span><span class="java_separator">;</span>
+<!--  --><br/><span class="java_keyword">import</span><span class="java_plain">&nbsp;org</span><span class="java_separator">.</span><span class="java_plain">junit</span><span class="java_separator">.</span><span class="java_type">BeforeClass</span><span class="java_separator">;</span>
+<!--  --><br/><span class="java_keyword">import</span><span class="java_plain">&nbsp;org</span><span class="java_separator">.</span><span class="java_plain">junit</span><span class="java_separator">.</span><span class="java_type">Test</span><span class="java_separator">;</span>
+<!--  --><br/><span class="java_keyword">import</span><span class="java_plain">&nbsp;</span><span class="java_keyword">static</span><span class="java_plain">&nbsp;org</span><span class="java_separator">.</span><span class="java_plain">junit</span><span class="java_separator">.</span><span class="java_type">Assert</span><span class="java_separator">.</span><span class="java_operator">*</span><span class="java_separator">;</span>
+</span>
+<!--  --><br/><span class="java_keyword">public</span><span class="java_plain">&nbsp;</span><span class="java_keyword">class</span><span class="java_plain">&nbsp;</span><span class="java_type">MyTestCase</span>
+<!--  --><br/><span class="java_separator">{</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_javadoc_comment">/**&nbsp;Embedded&nbsp;*/</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_keyword">private</span><span class="java_plain">&nbsp;</span><span class="java_keyword">static</span><span class="java_plain">&nbsp;</span><span class="java_type">Embedded</span><span class="java_plain">&nbsp;embedded</span><span class="java_separator">;</span>
+</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_javadoc_comment">/**&nbsp;JNDI&nbsp;prefix&nbsp;*/</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_keyword">private</span><span class="java_plain">&nbsp;</span><span class="java_keyword">static</span><span class="java_plain">&nbsp;</span><span class="java_keyword">final</span><span class="java_plain">&nbsp;</span><span class="java_type">String</span><span class="java_plain">&nbsp;JNDI_PREFIX&nbsp;</span><span class="java_operator">=</span><span class="java_plain">&nbsp;</span><span class="java_literal">&quot;java:/eis/&quot;</span><span class="java_separator">;</span>
+</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_javadoc_comment">/**</span>
+<!--  --><br/><span class="java_javadoc_comment">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Simple&nbsp;test&nbsp;to&nbsp;verify&nbsp;deployment&nbsp;of&nbsp;myresourceadapter.rar</span>
+<!--  --><br/><span class="java_javadoc_comment">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="java_javadoc_tag">@throws</span><span class="java_javadoc_comment">&nbsp;Throwable&nbsp;throwable&nbsp;exception&nbsp;</span>
+<!--  --><br/><span class="java_javadoc_comment">&nbsp;&nbsp;&nbsp;&nbsp;*/</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;@</span><span class="java_type">Test</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_keyword">public</span><span class="java_plain">&nbsp;</span><span class="java_type">void</span><span class="java_plain">&nbsp;testDeployment</span><span class="java_separator">()</span><span class="java_plain">&nbsp;</span><span class="java_keyword">throws</span><span class="java_plain">&nbsp;</span><span class="java_type">Throwable</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_separator">{</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;URL&nbsp;archive&nbsp;</span><span class="java_operator">=</span><span class="java_plain">&nbsp;getURL</span><span class="java_separator">(</span><span class="java_literal">&quot;myresourceadapter.rar&quot;</span><span class="java_separator">);</span>
+<!--  --><br/><span class="java_plain">&nbsp;</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_type">Context</span><span class="java_plain">&nbsp;context&nbsp;</span><span class="java_operator">=</span><span class="java_plain">&nbsp;</span><span class="java_literal">null</span><span class="java_separator">;</span>
+<!--  --><br/><span class="java_plain">&nbsp;</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_keyword">try</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_separator">{</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;embedded</span><span class="java_separator">.</span><span class="java_plain">deploy</span><span class="java_separator">(</span><span class="java_plain">archive</span><span class="java_separator">);</span>
+</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;context&nbsp;</span><span class="java_operator">=</span><span class="java_plain">&nbsp;</span><span class="java_keyword">new</span><span class="java_plain">&nbsp;</span><span class="java_type">InitialContext</span><span class="java_separator">();</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_type">Object</span><span class="java_plain">&nbsp;o&nbsp;</span><span class="java_operator">=</span><span class="java_plain">&nbsp;context</span><span class="java_separator">.</span><span class="java_plain">lookup</span><span class="java_separator">(</span><span class="java_plain">JNDI_PREFIX&nbsp;</span><span class="java_operator">+</span><span class="java_plain">&nbsp;</span><span class="java_literal">&quot;myresourceadapter&quot;</span><span class="java_separator">);</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assertNotNull</span><span class="java_separator">(</span><span class="java_plain">o</span><span class="java_separator">);</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_separator">}</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_keyword">catch</span><span class="java_plain">&nbsp;</span><span class="java_separator">(</span><span class="java_type">Throwable</span><span class="java_plain">&nbsp;t</span><span class="java_separator">)</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_separator">{</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fail</span><span class="java_separator">(</span><span class="java_plain">t</span><span class="java_separator">.</span><span class="java_plain">getMessage</span><span class="java_separator">());</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_separator">}</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_keyword">finally</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_separator">{</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;embedded</span><span class="java_separator">.</span><span class="java_plain">undeploy</span><span class="java_separator">(</span><span class="java_plain">archive</span><span class="java_separator">);</span>
+</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_keyword">if</span><span class="java_plain">&nbsp;</span><span class="java_separator">(</span><span class="java_plain">context&nbsp;</span><span class="java_operator">!=</span><span class="java_plain">&nbsp;</span><span class="java_literal">null</span><span class="java_separator">)</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_separator">{</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_keyword">try</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_separator">{</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;context</span><span class="java_separator">.</span><span class="java_plain">close</span><span class="java_separator">();</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_separator">}</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_keyword">catch</span><span class="java_plain">&nbsp;</span><span class="java_separator">(</span><span class="java_type">NamingException</span><span class="java_plain">&nbsp;ne</span><span class="java_separator">)</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_separator">{</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_operator">//</span><span class="java_plain">&nbsp;</span><span class="java_type">Ignore</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_separator">}</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_separator">}</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_separator">}</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_separator">}</span>
+</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;@</span><span class="java_type">BeforeClass</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_keyword">public</span><span class="java_plain">&nbsp;</span><span class="java_keyword">static</span><span class="java_plain">&nbsp;</span><span class="java_type">void</span><span class="java_plain">&nbsp;beforeClass</span><span class="java_separator">()</span><span class="java_plain">&nbsp;</span><span class="java_keyword">throws</span><span class="java_plain">&nbsp;</span><span class="java_type">Throwable</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_separator">{</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_operator">//</span><span class="java_plain">&nbsp;</span><span class="java_type">Create</span><span class="java_plain">&nbsp;an&nbsp;embedded&nbsp;JCA&nbsp;instance</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;embedded&nbsp;</span><span class="java_operator">=</span><span class="java_plain">&nbsp;</span><span class="java_type">EmbeddedFactory</span><span class="java_separator">.</span><span class="java_plain">create</span><span class="java_separator">();</span>
+</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_operator">//</span><span class="java_plain">&nbsp;</span><span class="java_type">Startup</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;embedded</span><span class="java_separator">.</span><span class="java_plain">startup</span><span class="java_separator">();</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_separator">}</span>
+</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;@</span><span class="java_type">AfterClass</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_keyword">public</span><span class="java_plain">&nbsp;</span><span class="java_keyword">static</span><span class="java_plain">&nbsp;</span><span class="java_type">void</span><span class="java_plain">&nbsp;afterClass</span><span class="java_separator">()</span><span class="java_plain">&nbsp;</span><span class="java_keyword">throws</span><span class="java_plain">&nbsp;</span><span class="java_type">Throwable</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_separator">{</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_operator">//</span><span class="java_plain">&nbsp;</span><span class="java_type">Shutdown</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;embedded</span><span class="java_separator">.</span><span class="java_plain">shutdown</span><span class="java_separator">();</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_separator">}</span>
+<!--  --><br/><span class="java_separator">}</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></pre><div xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="note"><h2>Note</h2>Note that, the url for the archive must end with the <code class="code">.rar</code> extension
+            - either representing a file or a directory.</div><p>See the IronJacamar Embedded API documentation for additional functionality.</p><div class="section" title="9.3.1.1. Automatic activation of archives"><div class="titlepage"><div><div><h4 class="title"><a id="embedded_usage_automaticactivation"/>9.3.1.1. Automatic activation of archives</h4></div></div></div><p>IronJacamar features a bean called <code class="code">RAActivator</code> which will automatic
+            create a JNDI binding for connection factories and administration objects. However, 
+            sometimes it is of benefit to define these bindings in a <code class="code">-ra.xml</code> file, and therefore
+            <code class="code">RAActivator</code> has to be disabled during that deployment phase.</p><p>This done by using the following code snippet</p><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="JAVA"></span>
+<!--  --><br/><span class="java_keyword">import</span><span class="java_plain">&nbsp;org</span><span class="java_separator">.</span><span class="java_plain">jboss</span><span class="java_separator">.</span><span class="java_plain">jca</span><span class="java_separator">.</span><span class="java_plain">deployers</span><span class="java_separator">.</span><span class="java_plain">fungal</span><span class="java_separator">.</span><span class="java_type">RAActivator</span><span class="java_separator">;</span>
+</span>
+<!--  --><br/><span class="java_operator">//</span><span class="java_plain">&nbsp;</span><span class="java_type">Disable</span><span class="java_plain">&nbsp;</span><span class="java_type">RAActivator</span>
+<!--  --><br/><span class="java_type">RAActivator</span><span class="java_plain">&nbsp;raa&nbsp;</span><span class="java_operator">=</span><span class="java_plain">&nbsp;embedded</span><span class="java_separator">.</span><span class="java_plain">lookup</span><span class="java_separator">(</span><span class="java_literal">&quot;RAActivator&quot;</span><span class="java_separator">,</span><span class="java_plain">&nbsp;</span><span class="java_type">RAActivator</span><span class="java_separator">.</span><span class="java_keyword">class</span><span class="java_separator">);</span>
+</span>
+<!--  --><br/><span class="java_keyword">if</span><span class="java_plain">&nbsp;</span><span class="java_separator">(</span><span class="java_plain">raa&nbsp;</span><span class="java_operator">==</span><span class="java_plain">&nbsp;</span><span class="java_literal">null</span><span class="java_separator">)</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_keyword">throw</span><span class="java_plain">&nbsp;</span><span class="java_keyword">new</span><span class="java_plain">&nbsp;</span><span class="java_type">IllegalStateException</span><span class="java_separator">(</span><span class="java_literal">&quot;RAActivator&nbsp;not&nbsp;defined&quot;</span><span class="java_separator">);</span>
+</span>
+<!--  --><br/><span class="java_plain">raa</span><span class="java_separator">.</span><span class="java_plain">setEnabled</span><span class="java_separator">(</span><span class="java_literal">false</span><span class="java_separator">);</span>
+</span>
+<!--  --><br/><span class="java_plain">embedded</span><span class="java_separator">.</span><span class="java_plain">deploy</span><span class="java_separator">(</span><span class="java_literal">&quot;myrar.rar&quot;</span><span class="java_separator">);</span>
+<!--  --><br/><span class="java_plain">embedded</span><span class="java_separator">.</span><span class="java_plain">deploy</span><span class="java_separator">(</span><span class="java_literal">&quot;myrar-ra.xml&quot;</span><span class="java_separator">);</span>
+</span>
+<!--  --><br/><span class="java_plain">raa</span><span class="java_separator">.</span><span class="java_plain">setEnabled</span><span class="java_separator">(</span><span class="java_literal">true</span><span class="java_separator">);</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></pre><p>which disables the bean, does the deployments and then reenables the bean again.</p></div></div><div class="section" title="9.3.2. Advanced usage"><div class="titlepage"><div><div><h3 class="title"><a id="embedded_usage_advanced"/>9.3.2. Advanced usage</h3></div></div></div><p>The IronJacamar Embedded container environment supports the following open source
+          testing projects:</p><div xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="orderedlist"><ol><li class="listitem"><a class="ulink" href="http://www.jboss.org/shrinkwrap">ShrinkWrap</a></li><li class="listitem"><a class="ulink" href="http://www.jboss.org/arquillian">Arquillian</a></li></ol></div><p>These extensions allow the developer to use the embedded platform with greater ease
+          as there doesn't have to be a physical representation of the resource adapter archive located
+          to the disk.</p><p>The Arquillian integration furthermore allows the developer to leave all the embedded container
+          setup to the integration instead.</p><div class="section" title="9.3.2.1. ShrinkWrap integration"><div class="titlepage"><div><div><h4 class="title"><a id="embedded_usage_advanced_shrinkwrap"/>9.3.2.1. ShrinkWrap integration</h4></div></div></div><p>The code sample below shows an advanced usage of deploying a dynamic ShrinkWrap resource adapter archive
+            into the IronJacamar Embedded environment.</p><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="JAVA"></span>
+<!--  --><br/><span class="java_comment">/*</span>
+<!--  --><br/><span class="java_plain">&nbsp;*&nbsp;JBoss,&nbsp;Home&nbsp;of&nbsp;Professional&nbsp;Open&nbsp;Source.</span>
+<!--  --><br/><span class="java_plain">&nbsp;*&nbsp;Copyright&nbsp;2009,&nbsp;Red&nbsp;Hat&nbsp;Middleware&nbsp;LLC,&nbsp;and&nbsp;individual&nbsp;contributors</span>
+<!--  --><br/><span class="java_plain">&nbsp;*&nbsp;as&nbsp;indicated&nbsp;by&nbsp;the&nbsp;@author&nbsp;tags.&nbsp;See&nbsp;the&nbsp;copyright.txt&nbsp;file&nbsp;in&nbsp;the</span>
+<!--  --><br/><span class="java_plain">&nbsp;*&nbsp;distribution&nbsp;for&nbsp;a&nbsp;full&nbsp;listing&nbsp;of&nbsp;individual&nbsp;contributors.</span>
+<!--  --><br/><span class="java_plain">&nbsp;*</span>
+<!--  --><br/><span class="java_plain">&nbsp;*&nbsp;This&nbsp;is&nbsp;free&nbsp;software;&nbsp;you&nbsp;can&nbsp;redistribute&nbsp;it&nbsp;and/or&nbsp;modify&nbsp;it</span>
+<!--  --><br/><span class="java_plain">&nbsp;*&nbsp;under&nbsp;the&nbsp;terms&nbsp;of&nbsp;the&nbsp;GNU&nbsp;Lesser&nbsp;General&nbsp;Public&nbsp;License&nbsp;as</span>
+<!--  --><br/><span class="java_plain">&nbsp;*&nbsp;published&nbsp;by&nbsp;the&nbsp;Free&nbsp;Software&nbsp;Foundation;&nbsp;either&nbsp;version&nbsp;2.1&nbsp;of</span>
+<!--  --><br/><span class="java_plain">&nbsp;*&nbsp;the&nbsp;License,&nbsp;or&nbsp;(at&nbsp;your&nbsp;option)&nbsp;any&nbsp;later&nbsp;version.</span>
+<!--  --><br/><span class="java_plain">&nbsp;*</span>
+<!--  --><br/><span class="java_plain">&nbsp;*&nbsp;This&nbsp;software&nbsp;is&nbsp;distributed&nbsp;in&nbsp;the&nbsp;hope&nbsp;that&nbsp;it&nbsp;will&nbsp;be&nbsp;useful,</span>
+<!--  --><br/><span class="java_plain">&nbsp;*&nbsp;but&nbsp;WITHOUT&nbsp;ANY&nbsp;WARRANTY;&nbsp;without&nbsp;even&nbsp;the&nbsp;implied&nbsp;warranty&nbsp;of</span>
+<!--  --><br/><span class="java_plain">&nbsp;*&nbsp;MERCHANTABILITY&nbsp;or&nbsp;FITNESS&nbsp;FOR&nbsp;A&nbsp;PARTICULAR&nbsp;PURPOSE.&nbsp;See&nbsp;the&nbsp;GNU</span>
+<!--  --><br/><span class="java_plain">&nbsp;*&nbsp;Lesser&nbsp;General&nbsp;Public&nbsp;License&nbsp;for&nbsp;more&nbsp;details.</span>
+<!--  --><br/><span class="java_plain">&nbsp;*</span>
+<!--  --><br/><span class="java_plain">&nbsp;*&nbsp;You&nbsp;should&nbsp;have&nbsp;received&nbsp;a&nbsp;copy&nbsp;of&nbsp;the&nbsp;GNU&nbsp;Lesser&nbsp;General&nbsp;Public</span>
+<!--  --><br/><span class="java_plain">&nbsp;*&nbsp;License&nbsp;along&nbsp;with&nbsp;this&nbsp;software;&nbsp;if&nbsp;not,&nbsp;write&nbsp;to&nbsp;the&nbsp;Free</span>
+<!--  --><br/><span class="java_plain">&nbsp;*&nbsp;Software&nbsp;Foundation,&nbsp;Inc.,&nbsp;51&nbsp;Franklin&nbsp;St,&nbsp;Fifth&nbsp;Floor,&nbsp;Boston,&nbsp;MA</span>
+<!--  --><br/><span class="java_plain">&nbsp;*&nbsp;02110-1301&nbsp;USA,&nbsp;or&nbsp;see&nbsp;the&nbsp;FSF&nbsp;site:&nbsp;http://www.fsf.org.</span>
+<!--  --><br/><span class="java_comment">&nbsp;*/</span>
+</span>
+<!--  --><br/><span class="java_keyword">package</span><span class="java_plain">&nbsp;org</span><span class="java_separator">.</span><span class="java_plain">jboss</span><span class="java_separator">.</span><span class="java_plain">jca</span><span class="java_separator">.</span><span class="java_plain">embedded</span><span class="java_separator">.</span><span class="java_plain">unit</span><span class="java_separator">;</span>
+</span>
+<!--  --><br/><span class="java_keyword">import</span><span class="java_plain">&nbsp;org</span><span class="java_separator">.</span><span class="java_plain">jboss</span><span class="java_separator">.</span><span class="java_plain">jca</span><span class="java_separator">.</span><span class="java_plain">embedded</span><span class="java_separator">.</span><span class="java_type">Embedded</span><span class="java_separator">;</span>
+<!--  --><br/><span class="java_keyword">import</span><span class="java_plain">&nbsp;org</span><span class="java_separator">.</span><span class="java_plain">jboss</span><span class="java_separator">.</span><span class="java_plain">jca</span><span class="java_separator">.</span><span class="java_plain">embedded</span><span class="java_separator">.</span><span class="java_type">EmbeddedFactory</span><span class="java_separator">;</span>
+<!--  --><br/><span class="java_keyword">import</span><span class="java_plain">&nbsp;org</span><span class="java_separator">.</span><span class="java_plain">jboss</span><span class="java_separator">.</span><span class="java_plain">jca</span><span class="java_separator">.</span><span class="java_plain">embedded</span><span class="java_separator">.</span><span class="java_plain">rars</span><span class="java_separator">.</span><span class="java_plain">simple</span><span class="java_separator">.</span><span class="java_type">TestConnection</span><span class="java_separator">;</span>
+<!--  --><br/><span class="java_keyword">import</span><span class="java_plain">&nbsp;org</span><span class="java_separator">.</span><span class="java_plain">jboss</span><span class="java_separator">.</span><span class="java_plain">jca</span><span class="java_separator">.</span><span class="java_plain">embedded</span><span class="java_separator">.</span><span class="java_plain">rars</span><span class="java_separator">.</span><span class="java_plain">simple</span><span class="java_separator">.</span><span class="java_type">TestConnectionFactory</span><span class="java_separator">;</span>
+</span>
+<!--  --><br/><span class="java_keyword">import</span><span class="java_plain">&nbsp;java</span><span class="java_separator">.</span><span class="java_plain">util</span><span class="java_separator">.</span><span class="java_plain">UUID</span><span class="java_separator">;</span>
+</span>
+<!--  --><br/><span class="java_keyword">import</span><span class="java_plain">&nbsp;javax</span><span class="java_separator">.</span><span class="java_plain">naming</span><span class="java_separator">.</span><span class="java_type">Context</span><span class="java_separator">;</span>
+<!--  --><br/><span class="java_keyword">import</span><span class="java_plain">&nbsp;javax</span><span class="java_separator">.</span><span class="java_plain">naming</span><span class="java_separator">.</span><span class="java_type">InitialContext</span><span class="java_separator">;</span>
+<!--  --><br/><span class="java_keyword">import</span><span class="java_plain">&nbsp;javax</span><span class="java_separator">.</span><span class="java_plain">naming</span><span class="java_separator">.</span><span class="java_type">NamingException</span><span class="java_separator">;</span>
+</span>
+<!--  --><br/><span class="java_keyword">import</span><span class="java_plain">&nbsp;org</span><span class="java_separator">.</span><span class="java_plain">jboss</span><span class="java_separator">.</span><span class="java_plain">logging</span><span class="java_separator">.</span><span class="java_type">Logger</span><span class="java_separator">;</span>
+<!--  --><br/><span class="java_keyword">import</span><span class="java_plain">&nbsp;org</span><span class="java_separator">.</span><span class="java_plain">jboss</span><span class="java_separator">.</span><span class="java_plain">shrinkwrap</span><span class="java_separator">.</span><span class="java_plain">api</span><span class="java_separator">.</span><span class="java_type">ShrinkWrap</span><span class="java_separator">;</span>
+<!--  --><br/><span class="java_keyword">import</span><span class="java_plain">&nbsp;org</span><span class="java_separator">.</span><span class="java_plain">jboss</span><span class="java_separator">.</span><span class="java_plain">shrinkwrap</span><span class="java_separator">.</span><span class="java_plain">api</span><span class="java_separator">.</span><span class="java_plain">spec</span><span class="java_separator">.</span><span class="java_type">JavaArchive</span><span class="java_separator">;</span>
+<!--  --><br/><span class="java_keyword">import</span><span class="java_plain">&nbsp;org</span><span class="java_separator">.</span><span class="java_plain">jboss</span><span class="java_separator">.</span><span class="java_plain">shrinkwrap</span><span class="java_separator">.</span><span class="java_plain">api</span><span class="java_separator">.</span><span class="java_plain">spec</span><span class="java_separator">.</span><span class="java_type">ResourceAdapterArchive</span><span class="java_separator">;</span>
+</span>
+<!--  --><br/><span class="java_keyword">import</span><span class="java_plain">&nbsp;org</span><span class="java_separator">.</span><span class="java_plain">junit</span><span class="java_separator">.</span><span class="java_type">AfterClass</span><span class="java_separator">;</span>
+<!--  --><br/><span class="java_keyword">import</span><span class="java_plain">&nbsp;org</span><span class="java_separator">.</span><span class="java_plain">junit</span><span class="java_separator">.</span><span class="java_type">BeforeClass</span><span class="java_separator">;</span>
+<!--  --><br/><span class="java_keyword">import</span><span class="java_plain">&nbsp;org</span><span class="java_separator">.</span><span class="java_plain">junit</span><span class="java_separator">.</span><span class="java_type">Test</span><span class="java_separator">;</span>
+<!--  --><br/><span class="java_keyword">import</span><span class="java_plain">&nbsp;</span><span class="java_keyword">static</span><span class="java_plain">&nbsp;org</span><span class="java_separator">.</span><span class="java_plain">junit</span><span class="java_separator">.</span><span class="java_type">Assert</span><span class="java_separator">.</span><span class="java_operator">*</span><span class="java_separator">;</span>
+</span>
+<!--  --><br/><span class="java_javadoc_comment">/**</span>
+<!--  --><br/><span class="java_javadoc_comment">&nbsp;*&nbsp;Test&nbsp;cases&nbsp;for&nbsp;deploying&nbsp;resource&nbsp;adapter&nbsp;archives&nbsp;(.RAR)</span>
+<!--  --><br/><span class="java_javadoc_comment">&nbsp;*&nbsp;using&nbsp;ShrinkWrap</span>
+<!--  --><br/><span class="java_javadoc_comment">&nbsp;*&nbsp;</span>
+<!--  --><br/><span class="java_javadoc_comment">&nbsp;*&nbsp;</span><span class="java_javadoc_tag">@author</span><span class="java_javadoc_comment">&nbsp;&lt;a&nbsp;href=&quot;mailto:jesper.pedersen</span><span class="java_javadoc_tag">@jboss</span><span class="java_javadoc_comment">.org&quot;&gt;Jesper&nbsp;Pedersen&lt;/a&gt;</span>
+<!--  --><br/><span class="java_javadoc_comment">&nbsp;*&nbsp;</span><span class="java_javadoc_tag">@version</span><span class="java_javadoc_comment">&nbsp;$Revision:&nbsp;$</span>
+<!--  --><br/><span class="java_javadoc_comment">&nbsp;*/</span>
+<!--  --><br/><span class="java_keyword">public</span><span class="java_plain">&nbsp;</span><span class="java_keyword">class</span><span class="java_plain">&nbsp;</span><span class="java_type">ShrinkWrapTestCase</span>
+<!--  --><br/><span class="java_separator">{</span>
+</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_operator">//</span><span class="java_plain">&nbsp;</span><span class="java_operator">--------------------------------------------------------------------------------||</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_operator">//</span><span class="java_plain">&nbsp;</span><span class="java_type">Class</span><span class="java_plain">&nbsp;</span><span class="java_type">Members</span><span class="java_plain">&nbsp;</span><span class="java_operator">------------------------------------------------------------------||</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_operator">//</span><span class="java_plain">&nbsp;</span><span class="java_operator">--------------------------------------------------------------------------------||</span>
+</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_keyword">private</span><span class="java_plain">&nbsp;</span><span class="java_keyword">static</span><span class="java_plain">&nbsp;</span><span class="java_type">Logger</span><span class="java_plain">&nbsp;log&nbsp;</span><span class="java_operator">=</span><span class="java_plain">&nbsp;</span><span class="java_type">Logger</span><span class="java_separator">.</span><span class="java_plain">getLogger</span><span class="java_separator">(</span><span class="java_type">ShrinkWrapTestCase</span><span class="java_separator">.</span><span class="java_keyword">class</span><span class="java_separator">);</span>
+</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_keyword">private</span><span class="java_plain">&nbsp;</span><span class="java_keyword">static</span><span class="java_plain">&nbsp;</span><span class="java_keyword">final</span><span class="java_plain">&nbsp;</span><span class="java_type">String</span><span class="java_plain">&nbsp;JNDI_PREFIX&nbsp;</span><span class="java_operator">=</span><span class="java_plain">&nbsp;</span><span class="java_literal">&quot;java:/eis/&quot;</span><span class="java_separator">;</span>
+</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_comment">/*</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Embedded</span>
+<!--  --><br/><span class="java_comment">&nbsp;&nbsp;&nbsp;&nbsp;*/</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_keyword">private</span><span class="java_plain">&nbsp;</span><span class="java_keyword">static</span><span class="java_plain">&nbsp;</span><span class="java_type">Embedded</span><span class="java_plain">&nbsp;embedded</span><span class="java_separator">;</span>
+</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_operator">//</span><span class="java_plain">&nbsp;</span><span class="java_operator">--------------------------------------------------------------------------------||</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_operator">//</span><span class="java_plain">&nbsp;</span><span class="java_type">Tests</span><span class="java_plain">&nbsp;</span><span class="java_operator">--------------------------------------------------------------------------||</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_operator">//</span><span class="java_plain">&nbsp;</span><span class="java_operator">--------------------------------------------------------------------------------||</span>
+</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_javadoc_comment">/**</span>
+<!--  --><br/><span class="java_javadoc_comment">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Null&nbsp;ShrinkWrap&nbsp;ResourceAdapterArchive&nbsp;test&nbsp;case</span>
+<!--  --><br/><span class="java_javadoc_comment">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="java_javadoc_tag">@exception</span><span class="java_javadoc_comment">&nbsp;Throwable&nbsp;Thrown&nbsp;if&nbsp;case&nbsp;of&nbsp;an&nbsp;error</span>
+<!--  --><br/><span class="java_javadoc_comment">&nbsp;&nbsp;&nbsp;&nbsp;*/</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;@</span><span class="java_type">Test</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_keyword">public</span><span class="java_plain">&nbsp;</span><span class="java_type">void</span><span class="java_plain">&nbsp;testNull</span><span class="java_separator">()</span><span class="java_plain">&nbsp;</span><span class="java_keyword">throws</span><span class="java_plain">&nbsp;</span><span class="java_type">Throwable</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_separator">{</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_type">ResourceAdapterArchive</span><span class="java_plain">&nbsp;raa&nbsp;</span><span class="java_operator">=</span><span class="java_plain">&nbsp;</span><span class="java_literal">null</span><span class="java_separator">;</span><span class="java_plain">&nbsp;</span>
+</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_keyword">try</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_separator">{</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;embedded</span><span class="java_separator">.</span><span class="java_plain">deploy</span><span class="java_separator">(</span><span class="java_plain">raa</span><span class="java_separator">);</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fail</span><span class="java_separator">(</span><span class="java_literal">&quot;Null&nbsp;deployment&nbsp;successful&quot;</span><span class="java_separator">);</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_separator">}</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_keyword">catch</span><span class="java_plain">&nbsp;</span><span class="java_separator">(</span><span class="java_type">Exception</span><span class="java_plain">&nbsp;t</span><span class="java_separator">)</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_separator">{</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_operator">//</span><span class="java_plain">&nbsp;</span><span class="java_type">Ok</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_separator">}</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_keyword">finally</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_separator">{</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_keyword">try</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_separator">{</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;embedded</span><span class="java_separator">.</span><span class="java_plain">undeploy</span><span class="java_separator">(</span><span class="java_plain">raa</span><span class="java_separator">);</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fail</span><span class="java_separator">(</span><span class="java_literal">&quot;Null&nbsp;undeployment&nbsp;successful&quot;</span><span class="java_separator">);</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_separator">}</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_keyword">catch</span><span class="java_plain">&nbsp;</span><span class="java_separator">(</span><span class="java_type">Exception</span><span class="java_plain">&nbsp;t</span><span class="java_separator">)</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_separator">{</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_operator">//</span><span class="java_plain">&nbsp;</span><span class="java_type">Ok</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_separator">}</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_separator">}</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_separator">}</span>
+</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_javadoc_comment">/**</span>
+<!--  --><br/><span class="java_javadoc_comment">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Basic&nbsp;ShrinkWrap&nbsp;ResourceAdapterArchive&nbsp;test&nbsp;case</span>
+<!--  --><br/><span class="java_javadoc_comment">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="java_javadoc_tag">@exception</span><span class="java_javadoc_comment">&nbsp;Throwable&nbsp;Thrown&nbsp;if&nbsp;case&nbsp;of&nbsp;an&nbsp;error</span>
+<!--  --><br/><span class="java_javadoc_comment">&nbsp;&nbsp;&nbsp;&nbsp;*/</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;@</span><span class="java_type">Test</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_keyword">public</span><span class="java_plain">&nbsp;</span><span class="java_type">void</span><span class="java_plain">&nbsp;testBasic</span><span class="java_separator">()</span><span class="java_plain">&nbsp;</span><span class="java_keyword">throws</span><span class="java_plain">&nbsp;</span><span class="java_type">Throwable</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_separator">{</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_type">Context</span><span class="java_plain">&nbsp;context&nbsp;</span><span class="java_operator">=</span><span class="java_plain">&nbsp;</span><span class="java_literal">null</span><span class="java_separator">;</span>
+</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_type">String</span><span class="java_plain">&nbsp;name&nbsp;</span><span class="java_operator">=</span><span class="java_plain">&nbsp;UUID</span><span class="java_separator">.</span><span class="java_plain">randomUUID</span><span class="java_separator">().</span><span class="java_plain">toString</span><span class="java_separator">();</span>
+</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_type">ResourceAdapterArchive</span><span class="java_plain">&nbsp;raa&nbsp;</span><span class="java_operator">=</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_type">ShrinkWrap</span><span class="java_separator">.</span><span class="java_plain">create</span><span class="java_separator">(</span><span class="java_type">ResourceAdapterArchive</span><span class="java_separator">.</span><span class="java_keyword">class</span><span class="java_separator">,</span><span class="java_plain">&nbsp;name&nbsp;</span><span class="java_operator">+</span><span class="java_plain">&nbsp;</span><span class="java_literal">&quot;.rar&quot;</span><span class="java_separator">);</span>
+</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_type">JavaArchive</span><span class="java_plain">&nbsp;ja&nbsp;</span><span class="java_operator">=</span><span class="java_plain">&nbsp;</span><span class="java_type">ShrinkWrap</span><span class="java_separator">.</span><span class="java_plain">create</span><span class="java_separator">(</span><span class="java_type">JavaArchive</span><span class="java_separator">.</span><span class="java_keyword">class</span><span class="java_separator">,</span><span class="java_plain">&nbsp;UUID</span><span class="java_separator">.</span><span class="java_plain">randomUUID</span><span class="java_separator">().</span><span class="java_plain">toString</span><span class="java_separator">()</span><span class="java_plain">&nbsp;</span><span class="java_operator">+</span><span class="java_plain">&nbsp;</span><span class="java_literal">&quot;.jar&quot;</span><span class="java_separator">);</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ja</span><span class="java_separator">.</span><span class="java_plain">addPackage</span><span class="java_separator">(</span><span class="java_type">TestConnection</span><span class="java_separator">.</span><span class="java_keyword">class</span><span class="java_separator">.</span><span class="java_plain">getPackage</span><span class="java_separator">());</span>
+</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;raa</span><span class="java_separator">.</span><span class="java_plain">addAsLibrary</span><span class="java_separator">(</span><span class="java_plain">ja</span><span class="java_separator">);</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;raa</span><span class="java_separator">.</span><span class="java_plain">addAsManifestResource</span><span class="java_separator">(</span><span class="java_literal">&quot;simple.rar/META-INF/ra.xml&quot;</span><span class="java_separator">,</span><span class="java_plain">&nbsp;</span><span class="java_literal">&quot;ra.xml&quot;</span><span class="java_separator">);</span>
+</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_keyword">try</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_separator">{</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;embedded</span><span class="java_separator">.</span><span class="java_plain">deploy</span><span class="java_separator">(</span><span class="java_plain">raa</span><span class="java_separator">);</span>
+</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;context&nbsp;</span><span class="java_operator">=</span><span class="java_plain">&nbsp;</span><span class="java_keyword">new</span><span class="java_plain">&nbsp;</span><span class="java_type">InitialContext</span><span class="java_separator">();</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_type">TestConnectionFactory</span><span class="java_plain">&nbsp;tcf&nbsp;</span><span class="java_operator">=</span><span class="java_plain">&nbsp;</span><span class="java_separator">(</span><span class="java_type">TestConnectionFactory</span><span class="java_separator">)</span><span class="java_plain">context</span><span class="java_separator">.</span><span class="java_plain">lookup</span><span class="java_separator">(</span><span class="java_plain">JNDI_PREFIX&nbsp;</span><span class="java_operator">+</span><span class="java_plain">&nbsp;name</span><span class="java_separator">);</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assertNotNull</span><span class="java_separator">(</span><span class="java_plain">tcf</span><span class="java_separator">);</span>
+</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_type">TestConnection</span><span class="java_plain">&nbsp;tc&nbsp;</span><span class="java_operator">=</span><span class="java_plain">&nbsp;tcf</span><span class="java_separator">.</span><span class="java_plain">getConnection</span><span class="java_separator">();</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tc</span><span class="java_separator">.</span><span class="java_plain">callMe</span><span class="java_separator">();</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tc</span><span class="java_separator">.</span><span class="java_plain">close</span><span class="java_separator">();</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_separator">}</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_keyword">catch</span><span class="java_plain">&nbsp;</span><span class="java_separator">(</span><span class="java_type">Throwable</span><span class="java_plain">&nbsp;t</span><span class="java_separator">)</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_separator">{</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;log</span><span class="java_separator">.</span><span class="java_plain">error</span><span class="java_separator">(</span><span class="java_plain">t</span><span class="java_separator">.</span><span class="java_plain">getMessage</span><span class="java_separator">(),</span><span class="java_plain">&nbsp;t</span><span class="java_separator">);</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fail</span><span class="java_separator">(</span><span class="java_plain">t</span><span class="java_separator">.</span><span class="java_plain">getMessage</span><span class="java_separator">());</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_separator">}</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_keyword">finally</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_separator">{</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_keyword">if</span><span class="java_plain">&nbsp;</span><span class="java_separator">(</span><span class="java_plain">context&nbsp;</span><span class="java_operator">!=</span><span class="java_plain">&nbsp;</span><span class="java_literal">null</span><span class="java_separator">)</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_separator">{</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_keyword">try</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_separator">{</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;context</span><span class="java_separator">.</span><span class="java_plain">close</span><span class="java_separator">();</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_separator">}</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_keyword">catch</span><span class="java_plain">&nbsp;</span><span class="java_separator">(</span><span class="java_type">NamingException</span><span class="java_plain">&nbsp;ne</span><span class="java_separator">)</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_separator">{</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_operator">//</span><span class="java_plain">&nbsp;</span><span class="java_type">Ignore</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_separator">}</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_separator">}</span>
+</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;embedded</span><span class="java_separator">.</span><span class="java_plain">undeploy</span><span class="java_separator">(</span><span class="java_plain">raa</span><span class="java_separator">);</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_separator">}</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_separator">}</span>
+</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_operator">//</span><span class="java_plain">&nbsp;</span><span class="java_operator">--------------------------------------------------------------------------------||</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_operator">//</span><span class="java_plain">&nbsp;</span><span class="java_type">Lifecycle</span><span class="java_plain">&nbsp;</span><span class="java_type">Methods</span><span class="java_plain">&nbsp;</span><span class="java_operator">--------------------------------------------------------------||</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_operator">//</span><span class="java_plain">&nbsp;</span><span class="java_operator">--------------------------------------------------------------------------------||</span>
+</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_javadoc_comment">/**</span>
+<!--  --><br/><span class="java_javadoc_comment">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Lifecycle&nbsp;start,&nbsp;before&nbsp;the&nbsp;suite&nbsp;is&nbsp;executed</span>
+<!--  --><br/><span class="java_javadoc_comment">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="java_javadoc_tag">@throws</span><span class="java_javadoc_comment">&nbsp;Throwable&nbsp;throwable&nbsp;exception&nbsp;</span>
+<!--  --><br/><span class="java_javadoc_comment">&nbsp;&nbsp;&nbsp;&nbsp;*/</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;@</span><span class="java_type">BeforeClass</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_keyword">public</span><span class="java_plain">&nbsp;</span><span class="java_keyword">static</span><span class="java_plain">&nbsp;</span><span class="java_type">void</span><span class="java_plain">&nbsp;beforeClass</span><span class="java_separator">()</span><span class="java_plain">&nbsp;</span><span class="java_keyword">throws</span><span class="java_plain">&nbsp;</span><span class="java_type">Throwable</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_separator">{</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_operator">//</span><span class="java_plain">&nbsp;</span><span class="java_type">Create</span><span class="java_plain">&nbsp;and&nbsp;set&nbsp;an&nbsp;embedded&nbsp;JCA&nbsp;instance</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;embedded&nbsp;</span><span class="java_operator">=</span><span class="java_plain">&nbsp;</span><span class="java_type">EmbeddedFactory</span><span class="java_separator">.</span><span class="java_plain">create</span><span class="java_separator">();</span>
+</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_operator">//</span><span class="java_plain">&nbsp;</span><span class="java_type">Startup</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;embedded</span><span class="java_separator">.</span><span class="java_plain">startup</span><span class="java_separator">();</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_separator">}</span>
+</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_javadoc_comment">/**</span>
+<!--  --><br/><span class="java_javadoc_comment">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Lifecycle&nbsp;stop,&nbsp;after&nbsp;the&nbsp;suite&nbsp;is&nbsp;executed</span>
+<!--  --><br/><span class="java_javadoc_comment">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="java_javadoc_tag">@throws</span><span class="java_javadoc_comment">&nbsp;Throwable&nbsp;throwable&nbsp;exception&nbsp;</span>
+<!--  --><br/><span class="java_javadoc_comment">&nbsp;&nbsp;&nbsp;&nbsp;*/</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;@</span><span class="java_type">AfterClass</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_keyword">public</span><span class="java_plain">&nbsp;</span><span class="java_keyword">static</span><span class="java_plain">&nbsp;</span><span class="java_type">void</span><span class="java_plain">&nbsp;afterClass</span><span class="java_separator">()</span><span class="java_plain">&nbsp;</span><span class="java_keyword">throws</span><span class="java_plain">&nbsp;</span><span class="java_type">Throwable</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_separator">{</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_operator">//</span><span class="java_plain">&nbsp;</span><span class="java_type">Shutdown</span><span class="java_plain">&nbsp;embedded</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;embedded</span><span class="java_separator">.</span><span class="java_plain">shutdown</span><span class="java_separator">();</span>
+</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_operator">//</span><span class="java_plain">&nbsp;</span><span class="java_type">Set</span><span class="java_plain">&nbsp;embedded&nbsp;to&nbsp;</span><span class="java_literal">null</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;embedded&nbsp;</span><span class="java_operator">=</span><span class="java_plain">&nbsp;</span><span class="java_literal">null</span><span class="java_separator">;</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_separator">}</span>
+<!--  --><br/><span class="java_separator">}</span>
+</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></pre><div xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="note"><h2>Note</h2>Note that, the name for the <code class="code">ResourceAdapterArchive</code> must end with the
+            <code class="code">.rar</code> extension.</div><p>See the <a class="ulink" href="http://www.jboss.org/shrinkwrap">
+              ShrinkWrap</a> web site for a full description of the project and additional documentation.</p></div><div class="section" title="9.3.2.2. Arquillian integration"><div class="titlepage"><div><div><h4 class="title"><a id="embedded_usage_advanced_arquillian"/>9.3.2.2. Arquillian integration</h4></div></div></div><p>The code sample below shows an advanced usage of deploying a dynamic ShrinkWrap resource adapter archive
+            into the IronJacamar Embedded environment using Arquillian.</p><p>This setup allows the developer to skip the entire IronJacamar Embedded container setup and handling of its
+            lifecycle methods.</p><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="JAVA"></span>
+<!--  --><br/><span class="java_comment">/*</span>
+<!--  --><br/><span class="java_plain">&nbsp;*&nbsp;JBoss,&nbsp;Home&nbsp;of&nbsp;Professional&nbsp;Open&nbsp;Source.</span>
+<!--  --><br/><span class="java_plain">&nbsp;*&nbsp;Copyright&nbsp;2012,&nbsp;Red&nbsp;Hat&nbsp;Middleware&nbsp;LLC,&nbsp;and&nbsp;individual&nbsp;contributors</span>
+<!--  --><br/><span class="java_plain">&nbsp;*&nbsp;as&nbsp;indicated&nbsp;by&nbsp;the&nbsp;@author&nbsp;tags.&nbsp;See&nbsp;the&nbsp;copyright.txt&nbsp;file&nbsp;in&nbsp;the</span>
+<!--  --><br/><span class="java_plain">&nbsp;*&nbsp;distribution&nbsp;for&nbsp;a&nbsp;full&nbsp;listing&nbsp;of&nbsp;individual&nbsp;contributors.</span>
+<!--  --><br/><span class="java_plain">&nbsp;*</span>
+<!--  --><br/><span class="java_plain">&nbsp;*&nbsp;This&nbsp;is&nbsp;free&nbsp;software;&nbsp;you&nbsp;can&nbsp;redistribute&nbsp;it&nbsp;and/or&nbsp;modify&nbsp;it</span>
+<!--  --><br/><span class="java_plain">&nbsp;*&nbsp;under&nbsp;the&nbsp;terms&nbsp;of&nbsp;the&nbsp;GNU&nbsp;Lesser&nbsp;General&nbsp;Public&nbsp;License&nbsp;as</span>
+<!--  --><br/><span class="java_plain">&nbsp;*&nbsp;published&nbsp;by&nbsp;the&nbsp;Free&nbsp;Software&nbsp;Foundation;&nbsp;either&nbsp;version&nbsp;2.1&nbsp;of</span>
+<!--  --><br/><span class="java_plain">&nbsp;*&nbsp;the&nbsp;License,&nbsp;or&nbsp;(at&nbsp;your&nbsp;option)&nbsp;any&nbsp;later&nbsp;version.</span>
+<!--  --><br/><span class="java_plain">&nbsp;*</span>
+<!--  --><br/><span class="java_plain">&nbsp;*&nbsp;This&nbsp;software&nbsp;is&nbsp;distributed&nbsp;in&nbsp;the&nbsp;hope&nbsp;that&nbsp;it&nbsp;will&nbsp;be&nbsp;useful,</span>
+<!--  --><br/><span class="java_plain">&nbsp;*&nbsp;but&nbsp;WITHOUT&nbsp;ANY&nbsp;WARRANTY;&nbsp;without&nbsp;even&nbsp;the&nbsp;implied&nbsp;warranty&nbsp;of</span>
+<!--  --><br/><span class="java_plain">&nbsp;*&nbsp;MERCHANTABILITY&nbsp;or&nbsp;FITNESS&nbsp;FOR&nbsp;A&nbsp;PARTICULAR&nbsp;PURPOSE.&nbsp;See&nbsp;the&nbsp;GNU</span>
+<!--  --><br/><span class="java_plain">&nbsp;*&nbsp;Lesser&nbsp;General&nbsp;Public&nbsp;License&nbsp;for&nbsp;more&nbsp;details.</span>
+<!--  --><br/><span class="java_plain">&nbsp;*</span>
+<!--  --><br/><span class="java_plain">&nbsp;*&nbsp;You&nbsp;should&nbsp;have&nbsp;received&nbsp;a&nbsp;copy&nbsp;of&nbsp;the&nbsp;GNU&nbsp;Lesser&nbsp;General&nbsp;Public</span>
+<!--  --><br/><span class="java_plain">&nbsp;*&nbsp;License&nbsp;along&nbsp;with&nbsp;this&nbsp;software;&nbsp;if&nbsp;not,&nbsp;write&nbsp;to&nbsp;the&nbsp;Free</span>
+<!--  --><br/><span class="java_plain">&nbsp;*&nbsp;Software&nbsp;Foundation,&nbsp;Inc.,&nbsp;51&nbsp;Franklin&nbsp;St,&nbsp;Fifth&nbsp;Floor,&nbsp;Boston,&nbsp;MA</span>
+<!--  --><br/><span class="java_plain">&nbsp;*&nbsp;02110-1301&nbsp;USA,&nbsp;or&nbsp;see&nbsp;the&nbsp;FSF&nbsp;site:&nbsp;http://www.fsf.org.</span>
+<!--  --><br/><span class="java_comment">&nbsp;*/</span>
+</span>
+<!--  --><br/><span class="java_keyword">package</span><span class="java_plain">&nbsp;org</span><span class="java_separator">.</span><span class="java_plain">jboss</span><span class="java_separator">.</span><span class="java_plain">jca</span><span class="java_separator">.</span><span class="java_plain">embedded</span><span class="java_separator">.</span><span class="java_plain">unit</span><span class="java_separator">;</span>
+</span>
+<!--  --><br/><span class="java_keyword">import</span><span class="java_plain">&nbsp;org</span><span class="java_separator">.</span><span class="java_plain">jboss</span><span class="java_separator">.</span><span class="java_plain">jca</span><span class="java_separator">.</span><span class="java_plain">embedded</span><span class="java_separator">.</span><span class="java_plain">rars</span><span class="java_separator">.</span><span class="java_plain">simple</span><span class="java_separator">.</span><span class="java_type">TestConnection</span><span class="java_separator">;</span>
+<!--  --><br/><span class="java_keyword">import</span><span class="java_plain">&nbsp;org</span><span class="java_separator">.</span><span class="java_plain">jboss</span><span class="java_separator">.</span><span class="java_plain">jca</span><span class="java_separator">.</span><span class="java_plain">embedded</span><span class="java_separator">.</span><span class="java_plain">rars</span><span class="java_separator">.</span><span class="java_plain">simple</span><span class="java_separator">.</span><span class="java_type">TestConnectionFactory</span><span class="java_separator">;</span>
+</span>
+<!--  --><br/><span class="java_keyword">import</span><span class="java_plain">&nbsp;java</span><span class="java_separator">.</span><span class="java_plain">util</span><span class="java_separator">.</span><span class="java_plain">UUID</span><span class="java_separator">;</span>
+</span>
+<!--  --><br/><span class="java_keyword">import</span><span class="java_plain">&nbsp;javax</span><span class="java_separator">.</span><span class="java_plain">annotation</span><span class="java_separator">.</span><span class="java_type">Resource</span><span class="java_separator">;</span>
+</span>
+<!--  --><br/><span class="java_keyword">import</span><span class="java_plain">&nbsp;org</span><span class="java_separator">.</span><span class="java_plain">jboss</span><span class="java_separator">.</span><span class="java_plain">arquillian</span><span class="java_separator">.</span><span class="java_plain">container</span><span class="java_separator">.</span><span class="java_plain">test</span><span class="java_separator">.</span><span class="java_plain">api</span><span class="java_separator">.</span><span class="java_type">Deployment</span><span class="java_separator">;</span>
+<!--  --><br/><span class="java_keyword">import</span><span class="java_plain">&nbsp;org</span><span class="java_separator">.</span><span class="java_plain">jboss</span><span class="java_separator">.</span><span class="java_plain">arquillian</span><span class="java_separator">.</span><span class="java_plain">junit</span><span class="java_separator">.</span><span class="java_type">Arquillian</span><span class="java_separator">;</span>
+<!--  --><br/><span class="java_keyword">import</span><span class="java_plain">&nbsp;org</span><span class="java_separator">.</span><span class="java_plain">jboss</span><span class="java_separator">.</span><span class="java_plain">logging</span><span class="java_separator">.</span><span class="java_type">Logger</span><span class="java_separator">;</span>
+<!--  --><br/><span class="java_keyword">import</span><span class="java_plain">&nbsp;org</span><span class="java_separator">.</span><span class="java_plain">jboss</span><span class="java_separator">.</span><span class="java_plain">shrinkwrap</span><span class="java_separator">.</span><span class="java_plain">api</span><span class="java_separator">.</span><span class="java_type">ShrinkWrap</span><span class="java_separator">;</span>
+<!--  --><br/><span class="java_keyword">import</span><span class="java_plain">&nbsp;org</span><span class="java_separator">.</span><span class="java_plain">jboss</span><span class="java_separator">.</span><span class="java_plain">shrinkwrap</span><span class="java_separator">.</span><span class="java_plain">api</span><span class="java_separator">.</span><span class="java_plain">spec</span><span class="java_separator">.</span><span class="java_type">JavaArchive</span><span class="java_separator">;</span>
+<!--  --><br/><span class="java_keyword">import</span><span class="java_plain">&nbsp;org</span><span class="java_separator">.</span><span class="java_plain">jboss</span><span class="java_separator">.</span><span class="java_plain">shrinkwrap</span><span class="java_separator">.</span><span class="java_plain">api</span><span class="java_separator">.</span><span class="java_plain">spec</span><span class="java_separator">.</span><span class="java_type">ResourceAdapterArchive</span><span class="java_separator">;</span>
+</span>
+<!--  --><br/><span class="java_keyword">import</span><span class="java_plain">&nbsp;org</span><span class="java_separator">.</span><span class="java_plain">junit</span><span class="java_separator">.</span><span class="java_type">Test</span><span class="java_separator">;</span>
+<!--  --><br/><span class="java_keyword">import</span><span class="java_plain">&nbsp;org</span><span class="java_separator">.</span><span class="java_plain">junit</span><span class="java_separator">.</span><span class="java_plain">runner</span><span class="java_separator">.</span><span class="java_type">RunWith</span><span class="java_separator">;</span>
+</span>
+<!--  --><br/><span class="java_keyword">import</span><span class="java_plain">&nbsp;</span><span class="java_keyword">static</span><span class="java_plain">&nbsp;org</span><span class="java_separator">.</span><span class="java_plain">junit</span><span class="java_separator">.</span><span class="java_type">Assert</span><span class="java_separator">.</span><span class="java_plain">assertNotNull</span><span class="java_separator">;</span>
+</span>
+<!--  --><br/><span class="java_javadoc_comment">/**</span>
+<!--  --><br/><span class="java_javadoc_comment">&nbsp;*&nbsp;Unit&nbsp;test&nbsp;for&nbsp;Arquillian&nbsp;integration</span>
+<!--  --><br/><span class="java_javadoc_comment">&nbsp;*&nbsp;</span>
+<!--  --><br/><span class="java_javadoc_comment">&nbsp;*&nbsp;</span><span class="java_javadoc_tag">@author</span><span class="java_javadoc_comment">&nbsp;&lt;a&nbsp;href=&quot;mailto:jesper.pedersen</span><span class="java_javadoc_tag">@jboss</span><span class="java_javadoc_comment">.org&quot;&gt;Jesper&nbsp;Pedersen&lt;/a&gt;</span>
+<!--  --><br/><span class="java_javadoc_comment">&nbsp;*/</span>
+<!--  --><br/><span class="java_plain">@</span><span class="java_type">RunWith</span><span class="java_separator">(</span><span class="java_type">Arquillian</span><span class="java_separator">.</span><span class="java_keyword">class</span><span class="java_separator">)</span>
+<!--  --><br/><span class="java_keyword">public</span><span class="java_plain">&nbsp;</span><span class="java_keyword">class</span><span class="java_plain">&nbsp;</span><span class="java_type">ArquillianTestCase</span>
+<!--  --><br/><span class="java_separator">{</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_operator">//</span><span class="java_plain">&nbsp;</span><span class="java_operator">--------------------------------------------------------------------------------||</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_operator">//</span><span class="java_plain">&nbsp;</span><span class="java_type">Class</span><span class="java_plain">&nbsp;</span><span class="java_type">Members</span><span class="java_plain">&nbsp;</span><span class="java_operator">------------------------------------------------------------------||</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_operator">//</span><span class="java_plain">&nbsp;</span><span class="java_operator">--------------------------------------------------------------------------------||</span>
+</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_keyword">private</span><span class="java_plain">&nbsp;</span><span class="java_keyword">static</span><span class="java_plain">&nbsp;</span><span class="java_type">Logger</span><span class="java_plain">&nbsp;log&nbsp;</span><span class="java_operator">=</span><span class="java_plain">&nbsp;</span><span class="java_type">Logger</span><span class="java_separator">.</span><span class="java_plain">getLogger</span><span class="java_separator">(</span><span class="java_type">ArquillianTestCase</span><span class="java_separator">.</span><span class="java_keyword">class</span><span class="java_separator">);</span>
+</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_keyword">private</span><span class="java_plain">&nbsp;</span><span class="java_keyword">static</span><span class="java_plain">&nbsp;</span><span class="java_type">String</span><span class="java_plain">&nbsp;deploymentName&nbsp;</span><span class="java_operator">=</span><span class="java_plain">&nbsp;</span><span class="java_literal">&quot;ArquillianTest&quot;</span><span class="java_separator">;</span>
+</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_javadoc_comment">/**</span>
+<!--  --><br/><span class="java_javadoc_comment">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Define&nbsp;the&nbsp;deployment</span>
+<!--  --><br/><span class="java_javadoc_comment">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="java_javadoc_tag">@return</span><span class="java_javadoc_comment">&nbsp;The&nbsp;deployment&nbsp;archive</span>
+<!--  --><br/><span class="java_javadoc_comment">&nbsp;&nbsp;&nbsp;&nbsp;*/</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;@</span><span class="java_type">Deployment</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_keyword">public</span><span class="java_plain">&nbsp;</span><span class="java_keyword">static</span><span class="java_plain">&nbsp;</span><span class="java_type">ResourceAdapterArchive</span><span class="java_plain">&nbsp;createDeployment</span><span class="java_separator">()</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_separator">{</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_type">ResourceAdapterArchive</span><span class="java_plain">&nbsp;raa&nbsp;</span><span class="java_operator">=</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_type">ShrinkWrap</span><span class="java_separator">.</span><span class="java_plain">create</span><span class="java_separator">(</span><span class="java_type">ResourceAdapterArchive</span><span class="java_separator">.</span><span class="java_keyword">class</span><span class="java_separator">,</span><span class="java_plain">&nbsp;deploymentName&nbsp;</span><span class="java_operator">+</span><span class="java_plain">&nbsp;</span><span class="java_literal">&quot;.rar&quot;</span><span class="java_separator">);</span>
+</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_type">JavaArchive</span><span class="java_plain">&nbsp;ja&nbsp;</span><span class="java_operator">=</span><span class="java_plain">&nbsp;</span><span class="java_type">ShrinkWrap</span><span class="java_separator">.</span><span class="java_plain">create</span><span class="java_separator">(</span><span class="java_type">JavaArchive</span><span class="java_separator">.</span><span class="java_keyword">class</span><span class="java_separator">,</span><span class="java_plain">&nbsp;UUID</span><span class="java_separator">.</span><span class="java_plain">randomUUID</span><span class="java_separator">().</span><span class="java_plain">toString</span><span class="java_separator">()</span><span class="java_plain">&nbsp;</span><span class="java_operator">+</span><span class="java_plain">&nbsp;</span><span class="java_literal">&quot;.jar&quot;</span><span class="java_separator">);</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ja</span><span class="java_separator">.</span><span class="java_plain">addPackage</span><span class="java_separator">(</span><span class="java_type">TestConnection</span><span class="java_separator">.</span><span class="java_keyword">class</span><span class="java_separator">.</span><span class="java_plain">getPackage</span><span class="java_separator">());</span>
+</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;raa</span><span class="java_separator">.</span><span class="java_plain">addAsLibrary</span><span class="java_separator">(</span><span class="java_plain">ja</span><span class="java_separator">);</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;raa</span><span class="java_separator">.</span><span class="java_plain">addAsManifestResource</span><span class="java_separator">(</span><span class="java_literal">&quot;simple.rar/META-INF/ra.xml&quot;</span><span class="java_separator">,</span><span class="java_plain">&nbsp;</span><span class="java_literal">&quot;ra.xml&quot;</span><span class="java_separator">);</span>
+</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_keyword">return</span><span class="java_plain">&nbsp;raa</span><span class="java_separator">;</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_separator">}</span>
+</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_operator">//-------------------------------------------------------------------------------------||</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_operator">//</span><span class="java_plain">&nbsp;</span><span class="java_type">Tests</span><span class="java_plain">&nbsp;</span><span class="java_operator">------------------------------------------------------------------------------||</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_operator">//-------------------------------------------------------------------------------------||</span>
+</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;@</span><span class="java_type">Resource</span><span class="java_separator">(</span><span class="java_plain">mappedName&nbsp;</span><span class="java_operator">=</span><span class="java_plain">&nbsp;</span><span class="java_literal">&quot;java:/eis/ArquillianTest&quot;</span><span class="java_separator">)</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_keyword">private</span><span class="java_plain">&nbsp;</span><span class="java_type">TestConnectionFactory</span><span class="java_plain">&nbsp;connectionFactory</span><span class="java_separator">;</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_javadoc_comment">/**</span>
+<!--  --><br/><span class="java_javadoc_comment">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Basic</span>
+<!--  --><br/><span class="java_javadoc_comment">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="java_javadoc_tag">@exception</span><span class="java_javadoc_comment">&nbsp;Throwable&nbsp;Thrown&nbsp;if&nbsp;case&nbsp;of&nbsp;an&nbsp;error</span>
+<!--  --><br/><span class="java_javadoc_comment">&nbsp;&nbsp;&nbsp;&nbsp;*/</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;@</span><span class="java_type">Test</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_keyword">public</span><span class="java_plain">&nbsp;</span><span class="java_type">void</span><span class="java_plain">&nbsp;testBasic</span><span class="java_separator">()</span><span class="java_plain">&nbsp;</span><span class="java_keyword">throws</span><span class="java_plain">&nbsp;</span><span class="java_type">Throwable</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_separator">{</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assertNotNull</span><span class="java_separator">(</span><span class="java_plain">connectionFactory</span><span class="java_separator">);</span>
+</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_type">TestConnection</span><span class="java_plain">&nbsp;c&nbsp;</span><span class="java_operator">=</span><span class="java_plain">&nbsp;connectionFactory</span><span class="java_separator">.</span><span class="java_plain">getConnection</span><span class="java_separator">();</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assertNotNull</span><span class="java_separator">(</span><span class="java_plain">c</span><span class="java_separator">);</span>
+</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c</span><span class="java_separator">.</span><span class="java_plain">callMe</span><span class="java_separator">();</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c</span><span class="java_separator">.</span><span class="java_plain">close</span><span class="java_separator">();</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_separator">}</span>
+<!--  --><br/><span class="java_separator">}</span>
+</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></pre><div xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="note"><h2>Note</h2>Note that, the name for the <code class="code">ResourceAdapterArchive</code> must end with the
+             <code class="code">.rar</code> extension.</div><p>See the <a class="ulink" href="http://www.jboss.org/arquillian">
+              Arquillian</a> web site for a full description of the project and additional documentation.</p></div></div></div></div><HR xmlns=""/><a xmlns="" href=""/><ul class="docnav"><li class="previous"><a accesskey="p" href="codegenerator.html"><strong>Prev</strong>Chapter 8. Code generator</a></li><li class="up"><a accesskey="u" href="#"><strong>Top of page</strong></a></li><li class="home"><a accesskey="h" href="index.html"><strong>Front page</strong></a></li><li class="next"><a accesskey="n" href="community.html"><strong>Next</strong>Chapter 10. Community</a></li></ul></body></html>

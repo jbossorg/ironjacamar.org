@@ -1,0 +1,525 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Chapter 4. Configuration</title><link rel="stylesheet" type="text/css" href="css/ironjacamar.css"/><meta name="generator" content="DocBook XSL Stylesheets V1.76.1"/><link rel="home" href="index.html" title="IronJacamar 1.1 User's Guide"/><link rel="up" href="index.html" title="IronJacamar 1.1 User's Guide"/><link rel="prev" href="ch03.html" title="Chapter 3. Installation"/><link rel="next" href="ch05.html" title="Chapter 5. Deployment"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" http-equiv="Content-Type" content="text/html; charset=UTF-8"/></head><body><p xmlns:d="http://docbook.org/ns/docbook" id="title"><a href="http://www.ironjacamar.org/" class="site_href"><strong>www.ironjacamar.org</strong></a><a href="http://www.ironjacamar.org/documentation.html" class="doc_href"><strong>Community Documentation</strong></a></p><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="ch03.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="ch05.html"><strong>Next</strong></a></li></ul><div class="chapter" title="Chapter 4. Configuration"><div class="titlepage"><div><div><h2 class="title"><a id="configuration"/>Chapter 4. Configuration</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl><dt><span class="section"><a href="ch04.html#configuration_ironjacamar">4.1. IronJacamar server</a></span></dt><dd><dl><dt><span class="section"><a href="ch04.html#configuration_ironjacamar_leakpool">4.1.1. Using the leak detector pool</a></span></dt><dt><span class="section"><a href="ch04.html#configuration_ironjacamar_rollback">4.1.2. Allow obtaining connections during MARKED_FOR_ROLLBACK</a></span></dt><dt><span class="section"><a href="ch04.html#configuration_ironjacamar_enlistment">4.1.3. Disable enlistment trace</a></span></dt><dt><span class="section"><a href="ch04.html#configuration_ironjacamar_delistresource">4.1.4. Disable <code class="code">delistResource</code> calls</a></span></dt></dl></dd><dt><span class="section"><a href="ch04.html#logging">4.2. Logging service</a></span></dt><dt><span class="section"><a href="ch04.html#transaction">4.3. Transaction service</a></span></dt><dt><span class="section"><a href="ch04.html#jca">4.4. JCA</a></span></dt><dd><dl><dt><span class="section"><a href="ch04.html#jca_deployer">4.4.1. Deployer</a></span></dt><dt><span class="section"><a href="ch04.html#jca_workmanager">4.4.2. Work manager</a></span></dt><dt><span class="section"><a href="ch04.html#jca_security">4.4.3. Security</a></span></dt></dl></dd><dt><span class="section"><a href="ch04.html#datasources">4.5. Datasources</a></span></dt><dt><span class="section"><a href="ch04.html#webserver">4.6. Web server</a></span></dt></dl></div><p>The configuration for the IronJacamar container is mainly located under the <code class="code">config/</code> directory.</p><div class="section" title="4.1. IronJacamar server"><div class="titlepage"><div><div><h2 class="title"><a id="configuration_ironjacamar"/>4.1. IronJacamar server</h2></div></div></div><p>
+        The IronJacamar server can be configured by including an <code class="code">ironjacamar.properties</code> file
+        next to the <code class="code">ironjacamar-sjc.jar</code> in the <code class="code">bin/</code> directory.
+      </p><p>
+        This file will allow to override the core options given to the kernel environment, if multiple instances
+        of the IronJacamar container are going to run on the same machine, and network interface.
+      </p><p>
+        The options available
+
+        </p><div class="table"><a id="d0e576"/><p class="title"><strong>Table 4.1. IronJacamar options</strong></p><div class="table-contents"><table summary="IronJacamar options" border="1"><colgroup><col align="left" class="c1"/><col align="left" class="c2"/><col align="left" class="c3"/></colgroup><thead><tr><th align="left">Property</th><th align="left">Type</th><th align="left">Description</th></tr></thead><tbody><tr><td align="left"><code class="code">name</code></td><td align="left"><code class="code">String</code></td><td align="left">
+                  The name of the IronJacamar configuration
+                </td></tr><tr><td align="left"><code class="code">management</code></td><td align="left"><code class="code">boolean</code></td><td align="left">
+                  Should management be enabled
+                </td></tr><tr><td align="left"><code class="code">parallel.deploy</code></td><td align="left"><code class="code">boolean</code></td><td align="left">
+                  Should parallel deployment be enabled
+                </td></tr><tr><td align="left"><code class="code">remote.access</code></td><td align="left"><code class="code">boolean</code></td><td align="left">
+                  Should remote access be enabled
+                </td></tr><tr><td align="left"><code class="code">remote.port</code></td><td align="left"><code class="code">int</code></td><td align="left">
+                  The port for remote access
+                </td></tr><tr><td align="left"><code class="code">remote.jmx.access</code></td><td align="left"><code class="code">boolean</code></td><td align="left">
+                  Should remote access via JMX be enabled
+                </td></tr><tr><td align="left"><code class="code">use.platform.mbeanserver</code></td><td align="left"><code class="code">boolean</code></td><td align="left">
+                  Should the platform MBeanServer be used for management
+                </td></tr><tr><td align="left"><code class="code">bean.management</code></td><td align="left"><code class="code">boolean</code></td><td align="left">
+                  Should management for all beans be enabled
+                </td></tr></tbody></table></div></div><p><br class="table-break"/>
+      </p><p>
+        An example of an <code class="code">ironjacamar.properties</code> file:
+
+        </p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+remote.access=true
+remote.port=1302
+        </pre><p>
+      </p><div class="section" title="4.1.1. Using the leak detector pool"><div class="titlepage"><div><div><h3 class="title"><a id="configuration_ironjacamar_leakpool"/>4.1.1. Using the leak detector pool</h3></div></div></div><p>
+          IronJacamar features a connection pool implementation, which keeps track of
+          connection allocations, and their release in order to provide feedback if
+          a connection is obtained, but never released by the application. This will cause
+          leaks, and lead to applications not being able to obtain any connections.
+        </p><p>
+          The leak detector pool provides a stack trace of the leaked connection allocation
+          either during shutdown of the pool, or once the pool is flush using a flush strategy
+          which kills all active connections.
+        </p><p>
+          The leak detector pool is configured using the <code class="code">ironjacamar.mcp</code> system
+          property with a value of
+        </p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+org.jboss.jca.core.connectionmanager.pool.mcp.LeakDumperManagedConnectionPool
+        </pre><p>
+          This configuration applies to all connection pools used by IronJacamar.
+        </p><p>
+          The system property <code class="code">ironjacamar.leaklog</code> can be used
+          to have the leaks dumped out into a special file separate from the logging
+          setup.
+        </p><p>
+          An example
+        </p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+-Dironjacamar.mcp=org.jboss.jca.core.connectionmanager.pool.mcp.LeakDumperManagedConnectionPool
+-Dironjacamar.leaklog=leaks.txt
+        </pre></div><div class="section" title="4.1.2. Allow obtaining connections during MARKED_FOR_ROLLBACK"><div class="titlepage"><div><div><h3 class="title"><a id="configuration_ironjacamar_rollback"/>4.1.2. Allow obtaining connections during MARKED_FOR_ROLLBACK</h3></div></div></div><p>
+          IronJacamar doesn't allow to obtain a connection once a transaction is in
+          <code class="code">MARKED_FOR_ROLLBACK</code> mode. This allows the container to fail
+          eagerly, since any work after that point is wasted anyway.
+        </p><p>
+          However, certain applications depends on getting a connection to perform
+          work.
+        </p><p>
+          IronJacamar has a system property called <code class="code">ironjacamar.allow_marked_for_rollback</code>
+          which can be set to <code class="code">true</code> to enable this scenario.
+        </p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="warning" style="margin-left: 0.5in; margin-right: 0.5in;"><h2>Warning</h2>
+          This should not be considered best practice, and the application in question
+          should be fixed by checking the transaction status.
+        </div></div><div class="section" title="4.1.3. Disable enlistment trace"><div class="titlepage"><div><div><h3 class="title"><a id="configuration_ironjacamar_enlistment"/>4.1.3. Disable enlistment trace</h3></div></div></div><p>
+          IronJacamar records transaction enlistment traces in order to help to locate error situations
+          that happens during enlistment of <code class="code">XAResource</code> instances.
+        </p><p>
+          This has a performance overhead of course, so in certain situations you may want to disable
+          these traces.
+        </p><p>
+          IronJacamar has a system property called <code class="code">ironjacamar.disable_enlistment_trace</code>
+          which can be set to <code class="code">true</code> which does this.
+        </p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="warning" style="margin-left: 0.5in; margin-right: 0.5in;"><h2>Warning</h2>
+          By disabling the enlistment trace tracking down errors during transaction enlistment will 
+          become much more difficult. So, only add this system property if you know what you are doing.
+        </div></div><div class="section" title="4.1.4. Disable delistResource calls"><div class="titlepage"><div><div><h3 class="title"><a id="configuration_ironjacamar_delistresource"/>4.1.4. Disable <code class="code">delistResource</code> calls</h3></div></div></div><p>
+          IronJacamar calls <code class="code">transaction.enlistResource(xaResource)</code> for the <code class="code">ManagedConnection</code>
+          when it is enlisting in the transaction.
+        </p><p>
+          IronJacamar will also call <code class="code">transaction.delistResource(xaResource, flag)</code> once the
+          <code class="code">ManagedConnection</code> should be disassociated with the transaction. This typically happens
+          on the transaction boundary (<code class="code">beforeCompletion</code>) before the connection is returned to
+          the pool (<code class="code">afterCompletion</code>). This is done as part of the transaction specification contract.
+        </p><p>
+          However, in certain scenarios you may want to disable this call, as other <code class="code">Synchronization</code>
+          objects may still want the connection enlisted in the transaction, and hence it depends on the
+          ordering of these objects.
+        </p><p>
+          IronJacamar has a system property called <code class="code">ironjacamar.no_delist_resource</code>
+          which is a <code class="code">','</code> separated list of pool names where <code class="code">delistResource</code>
+          shouldn't be called. Disabling the <code class="code">delistResource</code> call for all pools can be done
+          by defining <code class="code">ironjacamar.no_delist_resource_all</code>.
+        </p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="warning" style="margin-left: 0.5in; margin-right: 0.5in;"><h2>Warning</h2>
+          By disabling the <code class="code">delistResource</code> call it is up to the resource manager and transaction
+          manager to make sure that the connection is delisted from the transaction in all cases.
+        </div></div></div><div class="section" title="4.2. Logging service"><div class="titlepage"><div><div><h2 class="title"><a id="logging"/>4.2. Logging service</h2></div></div></div><p>The IronJacamar container uses JBoss Logging framework as the implementation.</p><p>The configuration is done in the</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+config/logging.properties
+      </pre><p>file.</p><p>Consult the <a class="ulink" href="http://www.jboss.org/community/wiki/JBossBootLogging">
+          JBoss Logging documentation</a> on how the service can be configured.</p></div><div class="section" title="4.3. Transaction service"><div class="titlepage"><div><div><h2 class="title"><a id="transaction"/>4.3. Transaction service</h2></div></div></div><p>The IronJacamar container uses Narayana its transaction implementation.</p><p>The configuration is done in the</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+config/transaction.xml
+      </pre><p>file.</p><p>Consult the Narayana documentation on how the service can be configured.</p></div><div class="section" title="4.4. JCA"><div class="titlepage"><div><div><h2 class="title"><a id="jca"/>4.4. JCA</h2></div></div></div><div class="section" title="4.4.1. Deployer"><div class="titlepage"><div><div><h3 class="title"><a id="jca_deployer"/>4.4.1. Deployer</h3></div></div></div><p>The IronJacamar deployer is configured in the</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+config/bootstrap/jca.xml
+        </pre><p>file.</p><div class="section" title="4.4.1.1. Configuration"><div class="titlepage"><div><div><h4 class="title"><a id="jca_deployer_configuration"/>4.4.1.1. Configuration</h4></div></div></div><p>The configuration of the resource adapter deployer chain is handled
+            by a <code class="code">org.jboss.jca.deployers.fungal.RAConfiguration</code> bean.</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="XML"><!-- XML : generated by JHighlight v1.0 (http://jhighlight.dev.java.net) -->
+<span class="xml_plain"></span><br />
+<span class="xml_plain"></span><br />
+<span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">bean</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">name</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;RAConfiguration&quot;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_attribute_name">class</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;org.jboss.jca.deployers.fungal.RAConfiguration&quot;</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">property</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">name</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;ArchiveValidation&quot;</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain">true</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">property</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">property</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">name</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;ArchiveValidationFailOnWarn&quot;</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain">false</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">property</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">property</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">name</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;ArchiveValidationFailOnError&quot;</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain">true</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">property</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">property</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">name</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;BeanValidation&quot;</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain">true</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">property</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">property</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">name</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;PrintStream&quot;</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">inject</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">bean</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;JBossStdioContext&quot;</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">property</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;Out&quot;</span><span class="xml_tag_symbols">/&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">property</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">property</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">name</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;DefaultBootstrapContext&quot;</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">inject</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">bean</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;DefaultBootstrapContext&quot;</span><span class="xml_tag_symbols">/&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">property</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">property</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">name</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;JndiStrategy&quot;</span><span class="xml_tag_symbols">&gt;&lt;</span><span class="xml_tag_name">inject</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">bean</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;JndiStrategy&quot;</span><span class="xml_tag_symbols">/&gt;&lt;/</span><span class="xml_tag_name">property</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">property</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">name</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;TransactionManager&quot;</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">inject</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">bean</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;RealTransactionManager&quot;</span><span class="xml_tag_symbols">/&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">property</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">property</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">name</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;MetadataRepository&quot;</span><span class="xml_tag_symbols">&gt;&lt;</span><span class="xml_tag_name">inject</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">bean</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;MDR&quot;</span><span class="xml_tag_symbols">/&gt;&lt;/</span><span class="xml_tag_name">property</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">bean</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;</span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><br />
+</pre><div class="table"><a id="d0e844"/><p class="title"><strong>Table 4.2. Resource adapter deployer configuration</strong></p><div class="table-contents"><table summary="Resource adapter deployer configuration" border="1"><colgroup><col align="left" class="c1"/><col align="left" class="c2"/><col align="left" class="c3"/></colgroup><thead><tr><th align="left">Property</th><th align="left">Type</th><th align="left">Description</th></tr></thead><tbody><tr><td align="left"><code class="code">ArchiveValidation</code></td><td align="left"><code class="code">boolean</code></td><td align="left">
+                    Toggle archive validation for the deployment units.
+                    <p>Default: <code class="code">true</code></p>
+                  </td></tr><tr><td align="left"><code class="code">ArchiveValidation​FailOnWarn</code></td><td align="left"><code class="code">boolean</code></td><td align="left">
+                    Should an archive validation warning report fail the deployment.
+                    <p>Default: <code class="code">false</code></p>
+                  </td></tr><tr><td align="left"><code class="code">ArchiveValidation​FailOnError</code></td><td align="left"><code class="code">boolean</code></td><td align="left">
+                    Should an archive validation error report fail the deployment.
+                    <p>Default: <code class="code">true</code></p>
+                  </td></tr><tr><td align="left"><code class="code">BeanValidation</code></td><td align="left"><code class="code">boolean</code></td><td align="left">
+                    Toggle bean validation (JSR-303) for the deployment units.
+                    <p>Default: <code class="code">true</code></p>
+                  </td></tr><tr><td align="left"><code class="code">DefaultBootstrap​Context</code></td><td align="left"><code class="code">org.jboss.jca.​core.api.bootstrap.​CloneableBootstrap​Context</code></td><td align="left">
+                    Specifies the default bootstrap context for resource adapters
+                  </td></tr><tr><td align="left"><code class="code">BootstrapContexts</code></td><td align="left"><code class="code">Map&lt;String, ​org.jboss.jca.​core.api.bootstrap.​CloneableBootstrap​Context&gt;</code></td><td align="left">
+                    Bootstrap context map (unique name to a cloneable bootstrap context) which allows
+                    developers to bind (through <code class="code">ironjacamar.xml</code>) their resource adapter to
+                    a specific bootstrap context instance.
+                  </td></tr><tr><td align="left"><code class="code">PrintStream</code></td><td align="left"><code class="code">java.io.PrintStream</code></td><td align="left">
+                    Specifies which print stream that should be used to handle the <code class="code">LogWriter</code>s
+                  </td></tr><tr><td align="left"><code class="code">MetadataRepository</code></td><td align="left"><code class="code">org.jboss.jca.​core.spi.mdr.​MetadataRepository</code></td><td align="left">
+                    The metadata repository
+                  </td></tr><tr><td align="left"><code class="code">ResourceAdapterRepository</code></td><td align="left"><code class="code">org.jboss.jca.​core.spi.rar.​ResourceAdapterRepository</code></td><td align="left">
+                    The resource adapter repository
+                  </td></tr><tr><td align="left"><code class="code">ScopeDeployment</code></td><td align="left"><code class="code">boolean</code></td><td align="left">
+                    Should each deployment be scoped (isolated) from the container. This feature allows
+                    deployment of libraries of a different version than used in the container environment.
+                    <p>Default: <code class="code">false</code></p>
+                  </td></tr><tr><td align="left"><code class="code">JndiStrategy</code></td><td align="left"><code class="code">org.jboss.jca.​core.spi.naming.​JndiStrategy</code></td><td align="left">
+                    Specifies the JNDI strategy policy for binding the connection factories into
+                    the naming environment
+                    
+                    <p>The JNDI strategies are located in the <code class="code">org.jboss.jca.core.naming</code>
+                      package</p>
+                    <div class="itemizedlist"><ul class="itemizedlist" compact="compact"><li class="listitem"><code class="code">NoopJndiStrategy</code>: A no operation JNDI strategy 
+                        which doesn't bind/unbind any objects
+                      </li><li class="listitem"><code class="code">SimpleJndiStrategy</code>: A simple JNDI strategy 
+                        which can bind/unbind a single connection factory
+                      </li><li class="listitem"><code class="code">ExplicitJndiStrategy</code>: A JNDI strategy 
+                        which can requires explicit JNDI names to bind/unbind a connection factory
+                      </li></ul></div>
+                  </td></tr></tbody></table></div></div><br class="table-break"/></div><div class="section" title="4.4.1.2. Resource adapter deployer"><div class="titlepage"><div><div><h4 class="title"><a id="jca_deployer_radeployer"/>4.4.1.2. Resource adapter deployer</h4></div></div></div><p>The initial deployer for resource adapter archives is handled
+            by a <code class="code">org.jboss.jca.deployers.fungal.RADeployer</code> bean.</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="XML"><!-- XML : generated by JHighlight v1.0 (http://jhighlight.dev.java.net) -->
+<span class="xml_plain"></span><br />
+<span class="xml_plain"></span><br />
+<span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">bean</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">name</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;RADeployer&quot;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_attribute_name">interface</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;com.github.fungal.spi.deployers.Deployer&quot;</span><span class="xml_plain">&nbsp;</span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_attribute_name">class</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;org.jboss.jca.deployers.fungal.RADeployer&quot;</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">property</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">name</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;Configuration&quot;</span><span class="xml_tag_symbols">&gt;&lt;</span><span class="xml_tag_name">inject</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">bean</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;RAConfiguration&quot;</span><span class="xml_tag_symbols">/&gt;&lt;/</span><span class="xml_tag_name">property</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">depends</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain">BeanValidation</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">depends</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">depends</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain">JBossStdioContextSelector</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">depends</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">bean</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;</span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><br />
+</pre><p>This deployer will register the resource adapters with the metadata repository in
+            the system.</p><div class="table"><a id="d0e1022"/><p class="title"><strong>Table 4.3. Resource adapter deployer</strong></p><div class="table-contents"><table summary="Resource adapter deployer" border="1"><colgroup><col align="left" class="c1"/><col align="left" class="c2"/><col align="left" class="c3"/></colgroup><thead><tr><th align="left">Property</th><th align="left">Type</th><th align="left">Description</th></tr></thead><tbody><tr><td align="left"><code class="code">Configuration</code></td><td align="left"><code class="code">org.jboss.jca.​deployers.fungal.​RAConfiguration</code></td><td align="left">
+                    The configuration for the deployer
+                  </td></tr></tbody></table></div></div><br class="table-break"/></div><div class="section" title="4.4.1.3. Resource adapter metadata deployer"><div class="titlepage"><div><div><h4 class="title"><a id="jca_deployer_raxmldeployer"/>4.4.1.3. Resource adapter metadata deployer</h4></div></div></div><p>The deployer for deploying our <code class="code">-ra.xml</code> deployment descriptor is handled
+            by a <code class="code">org.jboss.jca.deployers.fungal.RaXmlDeployer</code> bean.</p><p>The deployment descriptor is defined by the <code class="code">resource-adapters-1_0.xsd</code> and
+          <code class="code">resource-adapters-1_1.xsd</code> schemas.</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="XML"><!-- XML : generated by JHighlight v1.0 (http://jhighlight.dev.java.net) -->
+<span class="xml_plain"></span><br />
+<span class="xml_plain"></span><br />
+<span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">bean</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">name</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;RaXmlDeployer&quot;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_attribute_name">interface</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;com.github.fungal.spi.deployers.Deployer&quot;</span><span class="xml_plain">&nbsp;</span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_attribute_name">class</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;org.jboss.jca.deployers.fungal.RaXmlDeployer&quot;</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">property</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">name</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;Configuration&quot;</span><span class="xml_tag_symbols">&gt;&lt;</span><span class="xml_tag_name">inject</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">bean</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;DeployerConfiguration&quot;</span><span class="xml_tag_symbols">/&gt;&lt;/</span><span class="xml_tag_name">property</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">property</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">name</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;Kernel&quot;</span><span class="xml_tag_symbols">&gt;&lt;</span><span class="xml_tag_name">inject</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">bean</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;Kernel&quot;</span><span class="xml_tag_symbols">/&gt;&lt;/</span><span class="xml_tag_name">property</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">depends</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain">BeanValidation</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">depends</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">depends</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain">JBossStdioContextSelector</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">depends</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">bean</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;</span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><br />
+</pre><p>This deployer will activate resource adapters based on the deployment information.</p><div class="table"><a id="d0e1070"/><p class="title"><strong>Table 4.4. Resource adapter metadata deployer</strong></p><div class="table-contents"><table summary="Resource adapter metadata deployer" border="1"><colgroup><col align="left" class="c1"/><col align="left" class="c2"/><col align="left" class="c3"/></colgroup><thead><tr><th align="left">Property</th><th align="left">Type</th><th align="left">Description</th></tr></thead><tbody><tr><td align="left"><code class="code">Configuration</code></td><td align="left"><code class="code">org.jboss.jca.​deployers.fungal.​RAConfiguration</code></td><td align="left">
+                    The configuration for the deployer
+                  </td></tr></tbody></table></div></div><br class="table-break"/></div><div class="section" title="4.4.1.4. Resource adapter activator"><div class="titlepage"><div><div><h4 class="title"><a id="jca_deployer_raactivator"/>4.4.1.4. Resource adapter activator</h4></div></div></div><p>The deployer chain features an activator for resource adapter archives is handled
+            by the <code class="code">org.jboss.jca.deployers.fungal.RAActivator</code> bean.</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="XML"><!-- XML : generated by JHighlight v1.0 (http://jhighlight.dev.java.net) -->
+<span class="xml_plain"></span><br />
+<span class="xml_plain"></span><br />
+<span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">bean</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">name</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;RAActivator&quot;</span><span class="xml_plain">&nbsp;</span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_attribute_name">class</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;org.jboss.jca.deployers.fungal.RAActivator&quot;</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">property</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">name</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;Configuration&quot;</span><span class="xml_tag_symbols">&gt;&lt;</span><span class="xml_tag_name">inject</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">bean</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;RAConfiguration&quot;</span><span class="xml_tag_symbols">/&gt;&lt;/</span><span class="xml_tag_name">property</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">property</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">name</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;Kernel&quot;</span><span class="xml_tag_symbols">&gt;&lt;</span><span class="xml_tag_name">inject</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">bean</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;Kernel&quot;</span><span class="xml_tag_symbols">/&gt;&lt;/</span><span class="xml_tag_name">property</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">property</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">name</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;ExcludeArchives&quot;</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">set</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">elementClass</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;java.lang.String&quot;</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">value</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain">jdbc-local.rar</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">value</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">value</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain">jdbc-xa.rar</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">value</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">set</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">property</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">depends</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain">BeanValidation</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">depends</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">depends</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain">JBossStdioContextSelector</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">depends</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">bean</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;</span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><br />
+</pre><p>This activator will activate any resource adapters which hasn't been activated yet
+            unless they are in the excluded list.</p><div class="table"><a id="d0e1107"/><p class="title"><strong>Table 4.5. Resource adapter activator</strong></p><div class="table-contents"><table summary="Resource adapter activator" border="1"><colgroup><col align="left" class="c1"/><col align="left" class="c2"/><col align="left" class="c3"/></colgroup><thead><tr><th align="left">Property</th><th align="left">Type</th><th align="left">Description</th></tr></thead><tbody><tr><td align="left"><code class="code">Configuration</code></td><td align="left"><code class="code">org.jboss.jca.​deployers.fungal.​RAConfiguration</code></td><td align="left">
+                    The configuration for the deployer
+                  </td></tr><tr><td align="left"><code class="code">Enabled</code></td><td align="left"><code class="code">boolean</code></td><td align="left">
+                    Should the activator be enabled. Default is <code class="code">true</code>
+                  </td></tr><tr><td align="left"><code class="code">Kernel</code></td><td align="left"><code class="code">com.github.fungal.​api.Kernel</code></td><td align="left">
+                    The kernel instance
+                  </td></tr><tr><td align="left"><code class="code">ExcludeArchives</code></td><td align="left"><code class="code">java.util.Set</code></td><td align="left">
+                    A set of resource adapter archives which should be excluded 
+                    from activation
+                  </td></tr></tbody></table></div></div><br class="table-break"/></div></div><div class="section" title="4.4.2. Work manager"><div class="titlepage"><div><div><h3 class="title"><a id="jca_workmanager"/>4.4.2. Work manager</h3></div></div></div><p>
+          IronJacamar features a standard work manager on its default setup using one thread pool for
+          short running jobs, and one thread pool for long running jobs identified by the 
+          <code class="code">HintsContext.LONGRUNNING_HINT</code> with a value of <code class="code">true</code>.
+        </p><p>
+          The configuration of the work manager and the necessary components can be viewed in the <code class="code">jca.xml</code>
+          file.
+        </p><div class="section" title="4.4.2.1. Distributed work manager"><div class="titlepage"><div><div><h4 class="title"><a id="jca_distributed_workmanager"/>4.4.2.1. Distributed work manager</h4></div></div></div><p>
+            A distributed work manager is a work manager instance, which is able to reschedule work execution on
+            another work manager instance on the network.
+          </p><p>
+            The distributed work manager has three additional components
+
+            </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem">
+                Policy -- When to distribute the work instance
+              </li><li class="listitem">
+                Selector -- To which work manager instance
+              </li><li class="listitem">
+                Transport -- How the work instance is transferred
+              </li></ul></div><p>
+
+            to control the distribution process.
+          </p><p>
+            Supported policies
+
+            </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem">
+                Never -- <code class="code">org.jboss.jca.core.workmanager.policy.Never</code><p>
+                  Never the distribute the <code class="code">Work</code> instance to another node.
+                </p></li><li class="listitem">
+                Always -- <code class="code">org.jboss.jca.core.workmanager.policy.Always</code><p>
+                  Always the distribute the <code class="code">Work</code> instance to another node.
+                </p></li><li class="listitem">
+                WaterMark -- <code class="code">org.jboss.jca.core.workmanager.policy.WaterMark</code><p>
+                  Distribute the <code class="code">Work</code> instance to another node based on how many
+                  free worker threads the current node has available.
+                </p></li></ul></div><p>
+          </p><p>
+            Supported selectors
+
+            </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem">
+                FirstAvailable -- <code class="code">org.jboss.jca.core.workmanager.selector.FirstAvailable</code><p>
+                  Select the first available node in the list
+                </p></li><li class="listitem">
+                PingTime -- <code class="code">org.jboss.jca.core.workmanager.selector.PingTime</code><p>
+                  Select the node with the lowest ping time
+                </p></li><li class="listitem">
+                MaxFreeThreads -- <code class="code">org.jboss.jca.core.workmanager.selector.MaxFreeThreads</code><p>
+                  Select the node with highest number of free worker threads
+                </p></li></ul></div><p>
+          </p><p>
+            Supported transports
+
+            </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem">
+                Socket -- <code class="code">org.jboss.jca.core.workmanager.transport.remote.socket.SocketTransport</code><p>
+                  Communication based on <code class="code">java.net.Socket</code>, and hence TCP/IP 
+                </p></li><li class="listitem">
+                JGroups -- <code class="code">org.jboss.jca.core.workmanager.transport.remote.jgroups.JGroupsTransport</code><p>
+                  Communication based on the JGroups framework, and hence UDP (by default) 
+                </p></li></ul></div><p>
+          </p><p>
+            Below is an example of a socket based configuration where two instances <code class="code">localhost:1299</code> and
+            <code class="code">localhost:1300</code> communicates, taken from the IronJacamar test suite.
+          </p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="XML"><!-- XML : generated by JHighlight v1.0 (http://jhighlight.dev.java.net) -->
+<span class="xml_plain"></span><br />
+<span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">deployment</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;</span><span class="xml_comment">&lt;!--&nbsp;DistributedWorkManagerThreadGroupSocket&nbsp;--&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">bean</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">name</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;DistributedWorkManagerThreadGroupSocket&quot;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_attribute_name">class</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;java.lang.ThreadGroup&quot;</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">constructor</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">parameter</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain">dwm</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">parameter</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">constructor</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">ignoreStop</span><span class="xml_tag_symbols">/&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">ignoreDestroy</span><span class="xml_tag_symbols">/&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">bean</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;</span><span class="xml_comment">&lt;!--&nbsp;DistributedWorkManagerThreadFactorySocket&nbsp;--&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">bean</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">name</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;DistributedWorkManagerThreadFactorySocket&quot;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_attribute_name">interface</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;java.util.concurrent.ThreadFactory&quot;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_attribute_name">class</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;org.jboss.threads.JBossThreadFactory&quot;</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">constructor</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">parameter</span><span class="xml_tag_symbols">&gt;&lt;</span><span class="xml_tag_name">inject</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">bean</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;DistributedWorkManagerThreadGroupSocket&quot;</span><span class="xml_tag_symbols">/&gt;&lt;/</span><span class="xml_tag_name">parameter</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">parameter</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain">false</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">parameter</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">parameter</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain">5</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">parameter</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">parameter</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain">work</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">parameter</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">parameter</span><span class="xml_tag_symbols">&gt;&lt;</span><span class="xml_tag_name">null</span><span class="xml_tag_symbols">/&gt;&lt;/</span><span class="xml_tag_name">parameter</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">parameter</span><span class="xml_tag_symbols">&gt;&lt;</span><span class="xml_tag_name">null</span><span class="xml_tag_symbols">/&gt;&lt;/</span><span class="xml_tag_name">parameter</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">constructor</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">bean</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;</span><span class="xml_comment">&lt;!--&nbsp;DistributedWorkManagerShortRunningThreadPoolSocket&nbsp;--&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">bean</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">name</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;DistributedWorkManagerShortRunningThreadPoolSocket&quot;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_attribute_name">class</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;org.jboss.threads.QueueExecutor&quot;</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">constructor</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_comment">&lt;!--&nbsp;Core&nbsp;threads&nbsp;--&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">parameter</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain">20</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">parameter</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_comment">&lt;!--&nbsp;Max&nbsp;threads&nbsp;--&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">parameter</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain">100</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">parameter</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_comment">&lt;!--&nbsp;60&nbsp;seconds&nbsp;keepalive&nbsp;--&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">parameter</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain">60</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">parameter</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">parameter</span><span class="xml_tag_symbols">&gt;&lt;</span><span class="xml_tag_name">inject</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">bean</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;KeepAliveTimeUnit&quot;</span><span class="xml_tag_symbols">/&gt;&lt;/</span><span class="xml_tag_name">parameter</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_comment">&lt;!--&nbsp;Queue&nbsp;size&nbsp;--&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">parameter</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain">1024</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">parameter</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_comment">&lt;!--&nbsp;Thread&nbsp;factory&nbsp;--&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">parameter</span><span class="xml_tag_symbols">&gt;&lt;</span><span class="xml_tag_name">inject</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">bean</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;DistributedWorkManagerThreadFactorySocket&quot;</span><span class="xml_tag_symbols">/&gt;&lt;/</span><span class="xml_tag_name">parameter</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_comment">&lt;!--&nbsp;Blocking&nbsp;--&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">parameter</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain">true</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">parameter</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_comment">&lt;!--&nbsp;Handoff&nbsp;executor&nbsp;--&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">parameter</span><span class="xml_tag_symbols">&gt;&lt;</span><span class="xml_tag_name">inject</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">bean</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;RejectingExecutor&quot;</span><span class="xml_tag_symbols">/&gt;&lt;/</span><span class="xml_tag_name">parameter</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">constructor</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">destroy</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">method</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;shutdown&quot;</span><span class="xml_tag_symbols">/&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">bean</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;</span><span class="xml_comment">&lt;!--&nbsp;DistributedWorkManagerPolicySocket&nbsp;--&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">bean</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">name</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;DistributedWorkManagerPolicySocket&quot;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_attribute_name">class</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;org.jboss.jca.core.workmanager.policy.Always&quot;</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">bean</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;</span><span class="xml_comment">&lt;!--&nbsp;DistributedWorkManagerSelectorSocket&nbsp;--&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">bean</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">name</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;DistributedWorkManagerSelectorSocket&quot;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_attribute_name">class</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;org.jboss.jca.core.workmanager.selector.FirstAvailable&quot;</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">bean</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;</span><span class="xml_comment">&lt;!--&nbsp;DistributedWorkManagerTransportSocket&nbsp;--&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">bean</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">name</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;DistributedWorkManagerTransportSocket&quot;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_attribute_name">class</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;org.jboss.jca.core.workmanager.transport.remote.socket.SocketTransport&quot;</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_comment">&lt;!--&nbsp;The&nbsp;id&nbsp;--&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">property</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">name</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;Id&quot;</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain">1</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">property</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_comment">&lt;!--&nbsp;The&nbsp;executor&nbsp;--&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">property</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">name</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;ExecutorService&quot;</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">inject</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">bean</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;Kernel&quot;</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">property</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;ExecutorService&quot;</span><span class="xml_tag_symbols">/&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">property</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_comment">&lt;!--&nbsp;The&nbsp;host&nbsp;--&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">property</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">name</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;Host&quot;</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain">127.0.0.1</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">property</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_comment">&lt;!--&nbsp;The&nbsp;port&nbsp;--&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">property</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">name</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;Port&quot;</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain">1299</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">property</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_comment">&lt;!--&nbsp;The&nbsp;peers&nbsp;--&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">property</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">name</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;Peers&quot;</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">set</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">class</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;java.util.HashSet&quot;</span><span class="xml_plain">&nbsp;</span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_attribute_name">elementClass</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;java.lang.String&quot;</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">value</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain">localhost:1300</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">value</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">set</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">property</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">start</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">method</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;startup&quot;</span><span class="xml_tag_symbols">/&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">stop</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">method</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;shutdown&quot;</span><span class="xml_tag_symbols">/&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">bean</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;</span><span class="xml_comment">&lt;!--&nbsp;DistributedWorkManagerSocket&nbsp;--&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">bean</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">name</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;DistributedWorkManagerSocket&quot;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_attribute_name">interface</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;org.jboss.jca.core.api.workmanager.DistributedWorkManager&quot;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_attribute_name">class</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;org.jboss.jca.core.workmanager.DistributedWorkManagerImpl&quot;</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_comment">&lt;!--&nbsp;The&nbsp;name&nbsp;--&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">property</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">name</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;Name&quot;</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain">DWM-Socket</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">property</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_comment">&lt;!--&nbsp;The&nbsp;short&nbsp;running&nbsp;thread&nbsp;pool&nbsp;--&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">property</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">name</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;ShortRunningThreadPool&quot;</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">inject</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">bean</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;DistributedWorkManagerShortRunningThreadPoolSocket&quot;</span><span class="xml_tag_symbols">/&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">property</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_comment">&lt;!--&nbsp;The&nbsp;XA&nbsp;terminator&nbsp;--&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">property</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">name</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;XATerminator&quot;</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">inject</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">bean</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;TransactionIntegration&quot;</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">property</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;XATerminator&quot;</span><span class="xml_tag_symbols">/&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">property</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_comment">&lt;!--&nbsp;The&nbsp;callback&nbsp;security&nbsp;module&nbsp;--&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">property</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">name</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;CallbackSecurity&quot;</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">inject</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">bean</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;Callback&quot;</span><span class="xml_tag_symbols">/&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">property</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_comment">&lt;!--&nbsp;The&nbsp;policy&nbsp;--&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">property</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">name</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;Policy&quot;</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">inject</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">bean</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;DistributedWorkManagerPolicySocket&quot;</span><span class="xml_tag_symbols">/&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">property</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_comment">&lt;!--&nbsp;The&nbsp;selector&nbsp;--&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">property</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">name</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;Selector&quot;</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">inject</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">bean</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;DistributedWorkManagerSelectorSocket&quot;</span><span class="xml_tag_symbols">/&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">property</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_comment">&lt;!--&nbsp;The&nbsp;transport&nbsp;--&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">property</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">name</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;Transport&quot;</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">inject</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">bean</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;DistributedWorkManagerTransportSocket&quot;</span><span class="xml_tag_symbols">/&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">property</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_comment">&lt;!--&nbsp;&lt;destroy&nbsp;method=&quot;shutdown&quot;/&gt;&nbsp;--&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">bean</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;</span><span class="xml_comment">&lt;!--&nbsp;DistributedBootstrapContextSocket&nbsp;--&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">bean</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">name</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;DistributedBootstrapContextSocket&quot;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_attribute_name">interface</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;org.jboss.jca.core.api.bootstrap.CloneableBootstrapContext&quot;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_attribute_name">class</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;org.jboss.jca.core.bootstrapcontext.BaseCloneableBootstrapContext&quot;</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">property</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">name</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;Name&quot;</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain">DWMBC-Socket</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">property</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">property</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">name</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;TransactionSynchronizationRegistry&quot;</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">inject</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">bean</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;TransactionSynchronizationRegistry&quot;</span><span class="xml_tag_symbols">/&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">property</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">property</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">name</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;WorkManagerName&quot;</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">inject</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">bean</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;DistributedWorkManagerSocket&quot;</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">property</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;Name&quot;</span><span class="xml_tag_symbols">/&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">property</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">property</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">name</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;XATerminator&quot;</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">inject</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">bean</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;TransactionIntegration&quot;</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">property</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;XATerminator&quot;</span><span class="xml_tag_symbols">/&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">property</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">bean</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain"></span><br />
+<span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">deployment</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><br />
+</pre></div></div><div class="section" title="4.4.3. Security"><div class="titlepage"><div><div><h3 class="title"><a id="jca_security"/>4.4.3. Security</h3></div></div></div><p>The Java EE Connector Architecture 1.6 specification allows units of 
+          <code class="code">javax.resource.spi.Work</code> to be executed in a specific security context.</p><p>This is done through the use of Java Authentication Service Provider Interface for Containers (JSR-196)
+          call backs using the <code class="code">javax.security.auth.callback.Callback</code> interface.</p><p>The support is activated by letting the work instance implement the</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+javax.resource.spi.work.WorkContextProvider
+        </pre><p>interface and returning an instance of <code class="code">javax.resource.spi.work.SecurityContext</code>.</p><p>
+          The security callback is configured through the <code class="code">&gt;workmanager&lt;</code> element for the
+          deployment, either in <code class="code">ironjacamar.xml</code> or in the <code class="code">-ra.xml</code> file. See the schema
+          definitions for further details.
+        </p><p>There is support for creating a basic security domain which can provide
+          a <code class="code">javax.security.auth.Subject</code> instance to deployments that
+          are using <code class="code">&lt;security-domain&gt;</code> or
+          <code class="code">&lt;security-domain-and-application&gt;</code> in their setup.</p><p>A security domain can be configured through</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="XML"><!-- XML : generated by JHighlight v1.0 (http://jhighlight.dev.java.net) -->
+<span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><br />
+<span class="xml_comment">&lt;!--&nbsp;SubjectFactory&nbsp;--&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">bean</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">name</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;DefaultSecurityDomain&quot;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_attribute_name">interface</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;org.jboss.security.SubjectFactory&quot;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_attribute_name">class</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;org.jboss.jca.core.security.DefaultSubjectFactory&quot;</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">property</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">name</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;SecurityDomain&quot;</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain">DefaultSecurityDomain</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">property</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">property</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">name</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;UserName&quot;</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain">user</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">property</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">property</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">name</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;Password&quot;</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain">password</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">property</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">bean</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><br />
+</pre><p>beans.</p></div></div><div class="section" title="4.5. Datasources"><div class="titlepage"><div><div><h2 class="title"><a id="datasources"/>4.5. Datasources</h2></div></div></div><p>The IronJacamar project can deploy datasources using the <code class="code">datasources-1_0.xsd</code>,
+        <code class="code">datasources-1_1.xsd</code> or <code class="code">datasources-1_2.xsd</code> schemas.</p><p>The configuration is done in the</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+config/bootstrap/ds.xml
+      </pre><p>file.</p><div class="table"><a id="d0e1345"/><p class="title"><strong>Table 4.6. DsXmlDeployer</strong></p><div class="table-contents"><table summary="DsXmlDeployer" border="1"><colgroup><col align="left" class="c1"/><col align="left" class="c2"/><col align="left" class="c3"/></colgroup><thead><tr><th align="left">Property</th><th align="left">Type</th><th align="left">Description</th></tr></thead><tbody><tr><td align="left"><code class="code">JDBCLocal</code></td><td align="left"><code class="code">String</code></td><td align="left">
+                The name of the <code class="code">jdbc-local.rar</code> deployment
+              </td></tr><tr><td align="left"><code class="code">JDBCXA</code></td><td align="left"><code class="code">String</code></td><td align="left">
+                The name of the <code class="code">jdbc-xa.rar</code> deployment
+              </td></tr><tr><td align="left"><code class="code">TransactionManager</code></td><td align="left"><code class="code">javax.transaction.​TransactionManager</code></td><td align="left">
+                The transaction manager
+              </td></tr><tr><td align="left"><code class="code">MetadataRepository</code></td><td align="left"><code class="code">org.jboss.jca.​core.spi.mdr.​MetadataRepository</code></td><td align="left">
+                The metadata repository
+              </td></tr><tr><td align="left"><code class="code">Kernel</code></td><td align="left"><code class="code">com.github.fungal.​api.Kernel</code></td><td align="left">
+                The kernel
+              </td></tr></tbody></table></div></div><br class="table-break"/><p>The datasource deployer can be removed from the environment by removing the <code class="code">ds.xml</code>
+        file in</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+config/bootstrap/
+      </pre><p>as well as the reference in <code class="code">config/bootstrap/bootstrap.xml</code> to the file.</p><p>Furthermore all <code class="code">jdbc-*.rar</code> files in the <code class="code">system/</code> directory should be removed too.</p></div><div class="section" title="4.6. Web server"><div class="titlepage"><div><div><h2 class="title"><a id="webserver"/>4.6. Web server</h2></div></div></div><p>The IronJacamar project features a web server which is used to serve web archive deployments.
+        More information about Jetty can be found at the <a class="ulink" href="http://www.eclipse.org/jetty/">
+        homepage</a>.
+      </p><p>The configuration is done in the</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+system/web.xml
+      </pre><p>file.</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="XML"><!-- XML : generated by JHighlight v1.0 (http://jhighlight.dev.java.net) -->
+<span class="xml_plain"></span><br />
+<span class="xml_plain"></span><br />
+<span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">bean</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">name</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;WebServer&quot;</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">class</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;org.jboss.jca.web.WebServer&quot;</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">property</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">name</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;Host&quot;</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain">${iron.jacamar.bindaddress:localhost}</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">property</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">property</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">name</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;Port&quot;</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain">8080</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">property</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">property</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">name</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;ExecutorService&quot;</span><span class="xml_tag_symbols">&gt;&lt;</span><span class="xml_tag_name">inject</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">bean</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;Kernel&quot;</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">property</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;ExecutorService&quot;</span><span class="xml_tag_symbols">/&gt;&lt;/</span><span class="xml_tag_name">property</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">bean</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><br />
+</pre><div class="table"><a id="d0e1448"/><p class="title"><strong>Table 4.7. Web server</strong></p><div class="table-contents"><table summary="Web server" border="1"><colgroup><col align="left" class="c1"/><col align="left" class="c2"/><col align="left" class="c3"/></colgroup><thead><tr><th align="left">Property</th><th align="left">Type</th><th align="left">Description</th></tr></thead><tbody><tr><td align="left"><code class="code">Host</code></td><td align="left"><code class="code">String</code></td><td align="left">
+                Set the bind address for the web server
+                <p>Default: <code class="code">localhost</code></p>
+              </td></tr><tr><td align="left"><code class="code">Port</code></td><td align="left"><code class="code">int</code></td><td align="left">
+                Set the port for the web server
+                <p>Default: <code class="code">8080</code></p>
+              </td></tr><tr><td align="left"><code class="code">AcceptQueueSize</code></td><td align="left"><code class="code">int</code></td><td align="left">
+                Set the accept queue size for the Jetty connector
+                <p>Default: <code class="code">64</code></p>
+              </td></tr><tr><td align="left"><code class="code">ExecutorService</code></td><td align="left"><code class="code">java.util.concurrent.​ExecutorService</code></td><td align="left">
+                The thread pool for the web server
+                <p>Default: The kernel thread pool</p>
+              </td></tr></tbody></table></div></div><br class="table-break"/><p>The web server can be removed from the environment by removing the <code class="code">web.xml</code>
+        file in</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+system/
+      </pre><p>Furthermore all <code class="code">.war</code> files in the same directory should be removed too.</p><p>All the Jetty libraries can be removed by deleting the</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+lib/jetty
+      </pre><p>directory.</p></div></div><hr xmlns="" xmlns:d="http://docbook.org/ns/docbook"/><a xmlns="" xmlns:d="http://docbook.org/ns/docbook" href="legalnotice.html"/><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="ch03.html"><strong>Prev</strong>Chapter 3. Installation</a></li><li class="up"><a accesskey="u" href="#"><strong>Up</strong></a></li><li class="home"><a accesskey="h" href="index.html"><strong>Home</strong></a></li><li class="next"><a accesskey="n" href="ch05.html"><strong>Next</strong>Chapter 5. Deployment</a></li></ul></body></html>

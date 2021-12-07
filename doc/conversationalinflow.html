@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Conversational inflow</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Proof of concept for Conversational Inflow" name="description">
+    <link href="/stylesheets/styles.css" rel="stylesheet" type="text/css">
+    <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon">
+    <!--[if lt IE 9]>
+      <script src="//html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <header>
+      <section style="padding: -20px auto;">
+        <a href="/">
+          <img alt="IronJacamar" src="/images/banner.png">
+        </a>
+      </section>
+    </header>
+    <article>
+      <h1>Conversational Inflow</h1>
+      One feature that the Java EE Connector Architecture specification is lacking at the moment is
+      a way for the Enterprise Information System to have a "conversation" with the application
+      server spanning multiple requests and responses.
+      <p></p>
+      <b>
+        Status: Proof of concept stage
+      </b>
+      <h2>State of the Union</h2>
+      Today the Java EE Connector Architecture specification allows a resource adapter to
+      send a request to a
+      <i>
+        MessageEndpoint
+      </i>
+      through a
+      <i>
+        MessageEndpointFactory
+      </i>
+      that is configured with an
+      <i>
+        ActivationSpec
+      </i>
+      instance, and get a response back. If the
+      <i>
+        MessageEndpoint
+      </i>
+      supports transactions then the boundary of those are handled by the
+      <i>
+        MessageEndpointFactory
+      </i>
+      .
+      <p></p>
+      This supports a single request-response scenario between the Enterprise Information System
+      and the application server, with an optional transaction context.
+      <p></p>
+      <i>
+        Example scenario: Messaging system triggering an Enterprise JavaBean Message Driven Bean (EJB/MDB)
+      </i>
+      <br>
+      <i>
+        Brief overview:
+        <a href="http://www.ironjacamar.org/doc/userguide/1.2/en-US/html/ch01.html#overview_inbound">
+          Inbound resource adapter
+        </a>
+      </i>
+      <h2>Description of feature</h2>
+      Conversational inflow will allow the Enterprise Information System to have an interaction with
+      the application server that spans multiple requests / responses while optionally grouping the entire
+      flow under a single transactional context.
+      <p></p>
+      This would allow mapping a work flow inside the Enterprise Information System to a work flow executed
+      in an application server context.
+      <p></p>
+      In order to enable this interaction we need to extend the current Java EE Connector Architecture
+      specification with new interfaces that defines the contract of these interactions.
+      <p></p>
+      First, we need a
+      <i>
+        ConversationalResourceAdapter
+      </i>
+      interface that allows activation and deactivation of a
+      <i>
+        ConversationalMessageEndpointFactory
+      </i>
+      with an associated
+      <i>
+        ActivationSpec
+      </i>
+      instance.
+      <p></p>
+      <div class="code_small">
+        ConversationalResourceAdapter
+        <br>
+        <br>
+        public void conversationActivation(ConversationalMessageEndpointFactory cmef, ActivationSpec as) throws ResourceException;
+        <br>
+        public void conversationDeactivation(ConversationalMessageEndpointFactory cmef, ActivationSpec as);
+      </div>
+      <p></p>
+      The
+      <i>
+        ConversationalMessageEndpointFactory
+      </i>
+      manage the
+      <i>
+        Conversation
+      </i>
+      instances.
+      <p></p>
+      <div class="code_small">
+        ConversationalMessageEndpointFactory
+        <br>
+        <br>
+        public Conversation beginConversation(Serializable identifier) throws ResourceException;
+        <br>
+        public Conversation getConversation(Serializable identifier) throws ResourceException;
+        <br>
+        public Set&lt;Serializable&gt; activeConversations();
+      </div>
+      <p></p>
+      The
+      <i>
+        Conversation
+      </i>
+      controls an entire interaction between the Enterprise Information System and the
+      <i>
+        ConversationalMessageEndpoint
+      </i>
+      instance(s) deployed in the application server. The
+      <i>
+        Conversation
+      </i>
+      also defines the transactional boundary for the interaction.
+      <p></p>
+      The
+      <i>
+        Conversation
+      </i>
+      needs to support multiple endpoints of the same type, so a concrete instance is determined by a set of properties that the endpoint
+      is configured with.
+      <p></p>
+      <div class="code_small">
+        Conversation
+        <br>
+        <br>
+        public ConversationalMessageEndpoint createEndpoint(Class&lt;?&gt; endpoint, Map&lt;Serializable, Serializable&gt; properties, XAResource xares) throws ResourceException;
+        <br>
+        public Set&lt;Map&lt;Serializable, Serializable&gt;&gt; getProperties(Class&lt;?&gt; endpoint) throws ResourceException;
+        <br>
+        public boolean isDeliveryTransacted(Class&lt;?&gt; endpoint, Map&lt;Serializable, Serializable&gt; properties, Method method) throws ResourceException;
+        <br>
+        public Set&lt;Class&lt;?&gt;&gt; getEndpointClasses();
+        <br>
+        public void endConversation() throws ResourceException;
+        <br>
+        public void cancelConversation() throws ResourceException;
+      </div>
+      <p></p>
+      The
+      <i>
+        ConversationalMessageEndpoint
+      </i>
+      extends the current
+      <i>
+        MessageEndpoint
+      </i>
+      interface, with no new methods.
+      <h2>Example</h2>
+      The
+      <a href="conversationalinflow.zip">
+        ZIP file
+      </a>
+      contains an example of a simple conversation pattern between an Enterprise Information System and the application server.
+      <p></p>
+      There are 5 different message types from the Enterprise Information System:
+      <p></p>
+      <ol>
+        <li>"A": Start a conversation with the supplied conversation identifier</li>
+        <li>"B": Send a message to endpoint "B" identified by the supplied conversation identifier</li>
+        <li>"C": Send a message to endpoint "C" identified by the supplied conversation identifier</li>
+        <li>"D": End a conversation with the supplied conversation identifier</li>
+        <li>"E": Cancel a conversation with the supplied conversation identifier</li>
+      </ol>
+      <p></p>
+      So, a simple interaction could be "A", "B", "C" and "D", which starts a conversation, sends messages to two different endpoints, and ends the conversation
+      successfully. The key here is that the two endpoints operates under the same transactional context, as the
+      <i>
+        Conversation
+      </i>
+      instance will enlist the associated
+      <i>
+        XAResource
+      </i>
+      instances.
+      <p></p>
+      Even though the example use a specialized message listener interface (
+      <i>
+        ConversationalMessageListener
+      </i>
+      ) to simplify the JUnit test case, and the entire proof of concept setup it would be possible to convert it to a
+      Java Messaging Service (JMS) based example calling Enterprise JavaBeans Message Driven Beans (EJB/MDB).
+      <p></p>
+      In that case, you will end up with a transactional context spanning two MDBs, and thereby tying them "together".
+      <p></p>
+      <div class="code_small">
+        Example overview:
+        <p></p>
+        ConversationalTestCase.java - JUnit test case
+        <br>
+        cra/ConversationalResourceAdapterImpl.java - Conversational resource adapter implementation
+        <br>
+        cra/inflow/ConversationalActivation.java - Interaction with the Enterprise Information System
+        <br>
+        cra/inflow/ConversationalActivationSpec.java - The activation specification
+        <br>
+        cra/inflow/ConversationalMessageListener.java - The message listener interface
+        <br>
+        spi/ConversationalResourceAdapter.java - New ConversationalResourceAdapter interface
+        <br>
+        spi/conversation/Conversation.java - New Conversation interface
+        <br>
+        spi/conversation/ConversationalMessageEndpoint.java - New ConversationalMessageEndpoint interface
+        <br>
+        spi/conversation/ConversationalMessageEndpointFactory.java - New ConversationalMessageEndpointFactory interface
+        <br>
+        support/ConversationImpl.java - Example conversation implementation
+        <br>
+        support/ConversationalMessageEndpointFactoryImpl.java - Example conversational message endpoint factory implementation
+        <br>
+        support/ConversationalMessageEndpointImpl.java - Example conversational message endpoint implementation
+      </div>
+      <p></p>
+      Note, that the example is not meant to be 100% complete, so there may be bugs, and missing cases :)
+      <h2>Future steps</h2>
+      There are a lot of things that needs to be discussed such as recommendations on transaction semantics for conversation implementations,
+      and their associated endpoints. The new interfaces likely need additional methods to cover all use-cases, but the basic interaction pattern
+      is in place.
+      <p></p>
+      Hopefully the next version of the Java EE Connector Architecture specification will see a much more powerful inflow model.
+      <br>
+      <br>
+    </article>
+    <footer>
+      <ul>
+        <li>
+          <a href="/">Home</a>
+        </li>
+        <li>
+          <a href="/about.html">About</a>
+        </li>
+        <li>
+          <a href="/download.html">Download</a>
+        </li>
+        <li>
+          <a href="/documentation.html">Documentation</a>
+        </li>
+        <li>
+          <a href="/community.html">Community</a>
+        </li>
+        <li>
+          <a href="/sourcecode.html">Source Code</a>
+        </li>
+        <li>
+          <a href="/issues.html">Issues</a>
+        </li>
+      </ul>
+      <a href="http://www.redhat.com">
+        <img alt="Proudly sponsored by Red Hat" src="/images/redhat_logo.png">
+      </a>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>IronJacamar 1.1.0.Final released</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="2013-08-06 IronJacamar 1.1.0.Final released" name="description">
+    <link href="/stylesheets/styles.css" rel="stylesheet" type="text/css">
+    <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon">
+    <!--[if lt IE 9]>
+      <script src="//html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <header>
+      <section style="padding: -20px auto;">
+        <a href="/">
+          <img alt="IronJacamar" src="/images/banner.png">
+        </a>
+      </section>
+    </header>
+    <article>
+      <h1>IronJacamar 1.1.0.Final released</h1>
+      <strong>
+        <i>August 6th, 2013</i>
+      </strong>
+      <p></p>
+      I'm very proud to announce IronJacamar 1.1.0.Final, the first stable release of our IronJacamar 1.1 series.
+      <p></p>
+      Only minor issues were found during our CR2 testing, so the release are small.
+      Full release notes are
+      <a href="https://issues.jboss.org/secure/ReleaseNote.jspa?projectId=12310691&amp;version=12322281">
+        here
+      </a>
+      .
+      <h2>IronJamamar 1.1</h2>
+      IronJacamar is an implementation of the Java EE Connector Architecture 1.7 specification featured in the Java EE 7 Full Profile.
+      <p></p>
+      Java EE Connector Architecture (JCA) defines a standard architecture for connecting the Java EE platform to heterogeneous Enterprise Information Systems (EIS), like Enterprise Resource Planning (ERP), database and messaging systems.
+      <p></p>
+      IronJacamar 1.1 is the second major feature release, which brings a lot of new functionality to the Java EE Connector
+      Architecture community.
+      <p></p>
+      The major new features includes
+      <p></p>
+      <ul>
+        <li>Java EE Connector Architecture 1.7 certified</li>
+        <li>Lazy connection manager</li>
+        <li>Distributed work manager</li>
+        <li>Advanced pool capacity policies and flush strategies</li>
+        <li>Enhanced Arquillian integration</li>
+        <li>Eclipse development plugin</li>
+        <li>Enterprise Information System testing server</li>
+        <li>Resource adapter information tool</li>
+        <li>Migration tools</li>
+      </ul>
+      <p></p>
+      Lets do a run through.
+      <h2>Java EE Connector Architecture 1.7</h2>
+      The Java Connector Architecture 1.7 specification adds the following areas:
+      <p></p>
+      <ul>
+        <li>Adds an activation name for message endpoints to uniquely identify them</li>
+        <li>Adds message endpoint class access</li>
+        <li>Deployment annotations for connection factories and administration objects</li>
+      </ul>
+      <p></p>
+      So, this would be considered a small update to the Java EE Connector Architecture specification
+      in order to align with some of the new functionality in Java EE 7, especially for JMS 2.0.
+      <h2>Lazy connection manager</h2>
+      A lazy connection manager allows the JCA container to move a physical connection to an Enterprise Information
+      System from one logical connection handle to another logical connection handle.
+      <p></p>
+      The logical connection handle is the connection that the Java EE application interacts with, while the physical
+      connection handle is the real connection controlled by the JCA container.
+      <p></p>
+      This means that there can be more logical connection handles than physical ones - so basically the physical connections
+      are multiplexed between the logical ones when needed, say 1000 logical connections to 100 physical connections.
+      <p></p>
+      You can read more about this optional Java EE Connector Architecture feature in chapter 7.16.
+      <h2>Distributed work manager</h2>
+      A distributed workmanager is able to execute a
+      <p></p>
+      <div class="code">
+        javax.resource.spi.work.DistributableWork
+      </div>
+      <p></p>
+      instance on any node in the cluster where the associated resource adapter is deployed, and configured in the
+      same way.
+      <p></p>
+      This allows more optimal use of the JCA based resources across the entire cluster.
+      <p></p>
+      The "when" and "where" is defined by policies and selectors configured on the DistributedWorkManager instance, f.ex.
+      a policy of "Always" and a selector of "PingTime" will always send the work instance to the node which has the lowest
+      ping time - excluding the node where the work instance was submitted to of course.
+      <p></p>
+      Read more about the DistributedWorkManager in chapter 10.3.11 of the specification.
+      <h2>Advanced pools</h2>
+      Capacity policies and additional flush strategies have been added to the connection pool backing the physical connections.
+      <p></p>
+      A capacity policy defines how a pool grows or shrinks when either being asked for a connection, or triggered by the idle connection
+      scanner.
+      <p></p>
+      This means that you can get your pool to grow by 2 connections if none are available, leading to not having the connection
+      overhead for the next incoming request. Same goes for shrinking where you can remove all idle connections in the pool in
+      order to limit resources spent.
+      <h2>Tooling</h2>
+      IronJacamar 1.1 saw a lot of tooling improvements.
+      <p></p>
+      The integration with modern testing methods using
+      <a href="http://www.arquillian.org">
+        Arquillian
+      </a>
+      and
+      <a href="http://www.jboss.org/shrinkwrap">
+        ShrinkWrap
+      </a>
+      are now much easy to use with our embedded JCA environment, leading to easier unit test for resource adapters.
+      Especially since we now have an Enterprise Information System testing server which can eliminate the need
+      to actually have the real Enterprise Information System installed.
+      <p></p>
+      This is also made available by a new IronJacamar Eclipse plugin.
+      <p></p>
+      Last, but not least, there is a tool for getting valuable information about a resource adapter, and tools
+      for migrating old configuration files.
+      <p></p>
+      Our
+      <a href="http://www.ironjacamar.org/doc/userguide/1.1/en-US/html/index.html">
+        user guide
+      </a>
+      contains much more information about these subjects, so check it out.
+      <h2>The Road Ahead</h2>
+      Planning for IronJacamar 2.0 has begun, but first more importantly:
+      <p></p>
+      <b>
+        Champagne !!
+      </b>
+      <p></p>
+      Please, raise your glass, and celebrate with us.
+      <p></p>
+      Last, but not least - A
+      <b>
+        HUGE
+      </b>
+      shout-out to our community and developers who helped with this release. You know who you are !
+      <p></p>
+      On behalf of the IronJacamar community,
+      <br>
+      <i>&nbsp;&nbsp;&nbsp; Jesper</i>
+      <p></p>
+      [
+      <a href="http://www.ironjacamar.org/">
+        WebSite
+      </a>
+      ]
+      [
+      <a href="http://www.ironjacamar.org/download.html">
+        Download
+      </a>
+      ]
+      [
+      <a href="http://www.ironjacamar.org/documentation.html">
+        Documentation
+      </a>
+      ]
+      [
+      <a href="http://issues.jboss.org/browse/JBJCA">
+        JIRA
+      </a>
+      ]
+      <p></p>
+      
+                  <div id="disqus_thread"></div>
+                  <script type="text/javascript">
+                  var disqus_shortname = 'ironjacamar';
+                  var disqus_url = "http://localhost:4242/news/2013/08/06/IronJacamar110Finalreleased.html";
+                  
+                  (function() {
+                    var dsq = document.createElement("script"); dsq.type = "text/javascript"; dsq.async = true;
+                    dsq.src = "http://ironjacamar.disqus.com/embed.js";
+                    (document.getElementsByTagName("head")[0] || document.getElementsByTagName("body")[0]).appendChild(dsq);
+                  })();
+                  </script>
+                  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript=ironjacamar">comments powered by Disqus.</a></noscript>
+      <br>
+      <br>
+    </article>
+    <footer>
+      <ul>
+        <li>
+          <a href="/">Home</a>
+        </li>
+        <li>
+          <a href="/about.html">About</a>
+        </li>
+        <li>
+          <a href="/download.html">Download</a>
+        </li>
+        <li>
+          <a href="/documentation.html">Documentation</a>
+        </li>
+        <li>
+          <a href="/community.html">Community</a>
+        </li>
+        <li>
+          <a href="/sourcecode.html">Source Code</a>
+        </li>
+        <li>
+          <a href="/issues.html">Issues</a>
+        </li>
+      </ul>
+      <a href="http://www.redhat.com">
+        <img alt="Proudly sponsored by Red Hat" src="/images/redhat_logo.png">
+      </a>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>IronJacamar 2 / Goals</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="IronJacamar 2 goals" name="description">
+    <link href="/stylesheets/styles.css" rel="stylesheet" type="text/css">
+    <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon">
+    <!--[if lt IE 9]>
+      <script src="//html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <header>
+      <section style="padding: -20px auto;">
+        <a href="/">
+          <img alt="IronJacamar" src="/images/banner.png">
+        </a>
+      </section>
+    </header>
+    <article>
+      <h1>IronJacamcar 2 / Goals</h1>
+      <h2>Service oriented architecture</h2>
+      The project is split into artifacts which each represents a component for the
+      Java EE Connector Architecture container in order to let external projects select
+      which parts of IronJacamar they need.
+      <p></p>
+      Examples
+      <p></p>
+      <ul>
+        <li>ironjacamar-core-notx-connectionmanager.jar</li>
+        <li>ironjacamar-core-tx-connectionmanager.jar</li>
+      </ul>
+      <p></p>
+      Each component is initialized based upon one or more service files
+      <p></p>
+      <div class="code">
+        META-INF/services/org.ironjacamar
+      </div>
+      <p></p>
+      Service files needed for
+      <p></p>
+      <ul>
+        <li>XML parser</li>
+        <li>Connection manager</li>
+        <li>Deployer</li>
+      </ul>
+      <p></p>
+      and all SPI integration points.
+      <p></p>
+      It must be possible to provide a static configuration of the IronJacmar container wihtout having
+      to relying on service activation.
+      <h2>Service provider interface (SPI) for all integration points</h2>
+      <ul>
+        <li>Transaction</li>
+        <li>Security</li>
+        <li>Thread</li>
+        <li>Naming</li>
+        <li>Bean validation</li>
+        <li>DistributedWorkManager</li>
+        <li>Work manager statistics</li>
+        <li>Statistics plugins</li>
+      </ul>
+      <h2>Proof of Concept for Java EE Connector Architecture 2.0</h2>
+      Redo the Java EE Connector Architecture specification focusing on updating the concepts to
+      more modern ways of doing things.
+      <p></p>
+      TODOs
+      <p></p>
+      <ul>
+        <li>Split interfaces such that only needed part needs to be implemented</li>
+        <li>Allow injection of objects, like BootstrapContext and WorkManager</li>
+        <li>Provide marker interfaces for main components, like ConnectionFactory and AdminObject</li>
+        <li>Remove Common Client Interface</li>
+      </ul>
+      <p></p>
+      The code will be located in
+      <p></p>
+      <div class="code">
+        org.ironjacamar.spi
+      </div>
+      <p></p>
+      with sub-packages as public packages with OSGi exports.
+      <h2>Pool less container</h2>
+      Investigate the possibility to create a pool less container setup, where connections are enlisted
+      in the transaction, but the physical connections are maintained outside of IronJacamar.
+      <p></p>
+      Test setup
+      <p></p>
+      <ul>
+        <li>
+          <a href="http://www.postgresql.org/">
+            PostgreSQL
+          </a>
+        </li>
+        <li>
+          <a href="http://www.pgpool.net/mediawiki/index.php/Main_Page">
+            pgpool-II
+          </a>
+        </li>
+        <li>
+          <a href="http://wiki.postgresql.org/wiki/PgBouncer">
+            pgBouncer
+          </a>
+        </li>
+      </ul>
+      <h2>Lazy association for transacted based scenarios</h2>
+      Have the LocalTransactionConnectionManager and XATransactionConnectionManager implement
+      <p></p>
+      <div class="code">
+        javax.resource.spi.LazyAssociatableConnectionManager
+      </div>
+      <p></p>
+      in order to allow transaction based deployments to take advantage of the feature.
+      <p></p>
+      This will require that the associated XAResource instance is being tracked.
+      <h2>Serializable connection manager</h2>
+      The connection manager should be serializable as per specification.
+      <p></p>
+      Furthermore, they should be split into
+      <p></p>
+      <ul>
+        <li>NoTransactionConnectionManager</li>
+        <li>LocalTransactionConnectionManager</li>
+        <li>XATransactionConnectionManager</li>
+      </ul>
+      <p></p>
+      where the latter has a flag for interleaving.
+      <h2>Fat pool lock</h2>
+      Give the pool implementation the option of using a "fat" lock, e.g. taking a lock
+      across all credentials used by the pool.
+      <p></p>
+      This will make "max-pool-size" a global pool setting, instead of a sub-pool setting as
+      it is with IronJacamar 1.x.
+      <p></p>
+      The default should still be a lock at the sub-pool level in order to maximize performance.
+      <br>
+      <br>
+    </article>
+    <footer>
+      <ul>
+        <li>
+          <a href="/">Home</a>
+        </li>
+        <li>
+          <a href="/about.html">About</a>
+        </li>
+        <li>
+          <a href="/download.html">Download</a>
+        </li>
+        <li>
+          <a href="/documentation.html">Documentation</a>
+        </li>
+        <li>
+          <a href="/community.html">Community</a>
+        </li>
+        <li>
+          <a href="/sourcecode.html">Source Code</a>
+        </li>
+        <li>
+          <a href="/issues.html">Issues</a>
+        </li>
+      </ul>
+      <a href="http://www.redhat.com">
+        <img alt="Proudly sponsored by Red Hat" src="/images/redhat_logo.png">
+      </a>
+    </footer>
+  </body>
+</html>

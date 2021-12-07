@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 1. Introduction</title><link rel="stylesheet" type="text/css" href="css/jbossorg.css"/><meta xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL Stylesheets V1.76.1"/><link rel="home" href="index.html" title="IronJacamar 1.0 User's Guide"/><link rel="up" href="index.html" title="IronJacamar 1.0 User's Guide"/><link rel="prev" href="preface.html" title="Preface"/><link rel="next" href="gettingstarted.html" title="Chapter 2. Download"/></head><body><p id="title"><a href="http://www.jboss.org" class="site_href"><strong>JBoss.org</strong></a><a href="http://docs.jboss.org/" class="doc_href"><strong>Community Documentation</strong></a></p><ul class="docnav"><li class="previous"><a accesskey="p" href="preface.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="gettingstarted.html"><strong>Next</strong></a></li></ul><div class="chapter" title="Chapter 1. Introduction"><div class="titlepage"><div><div><h2 class="title"><a id="introduction"/>Chapter 1. Introduction</h2></div></div></div><div class="toc"><dl><dt><span class="section"><a href="introduction.html#whatsnew">1.1. What's New</a></span></dt><dt><span class="section"><a href="introduction.html#overview">1.2. Overview</a></span></dt><dd><dl><dt><span class="section"><a href="introduction.html#overview_outbound">1.2.1. Outbound resource adapter</a></span></dt><dt><span class="section"><a href="introduction.html#overview_inbound">1.2.2. Inbound resource adapter</a></span></dt></dl></dd></dl></div><p>The Java Connector Architecture (JCA) defines a standard architecture for connecting
+     the Java EE platform to heterogeneous Enterprise Information Systems (EIS). 
+     Examples of EISs include Enterprise Resource Planning (ERP), mainframe transaction processing (TP), 
+     databases and messaging systems.</p><p>The connector architecture defines a set of scalable, secure, and transactional
+     mechanisms that enable the integration of EISs with application servers and
+     enterprise applications.</p><p>The connector architecture also defines a Common Client Interface (CCI) for EIS
+     access. The CCI defines a client API for interacting with heterogeneous EISs.</p><p>The connector architecture enables an EIS vendor to provide a standard resource
+     adapter for its EIS. A resource adapter is a system-level software driver that is used
+     by a Java application to connect to an EIS. The resource adapter plugs into an
+     application server and provides connectivity between the EIS, the application server,
+     and the enterprise application. The resource adapter serves as a protocol adapter
+     that allows any arbitrary EIS communication protocol to be used for connectivity.
+     An application server vendor extends its system once to support the connector
+     architecture and is then assured of seamless connectivity to multiple EISs. Likewise,
+     an EIS vendor provides one standard resource adapter which has the capability to
+     plug in to any application server that supports the connector architecture.</p><div class="section" title="1.1. What's New"><div class="titlepage"><div><div><h2 class="title"><a id="whatsnew"/>1.1. What's New</h2></div></div></div><p>The Java Connector Architecture 1.6 specification adds the following major areas:</p><div class="itemizedlist"><ul class="itemizedlist" compact="compact"><li class="listitem">
+        Ease of Development: The use of annotations reduces or completely eliminates the need to deal with a
+        deployment descriptor in many cases. The use of annotations also reduces the need
+        to keep the deployment descriptor synchronized with changes to source code.
+      </li><li class="listitem">
+        Generic work context contract: A generic contract that enables a resource adapter
+        to control the execution context of a Work instance that it has submitted to the
+        application server for execution. 
+      </li><li class="listitem">
+        Security work context: A standard contract that enables a resource adapter to
+        establish security information while submitting a Work instance for execution to a
+        WorkManager and while delivering messages to message endpoints residing in
+        the application server.
+      </li><li class="listitem">
+        Standalone Container Environment: A defined set of services that makes up a standalone
+        execution environment for resource adapters.
+      </li></ul></div></div><div class="section" title="1.2. Overview"><div class="titlepage"><div><div><h2 class="title"><a id="overview"/>1.2. Overview</h2></div></div></div><p>
+      The Java EE Connector Architecture features three different types of resource adapters
+
+      </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem">
+          Outbound: The resource adapter allows the application to communicate to the Enterprise Information System (EIS).
+        </li><li class="listitem">
+          Inbound: The resource adapter allows messages to flow from the Enterprise Information System (EIS) to the application.
+        </li><li class="listitem">
+          Bi-directional: The resource adapter features both an outbound and an inbound part.
+        </li></ul></div><p>
+    </p><p>
+      For more information about Java EE Connector Architecture see the specification.
+    </p><div class="section" title="1.2.1. Outbound resource adapter"><div class="titlepage"><div><div><h3 class="title"><a id="overview_outbound"/>1.2.1. Outbound resource adapter</h3></div></div></div><p>
+        The Java Connector Architecture specification consists of a number of outbound components:
+
+        </p><div class="mediaobject" align="center"><img src="images/outbound.png" align="middle"/></div><p>
+      </p><p>
+        The application uses the
+
+        </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem">
+            ConnectionFactory: The connection factory is looked up in Java Naming and Directory Interface (JNDI)
+            and is used to create a connection.
+          </li><li class="listitem">
+            Connection: The connection contains the Enterprise Information System (EIS) specific operations.
+          </li></ul></div><p>
+      </p><p>
+        The resource adapter contains
+        
+        </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem">
+            ManagedConnectionFactory: The managed connection factory creates managed connections.
+          </li><li class="listitem">
+            ManagedConnection: The managed connection represents a physical connection to the target
+            Enterprise Information System (EIS). The managed connection notifies the application server
+            of events such as connection closed and connection error.
+          </li></ul></div><p>
+      </p><p>
+        IronJacamar - the application server - contains
+        
+        </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem">
+            ConnectionManager: The connection manager handles all managed connections in regards to
+            pooling, transaction and security.
+          </li><li class="listitem">
+            ConnectionEventListener: The connection event listener allows the connection manager to know
+            the status of each managed connection.
+          </li></ul></div><p>
+      </p></div><div class="section" title="1.2.2. Inbound resource adapter"><div class="titlepage"><div><div><h3 class="title"><a id="overview_inbound"/>1.2.2. Inbound resource adapter</h3></div></div></div><p>
+        The Java Connector Architecture specification consists of a number of inbound components:
+        
+        </p><div class="mediaobject" align="center"><img src="images/inbound.png" align="middle"/></div><p>
+      </p><p>
+        The application uses the
+
+        </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem">
+            ActivationSpec: The activation specification specifies the different properties that the
+            application is looking for from the resource adapter and hence the Enterprise Information System (EIS).
+            This specification can be hidden from the user by a facade provided by the application server.
+          </li></ul></div><p>
+      </p><p>
+        The resource adapter contains
+        
+        </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem">
+            ResourceAdapter: The resource adapter provides the activation point for inbound communication.
+          </li><li class="listitem">
+            Resource adapter specific: The resource adapter specific code handles communication with the
+            Enterprise Information System (EIS) and deliver messages through the MessageEndpointFactory.
+          </li></ul></div><p>
+      </p><p>
+        IronJacamar - the application server - contains
+        
+        </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem">
+            MessageEndpointFactory: The MessageEndpointFactory is registered with the ResourceAdapter instance
+            and creates the MessageEndpoint instances.
+          </li><li class="listitem">
+            MessageEndpoint: The MessageEndpoint contains the actual message from the Enterprise Information System (EIS)
+            which the application uses. This could for example be a message driven Enterprise JavaBean (EJB/MDB).
+          </li></ul></div><p>
+      </p></div></div></div><HR xmlns=""/><a xmlns="" href=""/><ul class="docnav"><li class="previous"><a accesskey="p" href="preface.html"><strong>Prev</strong>Preface</a></li><li class="up"><a accesskey="u" href="#"><strong>Top of page</strong></a></li><li class="home"><a accesskey="h" href="index.html"><strong>Front page</strong></a></li><li class="next"><a accesskey="n" href="gettingstarted.html"><strong>Next</strong>Chapter 2. Download</a></li></ul></body></html>

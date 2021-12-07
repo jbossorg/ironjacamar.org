@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 7. Validator</title><link rel="stylesheet" type="text/css" href="css/jbossorg.css"/><meta xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL Stylesheets V1.76.1"/><link rel="home" href="index.html" title="IronJacamar 1.0 User's Guide"/><link rel="up" href="index.html" title="IronJacamar 1.0 User's Guide"/><link rel="prev" href="running.html" title="Chapter 6. Running"/><link rel="next" href="codegenerator.html" title="Chapter 8. Code generator"/></head><body><p id="title"><a href="http://www.jboss.org" class="site_href"><strong>JBoss.org</strong></a><a href="http://docs.jboss.org/" class="doc_href"><strong>Community Documentation</strong></a></p><ul class="docnav"><li class="previous"><a accesskey="p" href="running.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="codegenerator.html"><strong>Next</strong></a></li></ul><div class="chapter" title="Chapter 7. Validator"><div class="titlepage"><div><div><h2 class="title"><a id="validator"/>Chapter 7. Validator</h2></div></div></div><div class="toc"><dl><dt><span class="section"><a href="validator.html#validator_introduction">7.1. Introduction</a></span></dt><dt><span class="section"><a href="validator.html#validator_reports">7.2. Reports</a></span></dt><dt><span class="section"><a href="validator.html#validator_standalone">7.3. Running the standalone validator</a></span></dt><dt><span class="section"><a href="validator.html#validator_ant">7.4. Apache Ant integration</a></span></dt><dd><dl><dt><span class="section"><a href="validator.html#validator_ant_usage">7.4.1. Usage</a></span></dt></dl></dd><dt><span class="section"><a href="validator.html#validator_maven">7.5. Apache Maven integration</a></span></dt><dd><dl><dt><span class="section"><a href="validator.html#validator_maven_usage">7.5.1. Usage</a></span></dt></dl></dd></dl></div><div class="section" title="7.1. Introduction"><div class="titlepage"><div><div><h2 class="title"><a id="validator_introduction"/>7.1. Introduction</h2></div></div></div><p>The IronJacamar container features a validator which checks resource adapter archives
+        against the Java Connector Architecture (JCA) specification.</p><p>The validator is doing a static analysis of the resource adapter classes
+        and checks them against the rules defined in the validator.</p><p>The validator is used in the deployer chain of the JCA container, and is available 
+        as a standalone tool, as an Apache Ant task and as a Apache Maven plugin too.</p></div><div class="section" title="7.2. Reports"><div class="titlepage"><div><div><h2 class="title"><a id="validator_reports"/>7.2. Reports</h2></div></div></div><p>The validator works by scanning the resource adapter in question and output
+        a report which lists which rules have been violated.</p><p>An example could be</p><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+Severity: ERROR
+Section: 19.4.2
+Description: A ResourceAdapter must implement a "public int hashCode()" method.
+Code: com.mycompany.myproject.ResourceAdapterImpl
+
+Severity: ERROR
+Section: 19.4.2
+Description: A ResourceAdapter must implement a "public boolean equals(Object)" method.
+Code: com.mycompany.myproject.ResourceAdapterImpl
+      </pre><p>which means that <code class="code">com.mycompany.myproject.ResourceAdapterImpl</code> is missing
+        an <code class="code">equals</code> and <code class="code">hashCode</code> implementation.</p><div class="table"><a id="d0e2841"/><p class="title"><strong>Table 7.1. Validator report</strong></p><div class="table-contents"><table summary="Validator report" border="1"><colgroup><col align="left" class="c1"/><col align="left" class="c2"/></colgroup><thead><tr><th align="left">Key</th><th align="left">Desciption</th></tr></thead><tbody><tr><td align="left"><code class="code">Severity</code></td><td align="left">
+                Specifies the severity of the rule.
+                <p>
+                  </p><div class="itemizedlist"><ul class="itemizedlist" compact="compact"><li class="listitem">
+                      ERROR: Critical error which must be fixed in order for the
+                      resource adapter to operate correctly.
+                    </li><li class="listitem">
+                      WARN: Error which should be fixed in order for the
+                      resource adapter to operate correctly.
+                    </li></ul></div><p>
+                </p>
+              </td></tr><tr><td align="left"><code class="code">Section</code></td><td align="left">
+                A reference to a section in the Java Connector Architecture specification
+                where the requirement is defined.
+              </td></tr><tr><td align="left"><code class="code">Descrption</code></td><td align="left">
+                A short description of the rule.
+              </td></tr><tr><td align="left"><code class="code">Code</code></td><td align="left">
+                The class which triggered the rule.
+              </td></tr></tbody></table></div></div><br class="table-break"/></div><div class="section" title="7.3. Running the standalone validator"><div class="titlepage"><div><div><h2 class="title"><a id="validator_standalone"/>7.3. Running the standalone validator</h2></div></div></div><p>The validator can be run on the command line by</p><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+cd doc/validator
+./validator.sh &lt;file&gt;
+      </pre><p>The reports will be generated into the current directory under the name of 
+        <code class="code">&lt;file&gt;.log</code>.</p></div><div class="section" title="7.4. Apache Ant integration"><div class="titlepage"><div><div><h2 class="title"><a id="validator_ant"/>7.4. Apache Ant integration</h2></div></div></div><p>The validator integrates with Apache Ant such that you can generate the reports directly from 
+        your build environment before deploying the resoruce adapter into the IronJacamar container.</p><p>First you have to define the <code class="code">taskdef</code> for the task</p><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+&lt;taskdef name="validator"
+         classname="org.jboss.jca.validator.ant.ValidatorTask"
+         classpathref="ironjacamar.lib.path.id"/&gt;
+      </pre><p>See the Apache Ant documentation for additional instructions on installation.</p><div class="section" title="7.4.1. Usage"><div class="titlepage"><div><div><h3 class="title"><a id="validator_ant_usage"/>7.4.1. Usage</h3></div></div></div><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+&lt;validator rarFile="${myArchive.rar}" outputDir="${report.dir}"/&gt;
+        </pre><div class="table"><a id="d0e2918"/><p class="title"><strong>Table 7.2. Apache Ant: validator</strong></p><div class="table-contents"><table summary="Apache Ant: validator" border="1"><colgroup><col align="left" class="c1"/><col align="left" class="c2"/></colgroup><thead><tr><th align="left">Key</th><th align="left">Value</th></tr></thead><tbody><tr><td align="left"><code class="code">rarFile</code></td><td align="left">
+                  The resource adapter file
+                </td></tr><tr><td align="left"><code class="code">outputDir</code></td><td align="left">
+                  The directory where the reports should be generated
+                </td></tr><tr><td align="left"><code class="code">classpath</code></td><td align="left">
+                  A classpath to resolve additional dependencies against
+                </td></tr></tbody></table></div></div><br class="table-break"/></div></div><div class="section" title="7.5. Apache Maven integration"><div class="titlepage"><div><div><h2 class="title"><a id="validator_maven"/>7.5. Apache Maven integration</h2></div></div></div><p>The validator integrates with Apache Maven such that you can generate the reports directly from 
+        your build environment before deploying the resoruce adapter into the IronJacamar container.</p><p>To be able to use the validator plugin in your Maven project, you will have to add the following plugin declaration
+        in the pom.xml of your project:</p><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="XML"><!-- XML : generated by JHighlight v1.0 (http://jhighlight.dev.java.net) -->
+<span class="xml_plain"></span><br />
+<span class="xml_plain"></span><br />
+<span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">build</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">plugins</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">plugin</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">groupId</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain">org.jboss.ironjacamar</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">groupId</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">artifactId</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain">ironjacamar-validator-maven</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">artifactId</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_comment">&lt;!--&nbsp;The&nbsp;version&nbsp;of&nbsp;the&nbsp;plugin&nbsp;you&nbsp;want&nbsp;to&nbsp;use&nbsp;--&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">version</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain">1.0.0.Final</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">version</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">executions</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">execution</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">goals</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">goal</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain">validate</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">goal</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">goals</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">execution</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">executions</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">configuration</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_comment">&lt;!--&nbsp;output&nbsp;directory--&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">outputDir</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain">.</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">outputDir</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_comment">&lt;!--&nbsp;rar&nbsp;filename&nbsp;--&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">rarFile</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain">/path/to/myresourceadapter.rar</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">rarFile</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_comment">&lt;!--&nbsp;&nbsp;optional&nbsp;classpath&nbsp;</span><span class="xml_plain"></span><br />
+<span class="xml_comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;classpath&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;param&gt;classpath1&lt;/param&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;param&gt;classpath2&lt;/param&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/classpath&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">configuration</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">plugin</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">plugins</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">build</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><br />
+<span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><br />
+</pre><p>
+        </p><div xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="note"><h2>Note</h2>By default, the validator-maven plugin is attached to the "package" phase of Maven.</div><p>
+      </p><p>See the Apache Maven documentation for additional instructions on installation.</p><div class="section" title="7.5.1. Usage"><div class="titlepage"><div><div><h3 class="title"><a id="validator_maven_usage"/>7.5.1. Usage</h3></div></div></div><p>Once you have configured your project's pom.xml to include the validator-maven plugin, 
+          as explained earlier, you can generate the report by running the package goal on your project.</p><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+mvn clean package
+        </pre><div class="table"><a id="d0e2972"/><p class="title"><strong>Table 7.3. Apache Maven: validator</strong></p><div class="table-contents"><table summary="Apache Maven: validator" border="1"><colgroup><col align="left" class="c1"/><col align="left" class="c2"/></colgroup><thead><tr><th align="left">Key</th><th align="left">Value</th></tr></thead><tbody><tr><td align="left"><code class="code">rarFile</code></td><td align="left">
+                  The resource adapter file
+                </td></tr><tr><td align="left"><code class="code">outputDir</code></td><td align="left">
+                  The directory where the reports should be generated
+                </td></tr><tr><td align="left"><code class="code">classpath</code></td><td align="left">
+                  A classpath to resolve additional dependencies against
+                </td></tr></tbody></table></div></div><br class="table-break"/></div></div></div><HR xmlns=""/><a xmlns="" href=""/><ul class="docnav"><li class="previous"><a accesskey="p" href="running.html"><strong>Prev</strong>Chapter 6. Running</a></li><li class="up"><a accesskey="u" href="#"><strong>Top of page</strong></a></li><li class="home"><a accesskey="h" href="index.html"><strong>Front page</strong></a></li><li class="next"><a accesskey="n" href="codegenerator.html"><strong>Next</strong>Chapter 8. Code generator</a></li></ul></body></html>

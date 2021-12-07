@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Chapter 12. EIS test server</title><link rel="stylesheet" type="text/css" href="css/ironjacamar.css"/><meta name="generator" content="DocBook XSL Stylesheets V1.76.1"/><link rel="home" href="index.html" title="IronJacamar 1.1 User's Guide"/><link rel="up" href="index.html" title="IronJacamar 1.1 User's Guide"/><link rel="prev" href="ch11.html" title="Chapter 11. Embedded"/><link rel="next" href="ch13.html" title="Chapter 13. Community"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" http-equiv="Content-Type" content="text/html; charset=UTF-8"/></head><body><p xmlns:d="http://docbook.org/ns/docbook" id="title"><a href="http://www.ironjacamar.org/" class="site_href"><strong>www.ironjacamar.org</strong></a><a href="http://www.ironjacamar.org/documentation.html" class="doc_href"><strong>Community Documentation</strong></a></p><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="ch11.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="ch13.html"><strong>Next</strong></a></li></ul><div class="chapter" title="Chapter 12. EIS test server"><div class="titlepage"><div><div><h2 class="title"><a id="eis"/>Chapter 12. EIS test server</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl><dt><span class="section"><a href="ch12.html#eis_overview">12.1. Overview</a></span></dt><dt><span class="section"><a href="ch12.html#eis_ant">12.2. Apache Ant</a></span></dt><dt><span class="section"><a href="ch12.html#eis_maven">12.3. Apache Maven</a></span></dt></dl></div><p>
+     Testing an Enterprise Information System can be a complex task, as their installation
+     can quite complex and specific to a certain platform architecture.
+   </p><p>
+     As Java developers, and resource adapter developers in particularly, we are interested
+     in a setup that will allow us to test the resource adapter against the EIS with as little
+     difficulty as possible.
+   </p><p>
+     Having access to a component that easy integrates into our testing environment, and
+     acts as the EIS in question is of benefit.
+   </p><div class="section" title="12.1. Overview"><div class="titlepage"><div><div><h2 class="title"><a id="eis_overview"/>12.1. Overview</h2></div></div></div><p>
+        The IronJacamar EIS test server provides a framework for emulating an Enterprise Information System
+        such that no installation is needed.
+      </p><p>
+        The EIS test server contains the following interface
+      </p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="JAVA"></span>
+<!--  --><br/><span class="java_comment">/*</span>
+<!--  --><br/><span class="java_plain">&nbsp;*&nbsp;IronJacamar,&nbsp;a&nbsp;Java&nbsp;EE&nbsp;Connector&nbsp;Architecture&nbsp;implementation</span>
+<!--  --><br/><span class="java_plain">&nbsp;*&nbsp;Copyright&nbsp;2012,&nbsp;Red&nbsp;Hat&nbsp;Inc,&nbsp;and&nbsp;individual&nbsp;contributors</span>
+<!--  --><br/><span class="java_plain">&nbsp;*&nbsp;as&nbsp;indicated&nbsp;by&nbsp;the&nbsp;@author&nbsp;tags.&nbsp;See&nbsp;the&nbsp;copyright.txt&nbsp;file&nbsp;in&nbsp;the</span>
+<!--  --><br/><span class="java_plain">&nbsp;*&nbsp;distribution&nbsp;for&nbsp;a&nbsp;full&nbsp;listing&nbsp;of&nbsp;individual&nbsp;contributors.</span>
+<!--  --><br/><span class="java_plain">&nbsp;*</span>
+<!--  --><br/><span class="java_plain">&nbsp;*&nbsp;This&nbsp;is&nbsp;free&nbsp;software;&nbsp;you&nbsp;can&nbsp;redistribute&nbsp;it&nbsp;and/or&nbsp;modify&nbsp;it</span>
+<!--  --><br/><span class="java_plain">&nbsp;*&nbsp;under&nbsp;the&nbsp;terms&nbsp;of&nbsp;the&nbsp;GNU&nbsp;Lesser&nbsp;General&nbsp;Public&nbsp;License&nbsp;as</span>
+<!--  --><br/><span class="java_plain">&nbsp;*&nbsp;published&nbsp;by&nbsp;the&nbsp;Free&nbsp;Software&nbsp;Foundation;&nbsp;either&nbsp;version&nbsp;2.1&nbsp;of</span>
+<!--  --><br/><span class="java_plain">&nbsp;*&nbsp;the&nbsp;License,&nbsp;or&nbsp;(at&nbsp;your&nbsp;option)&nbsp;any&nbsp;later&nbsp;version.</span>
+<!--  --><br/><span class="java_plain">&nbsp;*</span>
+<!--  --><br/><span class="java_plain">&nbsp;*&nbsp;This&nbsp;software&nbsp;is&nbsp;distributed&nbsp;in&nbsp;the&nbsp;hope&nbsp;that&nbsp;it&nbsp;will&nbsp;be&nbsp;useful,</span>
+<!--  --><br/><span class="java_plain">&nbsp;*&nbsp;but&nbsp;WITHOUT&nbsp;ANY&nbsp;WARRANTY;&nbsp;without&nbsp;even&nbsp;the&nbsp;implied&nbsp;warranty&nbsp;of</span>
+<!--  --><br/><span class="java_plain">&nbsp;*&nbsp;MERCHANTABILITY&nbsp;or&nbsp;FITNESS&nbsp;FOR&nbsp;A&nbsp;PARTICULAR&nbsp;PURPOSE.&nbsp;See&nbsp;the&nbsp;GNU</span>
+<!--  --><br/><span class="java_plain">&nbsp;*&nbsp;Lesser&nbsp;General&nbsp;Public&nbsp;License&nbsp;for&nbsp;more&nbsp;details.</span>
+<!--  --><br/><span class="java_plain">&nbsp;*</span>
+<!--  --><br/><span class="java_plain">&nbsp;*&nbsp;You&nbsp;should&nbsp;have&nbsp;received&nbsp;a&nbsp;copy&nbsp;of&nbsp;the&nbsp;GNU&nbsp;Lesser&nbsp;General&nbsp;Public</span>
+<!--  --><br/><span class="java_plain">&nbsp;*&nbsp;License&nbsp;along&nbsp;with&nbsp;this&nbsp;software;&nbsp;if&nbsp;not,&nbsp;write&nbsp;to&nbsp;the&nbsp;Free</span>
+<!--  --><br/><span class="java_plain">&nbsp;*&nbsp;Software&nbsp;Foundation,&nbsp;Inc.,&nbsp;51&nbsp;Franklin&nbsp;St,&nbsp;Fifth&nbsp;Floor,&nbsp;Boston,&nbsp;MA</span>
+<!--  --><br/><span class="java_plain">&nbsp;*&nbsp;02110-1301&nbsp;USA,&nbsp;or&nbsp;see&nbsp;the&nbsp;FSF&nbsp;site:&nbsp;http://www.fsf.org.</span>
+<!--  --><br/><span class="java_comment">&nbsp;*/</span>
+<!--  --><br/><span class="java_keyword">package</span><span class="java_plain">&nbsp;org</span><span class="java_separator">.</span><span class="java_plain">jboss</span><span class="java_separator">.</span><span class="java_plain">jca</span><span class="java_separator">.</span><span class="java_plain">test</span><span class="java_separator">.</span><span class="java_plain">eis</span><span class="java_separator">;</span>
+</span>
+<!--  --><br/><span class="java_keyword">import</span><span class="java_plain">&nbsp;java</span><span class="java_separator">.</span><span class="java_plain">io</span><span class="java_separator">.</span><span class="java_type">InputStream</span><span class="java_separator">;</span>
+<!--  --><br/><span class="java_keyword">import</span><span class="java_plain">&nbsp;java</span><span class="java_separator">.</span><span class="java_plain">io</span><span class="java_separator">.</span><span class="java_type">OutputStream</span><span class="java_separator">;</span>
+</span>
+<!--  --><br/><span class="java_javadoc_comment">/**</span>
+<!--  --><br/><span class="java_javadoc_comment">&nbsp;*&nbsp;This&nbsp;interface&nbsp;represents&nbsp;a&nbsp;session&nbsp;between&nbsp;a&nbsp;resource&nbsp;adapter</span>
+<!--  --><br/><span class="java_javadoc_comment">&nbsp;*&nbsp;and&nbsp;an&nbsp;Enterprise&nbsp;Information&nbsp;System</span>
+<!--  --><br/><span class="java_javadoc_comment">&nbsp;*</span>
+<!--  --><br/><span class="java_javadoc_comment">&nbsp;*&nbsp;Once&nbsp;the&nbsp;&lt;code&gt;handle&lt;/code&gt;&nbsp;method&nbsp;returns&nbsp;the&nbsp;socket&nbsp;where</span>
+<!--  --><br/><span class="java_javadoc_comment">&nbsp;*&nbsp;the&nbsp;communication&nbsp;takes&nbsp;place&nbsp;is&nbsp;closed</span>
+<!--  --><br/><span class="java_javadoc_comment">&nbsp;*</span>
+<!--  --><br/><span class="java_javadoc_comment">&nbsp;*&nbsp;</span><span class="java_javadoc_tag">@author</span><span class="java_javadoc_comment">&nbsp;&lt;a&nbsp;href=&quot;mailto:jesper.pedersen</span><span class="java_javadoc_tag">@ironjacamar</span><span class="java_javadoc_comment">.org&quot;&gt;Jesper&nbsp;Pedersen&lt;/a&gt;</span>
+<!--  --><br/><span class="java_javadoc_comment">&nbsp;*/</span>
+<!--  --><br/><span class="java_keyword">public</span><span class="java_plain">&nbsp;</span><span class="java_keyword">interface</span><span class="java_plain">&nbsp;</span><span class="java_type">Handler</span>
+<!--  --><br/><span class="java_separator">{</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_javadoc_comment">/**</span>
+<!--  --><br/><span class="java_javadoc_comment">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Handle&nbsp;an&nbsp;interaction&nbsp;with&nbsp;a&nbsp;client</span>
+<!--  --><br/><span class="java_javadoc_comment">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="java_javadoc_tag">@param</span><span class="java_javadoc_comment">&nbsp;is&nbsp;The&nbsp;input&nbsp;stream</span>
+<!--  --><br/><span class="java_javadoc_comment">&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;</span><span class="java_javadoc_tag">@param</span><span class="java_javadoc_comment">&nbsp;os&nbsp;The&nbsp;output&nbsp;stream</span>
+<!--  --><br/><span class="java_javadoc_comment">&nbsp;&nbsp;&nbsp;&nbsp;*/</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_keyword">public</span><span class="java_plain">&nbsp;</span><span class="java_type">void</span><span class="java_plain">&nbsp;handle</span><span class="java_separator">(</span><span class="java_type">InputStream</span><span class="java_plain">&nbsp;is</span><span class="java_separator">,</span><span class="java_plain">&nbsp;</span><span class="java_type">OutputStream</span><span class="java_plain">&nbsp;os</span><span class="java_separator">);</span>
+<!--  --><br/><span class="java_separator">}</span>
+</span>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></pre><p>
+        which represents a session between the resource adapter and the EIS.
+      </p><p>
+        The <code class="code">java.io.InputStream</code> is the incoming communication coming from the resource adapter, and
+        the <code class="code">java.io.OutputStream</code> is the EIS' response to the request.
+      </p><p>
+        Once the method returns the socket between the resource adapter and the EIS is closed.
+      </p><p>
+        This means that the implementation of the <code class="code">Handler</code> interface will represent the binary
+        protocol between the resource adapter and the EIS. To the resource adapter it will look as it is
+        communicating with the real Enterprise Information System installation.
+      </p></div><div class="section" title="12.2. Apache Ant"><div class="titlepage"><div><div><h2 class="title"><a id="eis_ant"/>12.2. Apache Ant</h2></div></div></div><p>
+        The Apache Ant tasks for starting and stopping the EIS test server are defined as the following
+      </p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+
+&lt;taskdef name="start"
+         classname="org.jboss.jca.test.eis.ant.Start"
+         classpathref="main.lib.path.id"/&gt;
+
+&lt;taskdef name="stop"
+         classname="org.jboss.jca.test.eis.ant.Stop"
+         classpathref="main.lib.path.id"/&gt;
+
+      </pre><p>
+        where <code class="code">main.lib.path.id</code> contains the <code class="code">ironjacamar-test-eis.jar</code> file.
+      </p><p>
+        The <code class="code">start</code> task is used, like
+      </p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+
+&lt;start host="localhost" port="1400"
+       handler="org.jboss.jca.test.eis.EchoHandler"&gt;
+  &lt;classpath&gt;
+    &lt;pathelement location="${build.eis.dir}/test"/&gt;
+  &lt;/classpath&gt;
+&lt;/start&gt;
+
+      </pre><p>
+        which starts the EIS test server on <code class="code">localhost</code> using port <code class="code">1400</code> with an
+        implementation of the <code class="code">Handler</code> interface of <code class="code">org.jboss.jca.test.eis.EchoHandler</code>
+        and a classpath of <code class="code">${build.eis.dir}/test</code>.
+      </p><p>
+        The <code class="code">stop</code> task is used, like
+      </p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+
+&lt;stop host="localhost" port="1400"/&gt;
+
+      </pre><p>
+        which stops the EIS test server on <code class="code">localhost</code> using port <code class="code">1400</code>.
+      </p><p>
+        Between the <code class="code">start</code> and <code class="code">stop</code> tasks the resource adapters unit tests
+        can be executed.
+      </p></div><div class="section" title="12.3. Apache Maven"><div class="titlepage"><div><div><h2 class="title"><a id="eis_maven"/>12.3. Apache Maven</h2></div></div></div><p>
+        The Apache Maven mojos for starting and stopping the EIS test server are defined as the following
+      </p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+       
+&lt;build&gt;
+  &lt;plugins&gt;
+    &lt;plugin&gt;
+      &lt;groupId&gt;org.jboss.ironjacamar&lt;/groupId&gt;
+      &lt;artifactId&gt;ironjacamar-test-eis&lt;/artifactId&gt;
+      &lt;!-- The version of the plugin you want to use --&gt;
+      &lt;version&gt;1.1.0.Final&lt;/version&gt;
+      &lt;executions&gt;
+        &lt;execution&gt;
+          &lt;goals&gt;
+            &lt;goal&gt;start&lt;/goal&gt;
+          &lt;/goals&gt;
+        &lt;/execution&gt;
+      &lt;/executions&gt;
+      &lt;configuration&gt;
+        &lt;host&gt;localhost&lt;/host&gt;
+        &lt;port&gt;1400&lt;/port&gt;
+        &lt;handler&gt;org.jboss.jca.test.eis.EchoHandler&lt;/handler&gt;
+        &lt;classpath&gt;
+          &lt;param&gt;target/test-classes&lt;/param&gt;
+        &lt;/classpath&gt;
+      &lt;/configuration&gt;
+    &lt;/plugin&gt;
+    &lt;plugin&gt;
+      &lt;groupId&gt;org.jboss.ironjacamar&lt;/groupId&gt;
+      &lt;artifactId&gt;ironjacamar-test-eis&lt;/artifactId&gt;
+      &lt;!-- The version of the plugin you want to use --&gt;
+      &lt;version&gt;1.1.0.Final&lt;/version&gt;
+      &lt;executions&gt;
+        &lt;execution&gt;
+          &lt;goals&gt;
+            &lt;goal&gt;stop&lt;/goal&gt;
+          &lt;/goals&gt;
+        &lt;/execution&gt;
+      &lt;/executions&gt;
+      &lt;configuration&gt;
+        &lt;host&gt;localhost&lt;/host&gt;
+        &lt;port&gt;1400&lt;/port&gt;
+      &lt;/configuration&gt;
+    &lt;/plugin&gt;
+  &lt;/plugins&gt;
+&lt;/build&gt;        
+        
+      </pre><p>
+        The <code class="code">start</code> mojo will run in the <code class="code">process-test-classes</code> phase, and the
+        <code class="code">stop</code> mojo will run in the <code class="code">test</code> phase.
+      </p></div></div><hr xmlns="" xmlns:d="http://docbook.org/ns/docbook"/><a xmlns="" xmlns:d="http://docbook.org/ns/docbook" href="legalnotice.html"/><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="ch11.html"><strong>Prev</strong>Chapter 11. Embedded</a></li><li class="up"><a accesskey="u" href="#"><strong>Up</strong></a></li><li class="home"><a accesskey="h" href="index.html"><strong>Home</strong></a></li><li class="next"><a accesskey="n" href="ch13.html"><strong>Next</strong>Chapter 13. Community</a></li></ul></body></html>

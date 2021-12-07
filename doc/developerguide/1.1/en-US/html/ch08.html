@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Chapter 8. Connection manager</title><link rel="stylesheet" type="text/css" href="css/ironjacamar.css"/><meta name="generator" content="DocBook XSL Stylesheets V1.76.1"/><link rel="home" href="index.html" title="IronJacamar 1.1 Developer's Guide"/><link rel="up" href="index.html" title="IronJacamar 1.1 Developer's Guide"/><link rel="prev" href="ch07.html" title="Chapter 7. Deployers"/><link rel="next" href="ch09.html" title="Chapter 9. Pool"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" http-equiv="Content-Type" content="text/html; charset=UTF-8"/></head><body><p xmlns:d="http://docbook.org/ns/docbook" id="title"><a href="http://www.ironjacamar.org/" class="site_href"><strong>www.ironjacamar.org</strong></a><a href="http://www.ironjacamar.org/documentation.html" class="doc_href"><strong>Community Documentation</strong></a></p><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="ch07.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="ch09.html"><strong>Next</strong></a></li></ul><div class="chapter" title="Chapter 8. Connection manager"><div class="titlepage"><div><div><h2 class="title"><a id="cm"/>Chapter 8. Connection manager</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl><dt><span class="section"><a href="ch08.html#cm_overview">8.1. Overview</a></span></dt><dt><span class="section"><a href="ch08.html#cm_public">8.2. Public API</a></span></dt><dt><span class="section"><a href="ch08.html#cm_private">8.3. Private API</a></span></dt><dt><span class="section"><a href="ch08.html#cm_implementation">8.4. Implementation</a></span></dt><dd><dl><dt><span class="section"><a href="ch08.html#cm_implementation_abstractconnectionmanager">8.4.1. AbstractConnectionManager</a></span></dt><dt><span class="section"><a href="ch08.html#cm_implementation_notxconnectionmanager">8.4.2. NoTxConnectionManagerImpl</a></span></dt><dt><span class="section"><a href="ch08.html#cm_implementation_txconnectionmanager">8.4.3. TxConnectionManagerImpl</a></span></dt><dt><span class="section"><a href="ch08.html#cm_implementation_abstractconnectionlistener">8.4.4. AbstractConnectionListener</a></span></dt><dt><span class="section"><a href="ch08.html#cm_implementation_notxconnectionlistener">8.4.5. NoTxConnectionListener</a></span></dt><dt><span class="section"><a href="ch08.html#cm_implementation_txconnectionlistener">8.4.6. TxConnectionListener</a></span></dt></dl></dd></dl></div><div class="section" title="8.1. Overview"><div class="titlepage"><div><div><h2 class="title"><a id="cm_overview"/>8.1. Overview</h2></div></div></div><p>
+      The connection manager defines the interface for resource adapters to allocate connections, which are associated with
+      the physical connections to the target Enterprise Information System, such as a database.
+    </p><p>
+      It is up to the connection manager to use the pool, and enlist the connection listeners in the transactions, if supported.
+    </p><p>
+      The connection manager architecture
+
+      </p><div class="mediaobject" align="center"><img src="images/cm.png" align="middle"/></div><p>
+    </p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><h2>Note</h2>
+      Each of the components in the connection manager architecture can be accessed by multiple threads at the
+      same time, hence each component needs to make sure that thread safely is maintained.
+    </div></div><div class="section" title="8.2. Public API"><div class="titlepage"><div><div><h2 class="title"><a id="cm_public"/>8.2. Public API</h2></div></div></div><p>
+      The public API defines the API that programs external to the IronJacamar project can use to
+      configure, and use the connection manager.
+    </p><p>
+      The <code class="code">ConnectionManager</code> interface allows to associate and dissociate a managed connection
+      with a connection.
+    </p><p>
+      The <code class="code">ConnectionListener</code> interface provides with IronJacamar contract for
+      <code class="code">javax.resource.spi.ConnectionEventListener</code>.
+    </p><p>
+      The package for the public API is <code class="code">org.jboss.jca.core.api.connectionmanager</code>.
+    </p></div><div class="section" title="8.3. Private API"><div class="titlepage"><div><div><h2 class="title"><a id="cm_private"/>8.3. Private API</h2></div></div></div><p>
+      The private API defines the API that can be used internally IronJacamar to control the connection manager.
+      The API extends the public API where it makes sense in order to provide a more uniform interface
+      to the implementation.
+    </p><p>
+      The <code class="code">ConnectionManagerFactory</code> class can create a <code class="code">ConnectionManager</code> instance.
+    </p><p>
+      The <code class="code">ConnectionManager</code> interface defines the internal API of the connection manager used by IronJacamar.
+    </p><p>
+      The <code class="code">NoTxConnectionManager</code> interface defines the internal API of a non-transactional connection manager.
+    </p><p>
+      The <code class="code">TxConnectionManager</code> interface defines the internal API of a transactional connection manager.
+    </p><p>
+      The <code class="code">ConnectionListener</code> interface defines the internal API of a connection listener, which is associated
+      with a managed connection.
+    </p><p>
+      The package for the private API is <code class="code">org.jboss.jca.core.connectionmanager</code>.
+    </p></div><div class="section" title="8.4. Implementation"><div class="titlepage"><div><div><h2 class="title"><a id="cm_implementation"/>8.4. Implementation</h2></div></div></div><p>
+      The implementation of the connection manager is split in two classes, with a shared base class for common
+      functionality.
+    </p><div class="section" title="8.4.1. AbstractConnectionManager"><div class="titlepage"><div><div><h3 class="title"><a id="cm_implementation_abstractconnectionmanager"/>8.4.1. AbstractConnectionManager</h3></div></div></div><p>
+        <code class="code">AbstractConnectionManager</code> provides the methods that are shared across both implementations,
+        <code class="code">NoTxConnectionManagerImpl</code> and <code class="code">TxConnectionManagerImpl</code>.
+      </p><p>
+        <code class="code">getManagedConnection(Transaction, Subject, ConnectionRequestInfo)</code> obtains a
+        <code class="code">ConnectionListener</code> instance from the pool. If an error occurs a retry is performed, if configured.
+      </p><p>
+        <code class="code">returnManagedConnection(ConnectionListener, boolean)</code> returns a
+        <code class="code">ConnectionListener</code> instance to the pool. If an error occurs a retry is performed, if configured.
+      </p><p>
+        <code class="code">allocateConnection(ManagedConnectionFactory, ConnectionRequestInfo)</code> allocates a connection for the
+        managed connection attached to the <code class="code">ConnectionListener</code> instance.
+      </p><p>
+        <code class="code">associateManagedConnection(Object, ManagedConnectionFactory, ConnectionRequestInfo)</code> associates a
+        <code class="code">ManagedConnection</code> with the passed in connection. This is a 
+        <code class="code">LazyAssociatableConnectionManager</code> extension of IronJacamar.
+      </p><p>
+        <code class="code">dissociateManagedConnection(Object, ManagedConnection, ManagedConnectionFactory)</code> dissociates a
+        connection with its <code class="code">ManagedConnection</code> instance. This is a 
+        <code class="code">LazyAssociatableConnectionManager</code> extension of IronJacamar.
+      </p><p>
+        <code class="code">shutdown</code> shuts down the connection manager, and its related pool instance.
+      </p></div><div class="section" title="8.4.2. NoTxConnectionManagerImpl"><div class="titlepage"><div><div><h3 class="title"><a id="cm_implementation_notxconnectionmanager"/>8.4.2. NoTxConnectionManagerImpl</h3></div></div></div><p>
+        <code class="code">NoTxConnectionManagerImpl</code> provides the implementation for a connection manager configured
+        with <code class="code">NoTransaction</code>.
+      </p><p>
+        <code class="code">createConnectionListener(ManagedConnection, ManagedConnectionPool)</code> creates a
+        <code class="code">NoTxConnectionListener</code> and associates it with the <code class="code">ManagedConnection</code> instance.
+      </p></div><div class="section" title="8.4.3. TxConnectionManagerImpl"><div class="titlepage"><div><div><h3 class="title"><a id="cm_implementation_txconnectionmanager"/>8.4.3. TxConnectionManagerImpl</h3></div></div></div><p>
+        <code class="code">TxConnectionManagerImpl</code> provides the implementation for a connection manager configured
+        with <code class="code">LocalTransaction</code> or <code class="code">XATransaction</code>.
+      </p><p>
+        <code class="code">createConnectionListener(ManagedConnection, ManagedConnectionPool)</code> creates a
+        <code class="code">TxConnectionListener</code> and associates it with the <code class="code">ManagedConnection</code> instance.
+        In case of <code class="code">LocalTransaction</code> a <code class="code">XAResource</code> is created to wrap the local transaction
+        methods of the resource adapter. In case of <code class="code">XATransaction</code> the underlying <code class="code">XAResource</code>
+        instance is wrapped with product information, if configured.
+      </p><p>
+        <code class="code">getManagedConnection(Subject, ConnectionRequestInfo)</code> verifies that a valid transaction
+        exists before creating a <code class="code">ManagedConnection</code>, since there is no point in spending resources
+        on work that is going to be rolled back. <code class="code">ironjacamar.allow_marked_for_rollback</code> overrides
+        this behavior.
+      </p><p>
+        <code class="code">managedConnectionReconnected(ConnectionListener)</code> enlist the
+        <code class="code">ConnectionListener</code> in the transaction.
+      </p><p>
+        <code class="code">managedConnectionDisconnected(ConnectionListener)</code> delist the
+        <code class="code">ConnectionListener</code> from the transaction.
+      </p><p>
+        <code class="code">lazyEnlist(ManagedConnection)</code> handles lazy enlistment scenarios as defined by
+        <code class="code">LazyEnlistableConnectionManager</code>.
+      </p></div><div class="section" title="8.4.4. AbstractConnectionListener"><div class="titlepage"><div><div><h3 class="title"><a id="cm_implementation_abstractconnectionlistener"/>8.4.4. AbstractConnectionListener</h3></div></div></div><p>
+        <code class="code">AbstractConnectionListener</code> provides the methods that are shared across both implementations,
+        <code class="code">NoTxConnectionListener</code> and <code class="code">TxConnectionListener</code>. This base class keeps track
+        off the connection handles used for the associated <code class="code">ManagedConnection</code>.
+      </p><p>
+        <code class="code">connectionErrorOccurred(ConnectionEvent)</code> logs the application error, and flushes either the
+        <code class="code">Pool</code> or <code class="code">ManagedConnectionPool</code> depending on the strategy configured.
+      </p><p>
+        <code class="code">controls(ManagedConnection, Object)</code> checks if the <code class="code">ManagedConnection</code> and optional
+        connection is controlled by this connection listener.
+      </p><p>
+        <code class="code">compareTo(Object)</code> is used to sort the connection listeners based on their last used time.
+      </p></div><div class="section" title="8.4.5. NoTxConnectionListener"><div class="titlepage"><div><div><h3 class="title"><a id="cm_implementation_notxconnectionlistener"/>8.4.5. NoTxConnectionListener</h3></div></div></div><p>
+        <code class="code">NoTxConnectionListener</code> is the listener for <code class="code">NoTransaction</code> scenarios.
+      </p><p>
+        <code class="code">connectionClosed(ConnectionEvent)</code> dissociates the connection handles, and if there
+        are no handles associated anymore the <code class="code">ManagedConnection</code> is returned to the pool.
+      </p></div><div class="section" title="8.4.6. TxConnectionListener"><div class="titlepage"><div><div><h3 class="title"><a id="cm_implementation_txconnectionlistener"/>8.4.6. TxConnectionListener</h3></div></div></div><p>
+        <code class="code">TxConnectionListener</code> is the listener for <code class="code">LocalTransaction</code> and
+        <code class="code">XATransaction</code> scenarios.
+      </p><p>
+        <code class="code">used()</code> updates the last used time, and resets the timeout value for the underlying
+        <code class="code">XAResource</code> if in <code class="code">XATransaction</code> mode.
+      </p><p>
+        <code class="code">enlist()</code> enlists the <code class="code">XAResource</code> instances in the transaction through
+        <code class="code">TransactionSynchronization</code> including resources picked up by the <code class="code">CachedConnectionManager</code>.
+      </p><p>
+        <code class="code">delist()</code> delists the <code class="code">XAResource</code> from the transaction in interleaved scenarios.
+      </p><p>
+        <code class="code">dissociate()</code> dissociates the <code class="code">ConnectionListener</code> with the transaction.
+      </p><p>
+        <code class="code">connectionClosed(ConnectionEvent)</code> dissociates a connection handle through <code class="code">wasFreed(Object)</code> and
+        returns the <code class="code">ManagedConnection</code> in interleaved scenarios.
+      </p><p>
+        <code class="code">connectionErrorOccurred(ConnectionEvent)</code> clears any <code class="code">TransactionSynchronization</code> object such
+        that the <code class="code">ManagedConnection</code> can be returned for destruction.
+      </p><p>
+        <code class="code">tidyup()</code> will rollback any left over <code class="code">LocalTransaction</code> instance.
+      </p><p>
+        <code class="code">isManagedConnectionFree()</code> checks if there is exists a <code class="code">TransactionSynchronization</code> object in
+        track by transaction scenarios, since the <code class="code">ManagedConnection</code> can't be returned in that case.
+      </p><p>
+        <code class="code">wasFreed(Object)</code> dissociates a connection handle from the <code class="code">ConnectionListener</code>, or
+        resets the track by transaction flag if <code class="code">null</code> such that the <code class="code">ManagedConnection</code> can
+        be returned.
+      </p><p>
+        The <code class="code">TransactionSynchronization</code> class takes care of enlisting the <code class="code">XAResource</code>
+        in the transaction, in track by transaction scenarios. This is done in its <code class="code">enlist()</code> and its
+        result can be verified in <code class="code">checkEnlisted()</code>. The <code class="code">beforeCompletion()</code> method
+        delists the <code class="code">XAResource</code> from the transaction. The <code class="code">afterCompletion(int)</code> method
+        returns the <code class="code">ManagedConnection</code> to the pool.
+      </p></div></div></div><hr xmlns="" xmlns:d="http://docbook.org/ns/docbook"/><a xmlns="" xmlns:d="http://docbook.org/ns/docbook" href="legalnotice.html"/><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="ch07.html"><strong>Prev</strong>Chapter 7. Deployers</a></li><li class="up"><a accesskey="u" href="#"><strong>Up</strong></a></li><li class="home"><a accesskey="h" href="index.html"><strong>Home</strong></a></li><li class="next"><a accesskey="n" href="ch09.html"><strong>Next</strong>Chapter 9. Pool</a></li></ul></body></html>

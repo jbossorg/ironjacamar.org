@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Chapter 9. Eclipse plugin</title><link rel="stylesheet" type="text/css" href="css/ironjacamar.css"/><meta name="generator" content="DocBook XSL Stylesheets V1.76.1"/><link rel="home" href="index.html" title="IronJacamar 1.2 User's Guide"/><link rel="up" href="index.html" title="IronJacamar 1.2 User's Guide"/><link rel="prev" href="ch08.html" title="Chapter 8. Code generator"/><link rel="next" href="ch10.html" title="Chapter 10. Other tools"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" http-equiv="Content-Type" content="text/html; charset=UTF-8"/></head><body><p xmlns:d="http://docbook.org/ns/docbook" id="title"><a href="http://www.ironjacamar.org/" class="site_href"><strong>www.ironjacamar.org</strong></a><a href="http://www.ironjacamar.org/documentation.html" class="doc_href"><strong>Community Documentation</strong></a></p><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="ch08.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="ch10.html"><strong>Next</strong></a></li></ul><div class="chapter" title="Chapter 9. Eclipse plugin"><div class="titlepage"><div><div><h2 class="title"><a id="eclipse"/>Chapter 9. Eclipse plugin</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl><dt><span class="section"><a href="ch09.html#eclipse_installation">9.1. Installation of the plugin</a></span></dt><dt><span class="section"><a href="ch09.html#eclipse_configure">9.2. Configuration of the plugin</a></span></dt><dt><span class="section"><a href="ch09.html#eclipse_toolbar">9.3. The toolbar</a></span></dt><dt><span class="section"><a href="ch09.html#eclipse_menu">9.4. The menu</a></span></dt><dt><span class="section"><a href="ch09.html#eclipse_project">9.5. Creating a new IronJacamar project</a></span></dt><dd><dl><dt><span class="section"><a href="ch09.html#eclipse_project_name">9.5.1. Project and package name</a></span></dt><dt><span class="section"><a href="ch09.html#eclipse_project_ra">9.5.2. Creating a ResourceAdapter</a></span></dt><dt><span class="section"><a href="ch09.html#eclipse_project_outbound">9.5.3. Creating a ManagedConnectionFactory</a></span></dt><dt><span class="section"><a href="ch09.html#eclipse_project_inbound">9.5.4. Creating a MessageListener</a></span></dt><dt><span class="section"><a href="ch09.html#eclipse_project_ao">9.5.5. Creating an AdminObject</a></span></dt><dt><span class="section"><a href="ch09.html#eclipse_project_build">9.5.6. Selecting the build environment</a></span></dt></dl></dd><dt><span class="section"><a href="ch09.html#eclipse_validate">9.6. Validate IronJacamar project</a></span></dt><dt><span class="section"><a href="ch09.html#eclipse_deploy">9.7. Deploying an IronJacamar project</a></span></dt><dd><dl><dt><span class="section"><a href="ch09.html#eclipse_deploy_rar">9.7.1. Deploying a RAR file to an IronJacamar server</a></span></dt><dt><span class="section"><a href="ch09.html#eclipse_deploy_raxml">9.7.2. Generate the -ra.xml and deploy it to IronJacamar server</a></span></dt></dl></dd></dl></div><p>
+    The IronJacamar Eclipse plugin features development tools used
+    for developing resource adapter applications for the IronJacamar standalone distribution,
+    WildFly or JBoss Enterprise Application Platform 6+.
+  </p><p>
+    The plugin allows you to
+    
+    </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem">
+        Generate a resource adapter skeleton
+      </li><li class="listitem">
+        Generate a deployment descriptor for a resource adapter
+      </li><li class="listitem">
+        Validate a resource adapter
+      </li><li class="listitem">
+        Deploy a resource adapter to an IronJacamar server instance
+      </li><li class="listitem">
+        Deploy a deployment descriptor to an IronJacamar server instance
+      </li></ul></div><p>
+
+  </p><div class="section" title="9.1. Installation of the plugin"><div class="titlepage"><div><div><h2 class="title"><a id="eclipse_installation"/>9.1. Installation of the plugin</h2></div></div></div><p>
+      The plugin is installed by
+    </p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+cp ironjacamar-eclipse.jar $ECLIPSE_HOME/plugins
+    </pre><p>
+      on Un*x systems, or by
+    </p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+copy ironjacamar-eclipse.jar %ECLIPSE_HOME%\plugins
+    </pre><p>
+      on Windows.
+    </p></div><div class="section" title="9.2. Configuration of the plugin"><div class="titlepage"><div><div><h2 class="title"><a id="eclipse_configure"/>9.2. Configuration of the plugin</h2></div></div></div><p>
+      Open "Window-&gt;Preferences" and select the IronJacamar category.
+
+    </p><div class="mediaobject" align="center"><img src="images/eclipse-configuration.png" align="middle"/></div><p>
+      The IronJacamar home setting must point to the root directory of the IronJacamar installation, like
+    </p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+/opt/ironjacamar-1.2.0.Final
+    </pre><p>
+      in order to configure the plugin.
+    </p><p>
+      The IronJacamar Eclipse plugin can deploy to a remote IronJacamar instance, by specifying the host and port settings.
+    </p></div><div class="section" title="9.3. The toolbar"><div class="titlepage"><div><div><h2 class="title"><a id="eclipse_toolbar"/>9.3. The toolbar</h2></div></div></div><p>
+      The IronJacamar Eclipse plugin provides a toolbar with deployment functionality.
+    </p><div class="mediaobject" align="center"><img src="images/eclipse-toolbar.png" align="middle"/></div></div><div class="section" title="9.4. The menu"><div class="titlepage"><div><div><h2 class="title"><a id="eclipse_menu"/>9.4. The menu</h2></div></div></div><p>
+      The IronJacamar Eclipse plugin provides a menu with validation and deployment functionality.
+    </p><div class="mediaobject" align="center"><img src="images/eclipse-menu.png" align="middle"/></div></div><div class="section" title="9.5. Creating a new IronJacamar project"><div class="titlepage"><div><div><h2 class="title"><a id="eclipse_project"/>9.5. Creating a new IronJacamar project</h2></div></div></div><p>
+      A new IronJacamar project can be created by selecting File-&gt;New-&gt;Project... and go to the IronJacamar category. 
+    </p><p>
+      Choose "IronJacamar 1.1 project" and follow the instructions to generate your resource adapter.
+    </p><div class="mediaobject" align="center"><img src="images/eclipse-new-project.png" align="middle"/></div><div class="section" title="9.5.1. Project and package name"><div class="titlepage"><div><div><h3 class="title"><a id="eclipse_project_name"/>9.5.1. Project and package name</h3></div></div></div><div class="mediaobject" align="center"><img src="images/eclipse-new-project-name.png" align="middle"/></div><p>    
+        Sepcify the project name and package name for the project. You can also select the JCA specification version,
+        the type of the resource adapter (Outbound/Inbound/Bidirectional), the transaction support level, if the resource adapter
+        will support reauthentication and if annotations used be used for a JCA 1.6+ based resource adapter.
+      </p></div><div class="section" title="9.5.2. Creating a ResourceAdapter"><div class="titlepage"><div><div><h3 class="title"><a id="eclipse_project_ra"/>9.5.2. Creating a ResourceAdapter</h3></div></div></div><div class="mediaobject" align="center"><img src="images/eclipse-new-project-ra.png" align="middle"/></div><p>    
+        You can choose to include a <code class="code">ResourceAdapter</code> class if the JCA profile version is 1.5, 1.6 or 1.7
+      </p></div><div class="section" title="9.5.3. Creating a ManagedConnectionFactory"><div class="titlepage"><div><div><h3 class="title"><a id="eclipse_project_outbound"/>9.5.3. Creating a ManagedConnectionFactory</h3></div></div></div><div class="mediaobject" align="center"><img src="images/eclipse-new-project-outbound.png" align="middle"/></div><p>    
+        If the project is Outbound or Bidirectional then you can fill in the information for the outbound components.
+      </p></div><div class="section" title="9.5.4. Creating a MessageListener"><div class="titlepage"><div><div><h3 class="title"><a id="eclipse_project_inbound"/>9.5.4. Creating a MessageListener</h3></div></div></div><div class="mediaobject" align="center"><img src="images/eclipse-new-project-inbound.png" align="middle"/></div><p>    
+        If the project is Inbound or Bidirectional then you can fill in the information for the message listener and activation specification
+        components.
+      </p></div><div class="section" title="9.5.5. Creating an AdminObject"><div class="titlepage"><div><div><h3 class="title"><a id="eclipse_project_ao"/>9.5.5. Creating an AdminObject</h3></div></div></div><div class="mediaobject" align="center"><img src="images/eclipse-new-project-ao.png" align="middle"/></div><p>    
+        This wizard creates an AdminObject for the project.
+      </p></div><div class="section" title="9.5.6. Selecting the build environment"><div class="titlepage"><div><div><h3 class="title"><a id="eclipse_project_build"/>9.5.6. Selecting the build environment</h3></div></div></div><div class="mediaobject" align="center"><img src="images/eclipse-new-project-build.png" align="middle"/></div><p>    
+        This wizard will let you choose the build environment to use for your project. Currently IronJacamar supports the Apache Ant, Apache Ant + Apache Ivy or Maven build environments.
+        If Apache Ant is selected, all library files will be copied from your IronJacamar installation.
+      </p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><h2>Note</h2><p>    
+          Please make sure you have installed the Eclipse M2E plugin if you select Apache Maven as your build environment.
+        </p></div></div></div><div class="section" title="9.6. Validate IronJacamar project"><div class="titlepage"><div><div><h2 class="title"><a id="eclipse_validate"/>9.6. Validate IronJacamar project</h2></div></div></div><p>
+      The IronJacamar project can be validated by selecting it, and the Validate command in the toolbar will now be enabled. Click on the command to validate your project.
+    </p><p>
+      Another way to validate the IronJacamar project is to right click on the project, and select IronJacamar-&gt;Validate.
+    </p></div><div class="section" title="9.7. Deploying an IronJacamar project"><div class="titlepage"><div><div><h2 class="title"><a id="eclipse_deploy"/>9.7. Deploying an IronJacamar project</h2></div></div></div><p>
+      The IronJacamar Eclipse plugin provides a way to deploy files to an IronJacamar server.
+    </p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><h2>Note</h2><p>
+        Before any deploy operation, the IronJacamar server needs to be started, otherwise it will lead to an error dialog. 
+        Please refer to <a class="link" href="ch06.html#startingthecontainer" title="6.1. Starting the container">this</a> for detail on how to start the IronJacamar server
+      </p></div><div class="section" title="9.7.1. Deploying a RAR file to an IronJacamar server"><div class="titlepage"><div><div><h3 class="title"><a id="eclipse_deploy_rar"/>9.7.1. Deploying a RAR file to an IronJacamar server</h3></div></div></div><p>
+        Select the IronJacamar project you just created. The Deploy drop down command in the toolbar will be enabled. Click on the command and select 'Deploy rar'.
+      </p><p>
+        Another way to deploy the RAR file is to right click on the project, and select IronJacamar-&gt;Deploy-&gt;Deploy rar from context menu
+      </p><p>
+        The command will build the RAR file first if it doesn't exist, then try to connect the IronJacamar server to deploy it.
+      </p></div><div class="section" title="9.7.2. Generate the -ra.xml and deploy it to IronJacamar server"><div class="titlepage"><div><div><h3 class="title"><a id="eclipse_deploy_raxml"/>9.7.2. Generate the -ra.xml and deploy it to IronJacamar server</h3></div></div></div><p>
+        Select the IronJacamar project you just created. The Deploy drop down command in the toolbar will be enabled. Click on the command and select 'Deploy -ra.xml'.
+      </p><p>
+        Another way to generate the -ra.xml file is to right click on the project, and select IronJacamar-&gt;Deploy-&gt;Deploy -ra.xml from context menu.
+      </p><p>
+        The command will build the RAR file first if it does not exist, then pop up a wizard to generate the -ra.xml according to the RAR file.
+      </p><div class="mediaobject" align="center"><img src="images/eclipse-ra-version.png" align="middle"/></div><p>
+        In the first wizard page, selects version of the resource adapter. Some configurations may not be available when version is changed.
+      </p><div class="mediaobject" align="center"><img src="images/eclipse-ra-general.png" align="middle"/></div><p>
+        In the general information page, set up the transaction support, bootstrap context, bean validation groups and id if the version is 1.1+.
+      </p><div class="mediaobject" align="center"><img src="images/eclipse-ra-workmanager.png" align="middle"/></div><p>
+        From IronJacamar 1.1, a workmanager tab is added to configure workmanager security mappings.
+      </p><div class="mediaobject" align="center"><img src="images/eclipse-ra-mcf.png" align="middle"/></div><p>
+        There is a wizard page for each ManagedConnectionFactory if the resource adapter is outbound or bidirectional.
+      </p><p>
+        The ManagedConnectionFactory can be activated by selecting the 'Activate' checkbox. 
+      </p><div class="mediaobject" align="center"><img src="images/eclipse-ra-mcf-pool.png" align="middle"/></div><p>
+        Configure connection pool in the 'pool configuration' tab.
+      </p><div class="mediaobject" align="center"><img src="images/eclipse-ra-mcf-pool-xa.png" align="middle"/></div><p>
+        Configure XA connection pool in the 'XA pool' sub tab.
+      </p><div class="mediaobject" align="center"><img src="images/eclipse-ra-mcf-pool-capacity.png" align="middle"/></div><p>
+        From IronJacamar 1.1 on, a capacity sub tab is added in 'pool configuration' tab to configure policy of connection pool
+      </p><div class="mediaobject" align="center"><img src="images/eclipse-ra-ao.png" align="middle"/></div><p>
+        There is a wizard page for each AdminObject if the resource adapter includes one or more instances.
+      </p><p>
+        The AdminObject can be activated by selecting the 'Activate' checkbox.
+      </p><p>
+        There is a miscellaneous page also.
+      </p><div class="mediaobject" align="center"><img src="images/eclipse-ra-mess.png" align="middle"/></div><p>
+        If the Deploy RAR first option is selected, the plugin will try to deploy the RAR file to the IronJacamar server first,
+        then deploy the generated -ra.xml file.
+      </p></div></div></div><hr xmlns="" xmlns:d="http://docbook.org/ns/docbook"/><a xmlns="" xmlns:d="http://docbook.org/ns/docbook" href="legalnotice.html"/><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="ch08.html"><strong>Prev</strong>Chapter 8. Code generator</a></li><li class="up"><a accesskey="u" href="#"><strong>Up</strong></a></li><li class="home"><a accesskey="h" href="index.html"><strong>Home</strong></a></li><li class="next"><a accesskey="n" href="ch10.html"><strong>Next</strong>Chapter 10. Other tools</a></li></ul></body></html>

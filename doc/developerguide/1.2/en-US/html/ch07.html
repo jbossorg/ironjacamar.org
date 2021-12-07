@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Chapter 7. Deployers</title><link rel="stylesheet" type="text/css" href="css/ironjacamar.css"/><meta name="generator" content="DocBook XSL Stylesheets V1.76.1"/><link rel="home" href="index.html" title="IronJacamar 1.2 Developer's Guide"/><link rel="up" href="index.html" title="IronJacamar 1.2 Developer's Guide"/><link rel="prev" href="ch06.html" title="Chapter 6. Metadata"/><link rel="next" href="ch08.html" title="Chapter 8. Connection manager"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" http-equiv="Content-Type" content="text/html; charset=UTF-8"/></head><body><p xmlns:d="http://docbook.org/ns/docbook" id="title"><a href="http://www.ironjacamar.org/" class="site_href"><strong>www.ironjacamar.org</strong></a><a href="http://www.ironjacamar.org/documentation.html" class="doc_href"><strong>Community Documentation</strong></a></p><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="ch06.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="ch08.html"><strong>Next</strong></a></li></ul><div class="chapter" title="Chapter 7. Deployers"><div class="titlepage"><div><div><h2 class="title"><a id="deployers"/>Chapter 7. Deployers</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl><dt><span class="section"><a href="ch07.html#rardeployer">7.1. RAR Deployer</a></span></dt><dd><dl><dt><span class="section"><a href="ch07.html#rardeployer_fungal">7.1.1. Fungal</a></span></dt></dl></dd><dt><span class="section"><a href="ch07.html#dsdeployer">7.2. DataSource Deployer</a></span></dt><dd><dl><dt><span class="section"><a href="ch07.html#dsdeployer_fungal">7.2.1. Fungal</a></span></dt></dl></dd></dl></div><p>The deployer chains for the project is located in the <code class="code">deployers</code> module.</p><div class="section" title="7.1. RAR Deployer"><div class="titlepage"><div><div><h2 class="title"><a id="rardeployer"/>7.1. RAR Deployer</h2></div></div></div><p>The responsibility of the RAR deployer is to deploy a resource adapter archive (.RAR) file.</p><div class="section" title="7.1.1. Fungal"><div class="titlepage"><div><div><h3 class="title"><a id="rardeployer_fungal"/>7.1.1. Fungal</h3></div></div></div><p>The Fungal kernel features a simple deployment framework, so only three classes are needed for the
+        deployer chain.</p><p>The classes are located in the</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+deployers/src/main/java/org/jboss/jca/deployers/fungal
+      </pre><p>directory.</p><div class="section" title="7.1.1.1. RADeployer"><div class="titlepage"><div><div><h4 class="title"><a id="rardeployer_fungal_radeployer"/>7.1.1.1. RADeployer</h4></div></div></div><p>This class represent a resource adapter deployer and implements the</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+com.github.fungal.spi.deployers.Deployer
+com.github.fungal.spi.deployers.MultiStageDeployer
+com.github.fungal.spi.deployers.DeployerOrder
+        </pre><p>interfaces.</p><p>The responsible of the class is to</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem">
+            Create a classloader for the deployment
+          </li><li class="listitem">
+            Retrieve metadata and annotations such that they can be merged
+          </li><li class="listitem">
+            Perform archive validation using the JCA validator
+          </li><li class="listitem">
+            Perform bean validation
+          </li><li class="listitem">
+            Register the metadata in the metadata repository
+          </li><li class="listitem">
+            Register the resource adapter in the metadata repository
+          </li><li class="listitem">
+            Identify and activate the resource adapter objects - if JNDI information is available
+          </li><li class="listitem">
+            Bind connection factories and admin objects into JNDI - if JNDI information is available
+          </li></ul></div><p>If the resource adapter isn't activated in this step based on an <code class="code">ironjacamar.xml</code>
+          file, the deployment will advance to the next step in the deployer chain.</p></div><div class="section" title="7.1.1.2. RADeployment"><div class="titlepage"><div><div><h4 class="title"><a id="rardeployer_fungal_radeployment"/>7.1.1.2. RADeployment</h4></div></div></div><p>This class represent a resource adapter deployment and implements the</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+com.github.fungal.spi.deployers.Deployment
+        </pre><p>interface.</p><p>The responsible of the class is to</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem">
+            Unregister the resource adapter from the metadata repository
+          </li><li class="listitem">
+            Unregister the JNDI bindings in the metadata repository - if the deployment was activated
+          </li><li class="listitem">
+            Unbind connection factories and admin objects in JNDI - if the deployment was activated
+          </li><li class="listitem">
+            Close the classloader
+          </li><li class="listitem">
+            Clean up any temporary files
+          </li></ul></div></div><div class="section" title="7.1.1.3. RaXmlDeployer"><div class="titlepage"><div><div><h4 class="title"><a id="rardeployer_fungal_raxmldeployer"/>7.1.1.3. RaXmlDeployer</h4></div></div></div><p>This class represent a resource adapter deployer and implements the</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+com.github.fungal.spi.deployers.Deployer
+com.github.fungal.spi.deployers.MultiStageDeployer
+com.github.fungal.spi.deployers.DeployerOrder
+com.github.fungal.spi.deployers.DeployerPhases
+        </pre><p>interface.</p><p>The class deploys resource adapter archives based on a <code class="code">-ra.xml</code> which
+          provides the necessary deployment information.</p><p>The responsible of the class is to</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem">
+            Create a classloader for the deployment
+          </li><li class="listitem">
+            Retrieve metadata from the metadata repository
+          </li><li class="listitem">
+            Merge metadata from the deployment descriptor
+          </li><li class="listitem">
+            Perform archive validation using the JCA validator
+          </li><li class="listitem">
+            Perform bean validation
+          </li><li class="listitem">
+            Register the metadata in the metadata repository
+          </li><li class="listitem">
+            Identify and activate the resource adapter objects
+          </li><li class="listitem">
+            Bind connection factories and admin objects into JNDI
+          </li></ul></div><p>Since multiple resource adapter archives can be activated within a single <code class="code">-ra.xml</code>
+          file the class uses the <code class="code">DeployerPhases</code> callbacks to unregister these from the
+          container. If there is only a single resource adapter activation the deployer acts as part of 
+          the normal deployer chain.</p></div><div class="section" title="7.1.1.4. RaXmlDeployment"><div class="titlepage"><div><div><h4 class="title"><a id="rardeployer_fungal_raxmldeployment"/>7.1.1.4. RaXmlDeployment</h4></div></div></div><p>This class represent a resource adapter deployment from the <code class="code">RaXmlDeployer</code>
+          and implements the</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+com.github.fungal.spi.deployers.Deployment
+        </pre><p>interface.</p><p>The responsible of the class is to</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem">
+            Unregister the JNDI bindings in the metadata repository
+          </li><li class="listitem">
+            Unbind connection factories and admin objects in JNDI
+          </li><li class="listitem">
+            Close the classloader
+          </li></ul></div></div><div class="section" title="7.1.1.5. RAActivator"><div class="titlepage"><div><div><h4 class="title"><a id="rardeployer_fungal_raactivator"/>7.1.1.5. RAActivator</h4></div></div></div><p>This class will activate all resource adapters which hasn't been deployed by a previous step.
+          The class implements the </p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+com.github.fungal.spi.deployers.DeployerPhases
+        </pre><p>interface. This interface allows the class to hook into the deployer lifecycle of the kernel
+          and receive callback notifications.</p><p>The responsible of the class is to</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem">
+            Find any resource adapters which hasn't been deployed through the metadata repository
+          </li><li class="listitem">
+            Perform a deployment like <code class="code">RADeployer</code></li><li class="listitem">
+            Register each deployment with the kernel through the main deployer
+          </li></ul></div></div><div class="section" title="7.1.1.6. RAActivatorDeployment"><div class="titlepage"><div><div><h4 class="title"><a id="rardeployer_fungal_raactivator_deployment"/>7.1.1.6. RAActivatorDeployment</h4></div></div></div><p>This class represent a resource adapter deployment activated by the <code class="code">RAActivator</code>
+          and implements the</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+com.github.fungal.spi.deployers.Deployment
+        </pre><p>interface.</p><p>The responsible of the class is to</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem">
+            Unregister the JNDI bindings in the metadata repository
+          </li><li class="listitem">
+            Unbind connection factories and admin objects in JNDI
+          </li><li class="listitem">
+            Close the classloader
+          </li></ul></div></div></div></div><div class="section" title="7.2. DataSource Deployer"><div class="titlepage"><div><div><h2 class="title"><a id="dsdeployer"/>7.2. DataSource Deployer</h2></div></div></div><p>The responsibility of the datasource deployer is to deploy a datasource deployment (-ds.xml) file.</p><div class="section" title="7.2.1. Fungal"><div class="titlepage"><div><div><h3 class="title"><a id="dsdeployer_fungal"/>7.2.1. Fungal</h3></div></div></div><p>The Fungal datasource deployer chain consists of two classes.</p><p>The classes are located in the</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+deployers/src/main/java/org/jboss/jca/deployers/fungal
+      </pre><p>directory.</p><div class="section" title="7.2.1.1. DsXmlDeployer"><div class="titlepage"><div><div><h4 class="title"><a id="dsdeployer_fungal_dsxmldeployer"/>7.2.1.1. DsXmlDeployer</h4></div></div></div><p>This class represent a datasource deployer and implements the</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+com.github.fungal.spi.deployers.Deployer
+        </pre><p>interface.</p><p>The responsible of the class is to</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem">
+            Locate metadata about JDBC in the metadata repository
+          </li><li class="listitem">
+            Activate each <code class="code">DataSource</code> using <code class="code">jdbc-local.rar</code> as a template
+          </li><li class="listitem">
+            Activate each <code class="code">XaDataSource</code> using <code class="code">jdbc-xa.rar</code> as a template
+          </li></ul></div></div><div class="section" title="7.2.1.2. DsXmlDeployment"><div class="titlepage"><div><div><h4 class="title"><a id="dsdeployer_fungal_dsxmldeployment"/>7.2.1.2. DsXmlDeployment</h4></div></div></div><p>This class represent a datasource deployment and implements the</p><pre xmlns="" xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="">
+com.github.fungal.spi.deployers.Deployment
+        </pre><p>interface.</p><p>The responsible of the class is to</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem">
+            Unbind the datasource in JNDI
+          </li><li class="listitem">
+            Close the classloader
+          </li></ul></div></div></div></div></div><hr xmlns="" xmlns:d="http://docbook.org/ns/docbook"/><a xmlns="" xmlns:d="http://docbook.org/ns/docbook" href="legalnotice.html"/><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="ch06.html"><strong>Prev</strong>Chapter 6. Metadata</a></li><li class="up"><a accesskey="u" href="#"><strong>Up</strong></a></li><li class="home"><a accesskey="h" href="index.html"><strong>Home</strong></a></li><li class="next"><a accesskey="n" href="ch08.html"><strong>Next</strong>Chapter 8. Connection manager</a></li></ul></body></html>

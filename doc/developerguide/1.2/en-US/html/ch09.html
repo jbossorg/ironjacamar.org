@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Chapter 9. Pool</title><link rel="stylesheet" type="text/css" href="css/ironjacamar.css"/><meta name="generator" content="DocBook XSL Stylesheets V1.76.1"/><link rel="home" href="index.html" title="IronJacamar 1.2 Developer's Guide"/><link rel="up" href="index.html" title="IronJacamar 1.2 Developer's Guide"/><link rel="prev" href="ch08.html" title="Chapter 8. Connection manager"/><link rel="next" href="ch10.html" title="Chapter 10. Standalone"/><meta xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" http-equiv="Content-Type" content="text/html; charset=UTF-8"/></head><body><p xmlns:d="http://docbook.org/ns/docbook" id="title"><a href="http://www.ironjacamar.org/" class="site_href"><strong>www.ironjacamar.org</strong></a><a href="http://www.ironjacamar.org/documentation.html" class="doc_href"><strong>Community Documentation</strong></a></p><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="ch08.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="ch10.html"><strong>Next</strong></a></li></ul><div class="chapter" title="Chapter 9. Pool"><div class="titlepage"><div><div><h2 class="title"><a id="pool"/>Chapter 9. Pool</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl><dt><span class="section"><a href="ch09.html#pool_overview">9.1. Overview</a></span></dt><dt><span class="section"><a href="ch09.html#pool_public">9.2. Public API</a></span></dt><dt><span class="section"><a href="ch09.html#pool_private">9.3. Private API</a></span></dt><dt><span class="section"><a href="ch09.html#pool_implementation">9.4. Implementation</a></span></dt><dd><dl><dt><span class="section"><a href="ch09.html#pool_implementation_abstractpool">9.4.1. AbstractPool</a></span></dt><dt><span class="section"><a href="ch09.html#pool_implementation_prefill">9.4.2. AbstractPrefillPool</a></span></dt><dt><span class="section"><a href="ch09.html#pool_implementation_types">9.4.3. Pool types</a></span></dt></dl></dd><dt><span class="section"><a href="ch09.html#pool_mcp">9.5. ManagedConnectionPool</a></span></dt><dd><dl><dt><span class="section"><a href="ch09.html#pool_mcp_private">9.5.1. Private API</a></span></dt><dt><span class="section"><a href="ch09.html#pool_mcp_implementation">9.5.2. Implementation</a></span></dt></dl></dd></dl></div><div class="section" title="9.1. Overview"><div class="titlepage"><div><div><h2 class="title"><a id="pool_overview"/>9.1. Overview</h2></div></div></div><p>
+      The pool controls the physical connection to the target Enterprise Information System, such
+      as a database.
+    </p><p>
+      It is up to the pool to create, hand out and destroy connections in the defined lifecycle
+      based on the configuration parameters supplied by the user.
+    </p><p>
+      The pool architecture
+
+      </p><div class="mediaobject" align="center"><img src="images/pool.png" align="middle"/></div><p>
+    </p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><h2>Note</h2>
+      Each of the components in the pool architecture can be accessed by multiple threads at the
+      same time, hence each component needs to make sure that thread safely is maintained.
+    </div></div><div class="section" title="9.2. Public API"><div class="titlepage"><div><div><h2 class="title"><a id="pool_public"/>9.2. Public API</h2></div></div></div><p>
+      The public API defines the API that programs external to the IronJacamar project can use to
+      configure, and use the pool.
+    </p><p>
+      The <code class="code">Pool</code> interface allows access to the name of the pool, flushing connections,
+      verifying if a connection can be obtained from the pool and dump any queued threads.
+    </p><p>
+      The <code class="code">PoolConfiguration</code> class holds the configuration parameters for the pool.
+    </p><p>
+      The <code class="code">FlushMode</code> enum defines the different flush modes supported.
+    </p><p>
+      The <code class="code">PoolStatistics</code> interface defines the statistics available for a pool.
+    </p><p>
+      The package for the public API is <code class="code">org.jboss.jca.core.api.connectionmanager.pool</code>.
+    </p></div><div class="section" title="9.3. Private API"><div class="titlepage"><div><div><h2 class="title"><a id="pool_private"/>9.3. Private API</h2></div></div></div><p>
+      The private API defines the API that can be used internally IronJacamar to control the pool.
+      The API extends the public API where it makes sense in order to provide a more uniform interface
+      to the implementation.
+    </p><p>
+      The <code class="code">PoolFactory</code> class will create a <code class="code">Pool</code> based upon the passed in
+      configuration.
+    </p><p>
+      The <code class="code">PoolStrategy</code> enum defines how the pool is split based on credential equallity.
+    </p><p>
+      The <code class="code">Pool</code> interface extends the public API with methods that should only be available
+      from with IronJacamar such as getting a connection listener, returning a connection listener, and
+      shutting down the pool.
+    </p><p>
+      The <code class="code">PrefillPool</code> interface defines the contract for pool implementations that supports
+      prefilling of connections upon startup, such as <code class="code">OnePool</code> and <code class="code">PoolBySubject</code>.
+    </p><p>
+      The <code class="code">Capacity</code> interface provides a handle to the policies used for increasing and decreasing
+      the pool.
+    </p><p>
+      The <code class="code">CapacityIncrementer</code> interface defines if a physical connection should be created
+      given the input parameters.
+    </p><p>
+      The <code class="code">CapacityDecrementer</code> interface defines if a physical connection should be destroyed
+      given the input parameters.
+    </p><p>
+      The package for the private API is <code class="code">org.jboss.jca.core.connectionmanager.pool.api</code>.
+    </p></div><div class="section" title="9.4. Implementation"><div class="titlepage"><div><div><h2 class="title"><a id="pool_implementation"/>9.4. Implementation</h2></div></div></div><p>
+      The pool implementation provides a concrete implementation of the contracts defined by the public and
+      private APIs.
+    </p><p>
+      The package for the pool implementation is <code class="code">org.jboss.jca.core.connectionmanager.pool</code>.
+    </p><div class="section" title="9.4.1. AbstractPool"><div class="titlepage"><div><div><h3 class="title"><a id="pool_implementation_abstractpool"/>9.4.1. AbstractPool</h3></div></div></div><p>
+        <code class="code">AbstractPool</code> provides the methods that are shared across all pool implementations.
+      </p><p>
+        <code class="code">getKey(Subject, ConnectionRequestInfo, boolean)</code> defines the key used to lookup the
+        <code class="code">ManagedConnectionPool</code> instance. The implementation of this method is different for each
+        pool type.
+      </p><p>
+        <code class="code">getManagedConnectionPool(Object, Subject, ConnectionRequestInfo)</code> retrieves the correct
+        <code class="code">ManagedConnectionPool</code> instance. If the <code class="code">ManagedConnectionPool</code> doesn't yet
+        exists then one is created, and initialized.
+      </p><p>
+        <code class="code">emptyManagedConnectionPool(ManagedConnectionPool)</code> removes a
+        <code class="code">ManagedConnectionPool</code> instance, if unused.
+      </p><p>
+        <code class="code">flush</code> flushes the <code class="code">ManagedConnectionPool</code> instances, based on the
+        <code class="code">FlushMode</code>.
+      </p><p>
+        <code class="code">getConnection(Transaction, Subject, ConnectionRequestInfo)</code> returns a <code class="code">ConnectionListener</code> instance,
+        which has the physical connection to the Enterprise Information System attached. The method uses 3 sub methods to return the
+        correct listener instance. <code class="code">getSimpleConnection</code> returns a <code class="code">ConnectionListener</code> if there is no
+        transaction associated. <code class="code">getTransactionOldConnection</code> returns the <code class="code">ConnectionListener</code> already associated
+        with the transaction, if any. <code class="code">getTransactionNewConnection</code> creates a new <code class="code">ConnectionListener</code>, and associates
+        it with the transaction.
+      </p><p>
+        <code class="code">findConnectionListener</code> finds a specific <code class="code">ConnectionListener</code> instance.
+      </p><p>
+        <code class="code">returnConnectionListener</code> returns a <code class="code">ConnectionListener</code> instance to the correct
+        <code class="code">ManagedConnectionPool</code>.
+      </p><p>
+        <code class="code">shutdown</code> shuts down the pool. This is done using
+        synchronization such that any components having a reference will be notified through an error.
+      </p><p>
+        <code class="code">internalTestConnection(ConnectionRequestInfo, Subject)</code> tries to obtain a <code class="code">ConnectionListener</code>
+        based on the input given.
+      </p><p>
+        <code class="code">getLock()</code> returns the lock that guards the maximum number of active <code class="code">ConnectionListener</code>'s in
+        the pool. This method is used by the <code class="code">ManagedConnectionPool</code> instances when modifying their data structure
+        that holds the <code class="code">ConnectionListener</code>'s.
+      </p><p>
+        <code class="code">dumpQueuedThreads()</code> returns a stack trace of each of the queued threads waiting to obtain a <code class="code">ConnectionListener</code> instance.
+      </p></div><div class="section" title="9.4.2. AbstractPrefillPool"><div class="titlepage"><div><div><h3 class="title"><a id="pool_implementation_prefill"/>9.4.2. AbstractPrefillPool</h3></div></div></div><p>
+        The <code class="code">AbstractPrefillPool</code> enables the pool to prefill connections during startup, and through its lifecycle.
+      </p><p>
+        <code class="code">prefill(Subject, ConnectionRequestInfo, boolean)</code> handles the prefilling process.
+      </p></div><div class="section" title="9.4.3. Pool types"><div class="titlepage"><div><div><h3 class="title"><a id="pool_implementation_types"/>9.4.3. Pool types</h3></div></div></div><p>
+        IronJacamar features 5 different pool types. Each pool type has its own <code class="code">getKey</code> method implementation that
+        defines how a <code class="code">ManagedConnectionPool</code> instance is located.
+      </p><p>
+        <code class="code">OnePool</code> uses one <code class="code">ManagedConnectionPool</code> instance to hold all <code class="code">ConnectionListener</code>s.
+      </p><p>
+        <code class="code">PoolByCri</code> splits the <code class="code">ManagedConnectionPool</code> instances based on the <code class="code">ConnectionRequestInfo</code>
+        instance.
+      </p><p>
+        <code class="code">PoolBySubject</code> splits the <code class="code">ManagedConnectionPool</code> instances based on the <code class="code">Subject</code>
+        instance.
+      </p><p>
+        <code class="code">PoolBySubjectAndCri</code> splits the <code class="code">ManagedConnectionPool</code> instances based on both the
+        <code class="code">ConnectionRequestInfo</code> instance and the <code class="code">Subject</code> instance.
+      </p><p>
+        <code class="code">ReauthPool</code> allows the <code class="code">ConnectionListener</code> instances to reauthenticate, so the
+        <code class="code">ManagedConnectionPool</code> instances can change over time based on the <code class="code">ConnectionRequestInfo</code>
+        and <code class="code">Subject</code> instances.
+      </p><p>
+        The package for the pool types is <code class="code">org.jboss.jca.core.connectionmanager.pool.strategy</code>.
+      </p></div></div><div class="section" title="9.5. ManagedConnectionPool"><div class="titlepage"><div><div><h2 class="title"><a id="pool_mcp"/>9.5. ManagedConnectionPool</h2></div></div></div><p>
+      The <code class="code">ManagedConnectionPool</code> controls the <code class="code">ConnectionListener</code> instances, which each has
+      a physical connection (<code class="code">ManagedConnection</code>) associated.
+    </p><p>
+      The package is <code class="code">org.jboss.jca.core.connectionmanager.pool.mcp</code>
+    </p><div class="section" title="9.5.1. Private API"><div class="titlepage"><div><div><h3 class="title"><a id="pool_mcp_private"/>9.5.1. Private API</h3></div></div></div><p>
+        <code class="code">ManagedConnectionPool</code> instances should only be accessed from within IronJacamar, so they only have
+        a private API.
+      </p><p>
+        The <code class="code">ManagedConnectionPoolFactory</code> class creates a <code class="code">ManagedConnectionPool</code> instance.
+      </p><p>
+        The <code class="code">ManagedConnectionPool</code> interface defines the methods exposed to the pool, connection validator, and
+        idle remover. These methods includes getting a connection listener, finding a connection listener, and returning a
+        connection listener.
+      </p><p>
+        The <code class="code">ManagedConnectionPoolStatistics</code> interface defines the statistics for the <code class="code">ManagedConnectionPool</code>
+        instance.
+      </p><p>
+        The <code class="code">ManagedConnectionPoolUtility</code> class defines utility methods for the <code class="code">ManagedConnectionPool</code>
+        instance.
+      </p></div><div class="section" title="9.5.2. Implementation"><div class="titlepage"><div><div><h3 class="title"><a id="pool_mcp_implementation"/>9.5.2. Implementation</h3></div></div></div><p>
+        There are three different implementations of the <code class="code">ManagedConnectionPool</code> interface. <code class="code">SemaphoreArrayListManagedConnectionPool</code>
+        which uses an <code class="code">ArrayList</code> to hold the <code class="code">ConnectionListener</code>s.
+        <code class="code">SemaphoreConcurrentLinkedQueueManagedConnectionPool</code> which uses a <code class="code">ConcurrentLinkedQueue</code>
+        to hold the <code class="code">ConnectionListener</code>s. <code class="code">SemaphoreConcurrentLinkedQueueManagedConnectionPool</code> also uses a <code class="code">ConcurrentHashMap</code>
+        to keep track of the internal status of each of the <code class="code">ConnectionListener</code>s.
+        Last, a <code class="code">LeakDumperManagedConnectionPool</code> which extends <code class="code">SemaphoreArrayListManagedConnectionPool</code>, but reports any leaks upon
+        shutdown.
+      </p><p>
+        <code class="code">getConnection(Subject, ConnectionRequestInfo)</code> provides a <code class="code">ConnectionListener</code>. The method requires a lock in order to
+        obtain a listener, using the specified timeout value. If a listener is avaiable in the pool then it is matched against the <code class="code">ManagedConnectionFactory</code>
+        to verify it is valid, and returned - otherwise it is destroyed. If no listener is available then a new listener is created and returned. In the latter case
+        both prefill and a capacity increase is scheduled in order to prefill to the minimum size, and increase the pool by the specified capacity policy.
+      </p><p>
+        <code class="code">returnConnection(ConnectionListener, boolean, boolean)</code> returns a <code class="code">ConnectionListener</code> into the pool.
+      </p><p>
+        <code class="code">flush(FlushMode)</code> flushes the <code class="code">ConnectionListener</code>s according to the mode. Any listeners marked as bad will be destroyed.
+        Prefill is scheduled at the end in order to maintain the minimum pool size.
+      </p><p>
+        <code class="code">removeIdleConnections</code> is invoked from the idle remover in order to decrement the pool to the desired size based on the <code class="code">CapacityDecrementer</code>
+        policy. If any listeners are destroyed the pool is either scheduled for prefill, or for removal through <code class="code">emptyManagedConnectionPool</code> if empty.
+      </p><p>
+        <code class="code">shutdown</code> shuts the instance down. All listeners are removed. This is done using
+        synchronization such that any components having a reference will be notified through an error.
+      </p><p>
+        <code class="code">fillTo(int)</code> fills the pool to the specified size. The pool filler component uses this method.
+      </p><p>
+        <code class="code">increaseCapacity(Subject, ConnectionRequestInfo)</code> increases the pool based on the <code class="code">CapacityIncrementer</code> policy. The capacity filler component
+        uses this method.
+      </p><p>
+        <code class="code">validateConnections</code> validates that the listeners are valid according to <code class="code">ValidatingManagedConnectionFactory</code>. Any invalid listeners are destroyed
+        and prefill scheduled. The connection validator component uses this method.
+      </p><p>
+        <code class="code">detachConnectionListener</code> disassociates the connections attached to the <code class="code">ManagedConnection</code> such that it can be reused in another request through
+        <code class="code">DissociatableManagedConnection</code>.
+      </p><div xmlns:d="http://docbook.org/ns/docbook" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="important" style="margin-left: 0.5in; margin-right: 0.5in;"><h2>Important</h2>
+        The <code class="code">ConnectionListener</code> implements <code class="code">java.lang.Comparable</code>, so <code class="code">ConnectionListener.used()</code> must
+        be called before returning it to the data structure controlling the free connections. There may be a time interval between the call
+        and the actual return.
+      </div></div></div></div><hr xmlns="" xmlns:d="http://docbook.org/ns/docbook"/><a xmlns="" xmlns:d="http://docbook.org/ns/docbook" href="legalnotice.html"/><ul xmlns:d="http://docbook.org/ns/docbook" class="docnav"><li class="previous"><a accesskey="p" href="ch08.html"><strong>Prev</strong>Chapter 8. Connection manager</a></li><li class="up"><a accesskey="u" href="#"><strong>Up</strong></a></li><li class="home"><a accesskey="h" href="index.html"><strong>Home</strong></a></li><li class="next"><a accesskey="n" href="ch10.html"><strong>Next</strong>Chapter 10. Standalone</a></li></ul></body></html>
